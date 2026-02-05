@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Abby 💛</title>
+
+<!-- Confetti library -->
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+<style>
+body{
+    margin:0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: linear-gradient(135deg,#ffe259,#ffa751);
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+}
+
+/* Card */
+.card{
+    background:white;
+    padding:25px;
+    border-radius:25px;
+    text-align:center;
+    width:90%;
+    max-width:420px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.2);
+}
+
+h1{ color:#ff4d6d; }
+
+/* Minion image */
+.minion{
+    width:220px;
+    margin:10px auto;
+    display:block;
+}
+
+/* Buttons */
+button{
+    padding:14px 28px;
+    font-size:18px;
+    border:none;
+    border-radius:12px;
+    margin:10px;
+    cursor:pointer;
+}
+
+#yes{ background:#ff4d6d; color:white; }
+#no{ background:#eee; position:absolute; }
+
+.bigText{
+    font-size:60px;
+    color:white;
+    text-align:center;
+}
+</style>
+</head>
+
+<body onclick="startMusic()">
+
+<!-- Hidden YouTube Music Player -->
+<iframe id="music"
+ width="0" height="0"
+ src="https://www.youtube.com/embed/6m0qK7h-7tM?autoplay=1&mute=0&loop=1&playlist=6m0qK7h-7tM"
+ allow="autoplay">
+</iframe>
+
+<div class="card" id="mainCard">
+    <h1>Will you be my Valentine? 💖</h1>
+
+    <!-- Minion holding heart -->
+    <img class="minion"
+    src="https://i.imgur.com/6M5135N.png">
+
+    <button id="yes" onclick="yesClicked()">YES 💘</button>
+    <button id="no"
+        onmouseover="moveNo()"
+        onclick="moveNo()">NO 😢</button>
+</div>
+
+<script>
+let attempts = 0;
+
+/* Start music after first tap (mobile autoplay rule) */
+function startMusic(){
+    document.getElementById("music").style.display="block";
+}
+
+/* NO button dodges */
+function moveNo(){
+    attempts++;
+    const btn = document.getElementById("no");
+    const x = Math.random()*(window.innerWidth-100);
+    const y = Math.random()*(window.innerHeight-50);
+    btn.style.left = x+"px";
+    btn.style.top = y+"px";
+
+    if(attempts >= 5){
+        yesClicked();
+    }
+}
+
+/* YES clicked */
+function yesClicked(){
+    document.body.innerHTML =
+    "<div class='bigText'>YAYYY!! 💖</div>";
+    fireworkBurst();
+}
+
+/* Fireworks Confetti */
+function fireworkBurst(){
+    const duration = 4 * 1000;
+    const end = Date.now() + duration;
+
+    (function frame() {
+        confetti({
+            particleCount: 5,
+            angle: 60,
+            spread: 55,
+            origin: { x: 0 }
+        });
+        confetti({
+            particleCount: 5,
+            angle: 120,
+            spread: 55,
+            origin: { x: 1 }
+        });
+
+        if (Date.now() < end) {
+            requestAnimationFrame(frame);
+        }
+    }());
+}
+</script>
+</body>
+</html>
