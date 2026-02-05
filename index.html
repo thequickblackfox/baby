@@ -16,10 +16,28 @@ body{
     align-items:center;
     font-family: Arial, Helvetica, sans-serif;
     overflow:hidden;
-    background: radial-gradient(circle at bottom, #081229, #000814);
+    background: radial-gradient(circle at bottom, #081229, #02030a 70%);
 }
 
-/* twinkling stars */
+/* COMET BAND (Your Name style) */
+.cometBand{
+    position:absolute;
+    width:200%;
+    height:180px;
+    background: linear-gradient(90deg,
+        rgba(255,255,255,0),
+        rgba(140,200,255,0.8),
+        rgba(255,180,220,0.9),
+        rgba(140,200,255,0.8),
+        rgba(255,255,255,0));
+    filter: blur(25px);
+    transform: rotate(-20deg);
+    top:20%;
+    left:-30%;
+    opacity:0.7;
+}
+
+/* Stars */
 .star{
     position:absolute;
     background:white;
@@ -28,20 +46,18 @@ body{
 }
 @keyframes twinkle{ from{opacity:.2;} to{opacity:1;} }
 
-/* METEOR SHOWER */
+/* Meteors */
 .meteor{
     position:absolute;
     width:3px;
-    height:120px;
-    background: linear-gradient(-45deg, #fff, rgba(255,255,255,0));
+    height:140px;
+    background: linear-gradient(-45deg, white, rgba(255,255,255,0));
     transform: rotate(45deg);
-    opacity:0;
     animation: meteorFall linear forwards;
 }
-
 @keyframes meteorFall{
-    0%{ transform:translate(0,0) rotate(45deg); opacity:1; }
-    100%{ transform:translate(-1200px,1200px) rotate(45deg); opacity:0; }
+    0%{ transform:translate(0,0) rotate(45deg); opacity:1;}
+    100%{ transform:translate(-1200px,1200px) rotate(45deg); opacity:0;}
 }
 
 /* Card */
@@ -50,7 +66,7 @@ body{
     padding:30px;
     border-radius:25px;
     text-align:center;
-    box-shadow:0 10px 30px rgba(0,0,0,0.4);
+    box-shadow:0 10px 30px rgba(0,0,0,0.5);
     width:90%;
     max-width:420px;
     z-index:2;
@@ -82,6 +98,7 @@ button{
 
 <body>
 
+<div class="cometBand"></div>
 <div id="floatingMsg"></div>
 
 <div class="card">
@@ -95,8 +112,8 @@ button{
 </div>
 
 <script>
-/* Create background stars */
-for(let i=0;i<150;i++){
+/* Stars */
+for(let i=0;i<180;i++){
     const star=document.createElement("div");
     star.classList.add("star");
     star.style.width=Math.random()*3+"px";
@@ -106,7 +123,7 @@ for(let i=0;i<150;i++){
     document.body.appendChild(star);
 }
 
-/* METEOR SHOWER generator 🌠 */
+/* Meteor shower */
 setInterval(()=>{
     const meteor=document.createElement("div");
     meteor.classList.add("meteor");
