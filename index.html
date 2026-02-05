@@ -2,126 +2,124 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>For Abby 💖</title>
 
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
 <style>
-    body{
-        margin:0;
-        height:100vh;
-        background: linear-gradient(135deg,#ff758c,#ff7eb3);
-        display:flex;
-        justify-content:center;
-        align-items:center;
-        font-family: Arial, Helvetica, sans-serif;
-        overflow:hidden;
-    }
+body{
+    margin:0;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-family: Arial, Helvetica, sans-serif;
+    background: linear-gradient(135deg,#ff758c,#ff7eb3);
+    overflow:hidden;
+}
 
-    .card{
-        background:white;
-        padding:40px;
-        border-radius:25px;
-        text-align:center;
-        box-shadow:0 10px 40px rgba(0,0,0,0.2);
-        z-index:2;
-        max-width:500px;
-    }
+.card{
+    background:white;
+    padding:30px;
+    border-radius:25px;
+    text-align:center;
+    box-shadow:0 10px 30px rgba(0,0,0,0.2);
+    width:90%;
+    max-width:420px;
+}
 
-    h1{
-        color:#ff4d6d;
-        margin-bottom:25px;
-        font-size:32px;
-    }
+h1{ color:#ff4d6d; }
 
-    p{
-        font-size:18px;
-        color:#444;
-        line-height:1.6;
-    }
+.gif{
+    width:220px;
+    margin-bottom:10px;
+}
 
-    button{
-        padding:14px 28px;
-        font-size:18px;
-        border:none;
-        border-radius:12px;
-        cursor:pointer;
-        margin:10px;
-        transition:0.3s;
-    }
+button{
+    padding:15px 28px;
+    font-size:18px;
+    border:none;
+    border-radius:12px;
+    margin:10px;
+    cursor:pointer;
+    transition:0.3s;
+}
 
-    #yes{
-        background:#ff4d6d;
-        color:white;
-    }
+#yes{ background:#ff4d6d; color:white; }
+#no{ background:#ddd; position:absolute; }
 
-    #yes:hover{
-        transform:scale(1.15);
-    }
-
-    #no{
-        background:#eee;
-        position:absolute;
-    }
-
-    .heart{
-        position:absolute;
-        color:white;
-        font-size:24px;
-        animation: float 6s linear infinite;
-        opacity:0.8;
-    }
-
-    @keyframes float{
-        0%{ transform:translateY(100vh); opacity:0; }
-        50%{ opacity:1; }
-        100%{ transform:translateY(-10vh); opacity:0; }
-    }
+.message{
+    max-width:600px;
+    margin:auto;
+    color:white;
+    text-align:center;
+    padding:30px;
+}
 </style>
 </head>
 
 <body>
 
-<audio autoplay loop>
-  <source src="https://www2.cs.uic.edu/~i101/SoundFiles/CantinaBand60.wav" type="audio/wav">
-</audio>
-
 <div class="card">
+    <img class="gif" src="https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif">
     <h1>Abby, will you be my Valentine? 💖</h1>
-    <button id="yes" onclick="yesClicked()">YES 💘</button>
-    <button id="no" onmouseover="moveButton()">NO 😢</button>
+
+    <div id="buttons">
+        <button id="yes" onclick="yesClicked()">YES 💘</button>
+        <button id="no" onmouseover="noEscape()" onclick="noEscape()">NO 😢</button>
+    </div>
 </div>
 
 <script>
+let scale = 1;
+
+function noEscape(){
+    const noBtn = document.getElementById("no");
+    const yesBtn = document.getElementById("yes");
+
+    noBtn.style.left = Math.random()*(window.innerWidth-100)+"px";
+    noBtn.style.top = Math.random()*(window.innerHeight-50)+"px";
+
+    scale -= 0.1;
+    noBtn.style.transform = `scale(${scale})`;
+    yesBtn.style.transform = `scale(${1 + (1-scale)})`;
+
+    if(scale < 0.6){
+        const newYes = yesBtn.cloneNode(true);
+        document.getElementById("buttons").appendChild(newYes);
+    }
+
+    if(scale <= 0.2){
+        noBtn.remove();
+    }
+}
+
 function yesClicked(){
-    document.body.innerHTML = `
-    <div style="text-align:center;color:white;padding:30px;max-width:600px;margin:auto;">
-        <h1 style="font-size:55px;">YAY ABBY!! 💕🥰</h1>
+    document.body.innerHTML=`
+    <div class="message">
+        <h1 style="font-size:60px;">YAYYY!! 💖🥰</h1>
         <p style="font-size:22px; line-height:1.8;">
-        You just made me the happiest person today ❤️<br><br>
-        I know this is simple, but I really wanted to ask you
-        in a special way. Thank you for being you,
-        for your smile, your laugh, and the way you make my days better.<br><br>
-        I can't wait to spend Valentine’s Day with you 💖
+        Surprise 💌<br><br>
+        I made this little website just to ask you something special.
+        You make my days brighter, my nights happier,
+        and my heart a little softer.<br><br>
+        I can't wait to spend Valentine's Day with you ❤️
         </p>
     </div>`;
+    fireworks();
 }
 
-function moveButton(){
-    const button = document.getElementById("no");
-    const x = Math.random() * (window.innerWidth - 100);
-    const y = Math.random() * (window.innerHeight - 50);
-    button.style.left = x + "px";
-    button.style.top = y + "px";
-}
+function fireworks(){
+    const duration = 3 * 1000;
+    const end = Date.now() + duration;
 
-setInterval(() => {
-    const heart = document.createElement("div");
-    heart.classList.add("heart");
-    heart.innerHTML = "💖";
-    heart.style.left = Math.random()*100 + "vw";
-    heart.style.fontSize = Math.random()*20 + 20 + "px";
-    document.body.appendChild(heart);
-    setTimeout(() => heart.remove(), 6000);
-}, 300);
+    (function frame(){
+        confetti({particleCount:6, angle:60, spread:70, origin:{x:0}});
+        confetti({particleCount:6, angle:120, spread:70, origin:{x:1}});
+        if(Date.now() < end) requestAnimationFrame(frame);
+    })();
+}
 </script>
 
 </body>
