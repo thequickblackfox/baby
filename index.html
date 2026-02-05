@@ -28,15 +28,6 @@ body{
 }
 @keyframes twinkle{ from{opacity:.2;} to{opacity:1;} }
 
-/* CENTER BUTTONS */
-#buttons{
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    gap:15px;
-    position:relative;
-}
-
 /* COMET TIAMAT */
 .cometTiamat{
     position:absolute;
@@ -102,6 +93,7 @@ button{
     font-size:18px;
     border:none;
     border-radius:12px;
+    margin:10px;
     cursor:pointer;
 }
 #yes{ background:#ff4d6d; color:white; }
@@ -124,7 +116,7 @@ button{
 </div>
 
 <script>
-/* STARRY BACKGROUND */
+/* STAR BACKGROUND ALWAYS */
 for(let i=0;i<180;i++){
     const star=document.createElement("div");
     star.classList.add("star");
@@ -162,7 +154,7 @@ function noEscape(){
     if(scale<=0.2){ noBtn.remove(); msg.innerText="Okay fine 😭 click YES ❤️"; }
 }
 
-/* YES CLICKED */
+/* YES CLICKED → COMET TIAMAT + METEOR SHOWER */
 function yesClicked(){
     document.body.innerHTML+=`<div class="cometTiamat"></div>`;
     startMeteorShower();
