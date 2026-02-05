@@ -2,91 +2,126 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ABBY PANGANIBAN</title>
+<title>For Abby 💖</title>
 
 <style>
-body{
-    margin:0;
-    height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    font-family: Arial, Helvetica, sans-serif;
-    background: linear-gradient(135deg,#ff758c,#ff7eb3);
-    overflow:hidden;
-}
+    body{
+        margin:0;
+        height:100vh;
+        background: linear-gradient(135deg,#ff758c,#ff7eb3);
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        font-family: Arial, Helvetica, sans-serif;
+        overflow:hidden;
+    }
 
-.card{
-    background:white;
-    padding:30px;
-    border-radius:25px;
-    text-align:center;
-    box-shadow:0 10px 30px rgba(0,0,0,0.2);
-}
+    .card{
+        background:white;
+        padding:40px;
+        border-radius:25px;
+        text-align:center;
+        box-shadow:0 10px 40px rgba(0,0,0,0.2);
+        z-index:2;
+        max-width:500px;
+    }
 
-h1{ color:#ff4d6d; }
+    h1{
+        color:#ff4d6d;
+        margin-bottom:25px;
+        font-size:32px;
+    }
 
-button{
-    padding:15px 28px;
-    font-size:18px;
-    border:none;
-    border-radius:12px;
-    margin:10px;
-    cursor:pointer;
-    transition:0.3s;
-}
+    p{
+        font-size:18px;
+        color:#444;
+        line-height:1.6;
+    }
 
-#yes{ background:#ff4d6d; color:white; }
-#no{ background:#ddd; position:absolute; }
+    button{
+        padding:14px 28px;
+        font-size:18px;
+        border:none;
+        border-radius:12px;
+        cursor:pointer;
+        margin:10px;
+        transition:0.3s;
+    }
+
+    #yes{
+        background:#ff4d6d;
+        color:white;
+    }
+
+    #yes:hover{
+        transform:scale(1.15);
+    }
+
+    #no{
+        background:#eee;
+        position:absolute;
+    }
+
+    .heart{
+        position:absolute;
+        color:white;
+        font-size:24px;
+        animation: float 6s linear infinite;
+        opacity:0.8;
+    }
+
+    @keyframes float{
+        0%{ transform:translateY(100vh); opacity:0; }
+        50%{ opacity:1; }
+        100%{ transform:translateY(-10vh); opacity:0; }
+    }
 </style>
 </head>
 
 <body>
 
+<audio autoplay loop>
+  <source src="https://www2.cs.uic.edu/~i101/SoundFiles/CantinaBand60.wav" type="audio/wav">
+</audio>
+
 <div class="card">
-    <h1>Will you be my Valentine? 💖</h1>
-    <div id="buttons">
-        <button id="yes" onclick="yesClicked()">YES 💘</button>
-        <button id="no" onmouseover="noEscape()">NO 😢</button>
-    </div>
+    <h1>Abby, will you be my Valentine? 💖</h1>
+    <button id="yes" onclick="yesClicked()">YES 💘</button>
+    <button id="no" onmouseover="moveButton()">NO 😢</button>
 </div>
 
 <script>
-let scale = 1;
-
-function noEscape(){
-    const noBtn = document.getElementById("no");
-    const yesBtn = document.getElementById("yes");
-
-    // Move NO randomly
-    noBtn.style.left = Math.random()*(window.innerWidth-100)+"px";
-    noBtn.style.top = Math.random()*(window.innerHeight-50)+"px";
-
-    // Shrink NO button
-    scale -= 0.1;
-    noBtn.style.transform = `scale(${scale})`;
-
-    // Grow YES button
-    yesBtn.style.transform = `scale(${1 + (1-scale)})`;
-
-    // Duplicate YES button
-    if(scale < 0.6){
-        const newYes = yesBtn.cloneNode(true);
-        newYes.innerHTML="YES 💘";
-        document.getElementById("buttons").appendChild(newYes);
-    }
-
-    // Remove NO completely 😂
-    if(scale <= 0.2){
-        noBtn.remove();
-    }
-}
-
 function yesClicked(){
-    document.body.innerHTML =
-    "<h1 style='font-size:60px;color:white;text-align:center;'>YAYYY!! I LOVE YOU 💖🥰</h1>";
+    document.body.innerHTML = `
+    <div style="text-align:center;color:white;padding:30px;max-width:600px;margin:auto;">
+        <h1 style="font-size:55px;">YAY ABBY!! 💕🥰</h1>
+        <p style="font-size:22px; line-height:1.8;">
+        You just made me the happiest person today ❤️<br><br>
+        I know this is simple, but I really wanted to ask you
+        in a special way. Thank you for being you,
+        for your smile, your laugh, and the way you make my days better.<br><br>
+        I can't wait to spend Valentine’s Day with you 💖
+        </p>
+    </div>`;
 }
+
+function moveButton(){
+    const button = document.getElementById("no");
+    const x = Math.random() * (window.innerWidth - 100);
+    const y = Math.random() * (window.innerHeight - 50);
+    button.style.left = x + "px";
+    button.style.top = y + "px";
+}
+
+setInterval(() => {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML = "💖";
+    heart.style.left = Math.random()*100 + "vw";
+    heart.style.fontSize = Math.random()*20 + 20 + "px";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 6000);
+}, 300);
 </script>
 
 </body>
