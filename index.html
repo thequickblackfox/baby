@@ -3,9 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For Abby 💖</title>
-
-<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+<title>Will You Be My Valentine?</title>
 
 <style>
 body{
@@ -19,15 +17,12 @@ body{
     overflow:hidden;
 }
 
-/* Card */
 .card{
     background:white;
     padding:30px;
     border-radius:25px;
     text-align:center;
     box-shadow:0 10px 30px rgba(0,0,0,0.2);
-    width:90%;
-    max-width:420px;
 }
 
 h1{ color:#ff4d6d; }
@@ -50,10 +45,10 @@ button{
 <body>
 
 <div class="card">
-    <h1>Abby, will you be my Valentine? 💖</h1>
+    <h1>Will you be my Valentine? 💖</h1>
     <div id="buttons">
         <button id="yes" onclick="yesClicked()">YES 💘</button>
-        <button id="no" onmouseover="noEscape()" onclick="noEscape()">NO 😢</button>
+        <button id="no" onmouseover="noEscape()">NO 😢</button>
     </div>
 </div>
 
@@ -68,52 +63,29 @@ function noEscape(){
     noBtn.style.left = Math.random()*(window.innerWidth-100)+"px";
     noBtn.style.top = Math.random()*(window.innerHeight-50)+"px";
 
-    // Shrink NO
+    // Shrink NO button
     scale -= 0.1;
     noBtn.style.transform = `scale(${scale})`;
 
-    // Grow YES
+    // Grow YES button
     yesBtn.style.transform = `scale(${1 + (1-scale)})`;
 
-    // Multiply YES buttons 😆
+    // Duplicate YES button
     if(scale < 0.6){
         const newYes = yesBtn.cloneNode(true);
         newYes.innerHTML="YES 💘";
         document.getElementById("buttons").appendChild(newYes);
     }
 
-    // Delete NO forever 😂
+    // Remove NO completely 😂
     if(scale <= 0.2){
         noBtn.remove();
     }
 }
 
 function yesClicked(){
-    document.body.innerHTML="<h1 style='font-size:60px;color:white;text-align:center;'>YAYYY!! 💖🥰</h1>";
-    fireworks();
-}
-
-function fireworks(){
-    const duration = 3 * 1000;
-    const end = Date.now() + duration;
-
-    (function frame(){
-        confetti({
-            particleCount: 6,
-            angle: 60,
-            spread: 70,
-            origin:{x:0}
-        });
-        confetti({
-            particleCount: 6,
-            angle:120,
-            spread:70,
-            origin:{x:1}
-        });
-        if(Date.now() < end){
-            requestAnimationFrame(frame);
-        }
-    })();
+    document.body.innerHTML =
+    "<h1 style='font-size:60px;color:white;text-align:center;'>YAYYY!! 💖🥰</h1>";
 }
 </script>
 
