@@ -79,15 +79,25 @@ button{
 
 .btnRow{
   display:flex;
-  justify-content:center;   /* center horizontally */
-  align-items:center;       /* center vertically */
-  gap:12px;
-
-  flex-wrap:nowrap;         /* ⭐ FORCE ONE ROW on mobile */
+  justify-content:center;
+  align-items:center;
+  gap:10px;
+  flex-wrap:nowrap;          /* keep ONE ROW always */
   width:100%;
-  max-width:320px;          /* keeps buttons close together */
-  margin:10px auto 0 auto;  /* center the row itself */
+  max-width:330px;
+  margin:12px auto 0;
 }
+
+/* make buttons share space and shrink to fit phones */
+.btnRow button{
+  flex:1;                    /* share row space */
+  padding:12px 10px;
+  font-size:15px;
+  border:none;
+  border-radius:30px;
+  white-space:nowrap;        /* keep text in one line */
+}
+
 
 .heart{
  position:fixed;
