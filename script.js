@@ -66,7 +66,7 @@ noBtn.onmouseover=move;
 noBtn.onclick=move;
 
 // YES click message + confetti
-document.getElementById("yesBtn").onclick = () => {
+document.getElementById("yesBtn").onclick=(=>{
 
   // 💥 SHAKE THE WHOLE PAGE
   document.body.classList.add("shake");
