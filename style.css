@@ -1,0 +1,108 @@
+body{
+  margin:0;
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  text-align:center;
+  font-family:'Poppins',sans-serif;
+  background:linear-gradient(135deg,#ffd6e7,#ffe9f2,#fff5f9);
+  overflow-x:hidden;
+  padding:20px;
+  animation:fadeIn 1.5s ease;
+}
+
+@keyframes fadeIn{
+ from{opacity:0; transform:translateY(10px);}
+ to{opacity:1; transform:translateY(0);}
+}
+
+h1{
+  font-family:'Pacifico',cursive;
+  color:#ff4d8d;
+  font-size:clamp(26px, 7vw, 42px);
+  margin:8px 0;
+}
+
+#typing{
+  font-size:clamp(22px, 5vw, 32px);
+  margin-bottom:6px;
+}
+
+#question{
+  font-size:clamp(26px,6vw,36px);
+}
+
+p{
+  color:#555;
+  max-width:420px;
+  font-size:clamp(15px, 4vw, 18px);
+  line-height:1.4;
+}
+button{
+  padding:14px 22px;
+  font-size:clamp(15px,3.5vw,18px);
+  border-radius:30px;
+  border:none;
+  cursor:pointer;
+  min-width:140px;
+}
+
+#yesBtn{
+  background:#ff4d8d;
+  color:white;
+  box-shadow:0 4px 15px rgba(255,77,141,.4);
+  animation:heartbeat 1.5s infinite;
+}
+
+.btnRow{
+  display:flex;
+  gap:12px;
+  justify-content:center;
+  align-items:center;
+  flex-wrap:wrap; /* prevents overflow on very small phones */
+  margin-top:6px;
+}
+
+@keyframes heartbeat {
+ 0%{transform:scale(1);}
+ 25%{transform:scale(1.05);}
+ 40%{transform:scale(1);}
+ 60%{transform:scale(1.05);}
+ 100%{transform:scale(1);}
+}
+
+#noBtn{
+  background:white;
+  color:#ff4d8d;
+  border:2px solid #ff4d8d;
+}
+
+#valentineGif{
+  width:min(220px,60vw);
+  border-radius:20px;
+  margin:15px;
+  box-shadow:0 5px 15px rgba(0,0,0,.2);
+}
+
+.heart{
+ position:fixed;
+ bottom:-20px;
+ font-size:22px;
+ animation:float 6s linear infinite;
+}
+@keyframes float{
+ 0%{transform:translateY(0);}
+ 100%{transform:translateY(-900px);opacity:0;}
+}
+
+#yesText{
+  color:#ff4d8d;
+  animation:bounce 1s infinite;
+}
+
+@keyframes bounce{
+ 0%,100%{transform:translateY(0);}
+ 50%{transform:translateY(-12px);}
+}
