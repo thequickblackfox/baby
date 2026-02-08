@@ -66,12 +66,17 @@ noBtn.onmouseover=move;
 noBtn.onclick=move;
 
 // YES click message + confetti
-document.getElementById("yesBtn").onclick=()=>{
+document.getElementById("yesBtn").onclick = () => {
 
-document.getElementById("yesBtn").onclick=()=>{
+  // 💥 SHAKE THE WHOLE PAGE
+  document.body.classList.add("shake");
+  setTimeout(() => {
+    document.body.classList.remove("shake");
+  }, 600);
 
-// vibration (phones)
-if(navigator.vibrate) navigator.vibrate([200,100,200,100,400]);
+  // Wait before showing YES page
+  setTimeout(showYesPage, 600);
+};
 
 document.body.innerHTML=`
 <div style="padding:30px">
