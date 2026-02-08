@@ -1,4 +1,6 @@
 
+document.addEventListener("DOMContentLoaded", function () {
+
 // typing intro
 const text="To: Jeam Abby Keith Panganiban 😊";
 let i=0;
@@ -144,3 +146,5 @@ setInterval(()=>{
 
 },1200); 
 };
+
+});
