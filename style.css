@@ -78,11 +78,12 @@ button{
 }
 
 .btnRow{
-  display: flex;
-  gap: 12px;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: nowrap;   /* force a single row */
+  display:flex;
+  gap:12px;
+  justify-content:center;
+  align-items:center;
+  flex-wrap:wrap; /* prevents overflow on very small phones */
+  margin-top:6px;
 }
 
 .heart{
