@@ -68,8 +68,50 @@ noBtn.onclick=move;
 // YES click message + confetti
 document.getElementById("yesBtn").onclick=()=>{
 
-// 📳 vibration
+document.getElementById("yesBtn").onclick=()=>{
+
+// vibration (phones)
 if(navigator.vibrate) navigator.vibrate([200,100,200,100,400]);
+
+document.body.innerHTML=`
+<div style="padding:30px">
+
+<img src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExODhia3UwN3BrOWVtczloajJycWFkbWY3dnBha2plcGxlb3BxNjhsNCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/MDJ9IbxxvDUQM/giphy.gif"
+ style="width:320px;max-width:85vw;border-radius:20px;margin-bottom:15px;box-shadow:0 5px 15px rgba(0,0,0,.2);">
+
+<h1 id="yesText" style="font-family:Pacifico;">She said YES gaizzz!!! 💕</h1>
+<p id="loveMsg"></p>
+</div>`;
+
+// typing love message
+const msg="You just made me the happiest person alive. I can't wait to spend Valentine's Day with you 🌹 You're stuck with me now 😌💖";
+let j=0;
+function typeLove(){
+ if(j<msg.length){
+  document.getElementById("loveMsg").innerHTML+=msg.charAt(j);
+  j++;
+  setTimeout(typeLove,40);
+ }
+}
+typeLove();
+
+// play music
+const music = new Audio("music.mp3");
+music.loop = true;
+music.volume = 0;
+music.play();
+
+let volume = 0;
+const fade = setInterval(()=>{
+  if(volume < 0.6){
+    volume += 0.03;
+    music.volume = volume;
+  } else {
+    clearInterval(fade);
+  }
+},300);
+
+};
 
 // 💌 typing love message
 const msg="You just made me the happiest person alive. I can't wait to spend Valentine's Day with you 🌹 You're stuck with me now 😌💖";
