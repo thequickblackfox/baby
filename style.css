@@ -1,4 +1,4 @@
-8body{
+body{
   margin:0;
   min-height:100vh;
   display:flex;
@@ -127,13 +127,4 @@ button{
 @keyframes bounce{
  0%,100%{transform:translateY(0);}
  50%{transform:translateY(-12px);}
-}
-
-body{
-  overflow-x:hidden; /* stops horizontal scrolling on mobile */
-}
-
-#noBtn{
-  max-width:80vw; /* never wider than screen */
-  white-space:nowrap;
 }
