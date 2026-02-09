@@ -56,13 +56,35 @@ button{
   animation:heartbeat 1.5s infinite;
 }
 
+./* BUTTON ROW — FORCE ONE LINE */
 .btnRow{
   display:flex;
-  gap:12px;
   justify-content:center;
   align-items:center;
-  flex-wrap:wrap; /* prevents overflow on very small phones */
-  margin-top:6px;
+  gap:12px;
+
+  flex-wrap:nowrap;        /* 🚨 THIS forces one row */
+  width:100%;
+  margin-top:10px;
+}
+
+/* YES + NO BUTTON */
+.btnRow button{
+  padding:12px 18px;
+  font-size:16px;
+  border:none;
+  border-radius:30px;
+  cursor:pointer;
+
+  white-space:nowrap;      /* 🚨 prevents text wrapping */
+  flex-shrink:0;           /* 🚨 prevents button shrinking */
+}
+
+@media (max-width:380px){
+  .btnRow button{
+    font-size:14px;
+    padding:10px 14px;
+  }
 }
 
 @keyframes heartbeat {
