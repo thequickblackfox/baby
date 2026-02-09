@@ -130,4 +130,10 @@ for(let i=0;i<200;i++){
  document.body.appendChild(c);
 }
 
+// 🎆 start fireworks when YES clicked
+const yesBtn = document.getElementById("yesBtn");
+
+yesBtn.addEventListener("click", function(){
+    startFireworks();
+});
  
