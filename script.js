@@ -57,12 +57,20 @@ setInterval(()=>{
 const noBtn = document.getElementById("noBtn");
 const msgs = ["sure na yarn, baby? 🥺", "aww, that hurts my feelings, baby 😭", "it's a love story, baby, just say, YES 🥰", "oops wrong button nganiii 😂", "say YES to heaven 😇", "nye nyee nyeee 🤪", "baby, be serious pls 😤", "i love you, babyyy 🥰", "stop playing, baby 😆", "click YES na garod 😌💕", "say YES to me 😭", "halla si oa hahaha 🤣", "amaccana babyyy 🙄", "baby, please? 🥺👉👈", "wilablabbb 😝"];
 
-function move() {
-  const x = Math.random() * (window.innerWidth - noBtn.offsetWidth - 20);
-  const y = Math.random() * (window.innerHeight - noBtn.offsetHeight - 20);
+function move(){
+  const padding = 20;
+  const maxX = window.innerWidth - noBtn.offsetWidth - padding;
+  const maxY = window.innerHeight - noBtn.offsetHeight - padding;
+  
+  const x = Math.max(padding, Math.random() * maxX);
+  const y = Math.max(padding, Math.random() * maxY);
+  
   noBtn.style.position = "fixed";
   noBtn.style.left = x + "px";
   noBtn.style.top = y + "px";
+  noBtn.style.fontSize = "clamp(12px, 2.5vw, 14px)";
+  noBtn.style.padding = "10px 12px";
+  noBtn.style.whiteSpace = "nowrap";
   noBtn.innerText = msgs[Math.floor(Math.random() * msgs.length)];
 }
 
