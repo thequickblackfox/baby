@@ -166,12 +166,3 @@ setInterval(()=>{
 
 });
 
-// show question + buttons after delay
-setTimeout(function(){
-  const q = document.getElementById("valentineQuestion");
-  q.classList.remove("hidden");
-  q.classList.add("show");
-
-const noBtn = document.getElementById("noBtn");
-
-}, 4000);
