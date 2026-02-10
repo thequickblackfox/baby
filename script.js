@@ -55,7 +55,7 @@ setInterval(()=>{
 
 // runaway NO button
 const noBtn=document.getElementById("noBtn");
-const msgs=["sure na yarn, baby? 🥺","aww, that hurts my feelings, baby 😭","it's a love story, baby, just say, YES 🥰","oops wrong button nganiii 😂","say YES to heaven 😇","nye nyee nyeee 🤪","baby, be serious pls 😤","i love you, baby 🥰","stop playing, baby 😆","click YES na garod 😌💕","say YES to me 😭","halla si oa hahaha 🤣","arti artiii nito 😤","baby, please? 🥺👉👈","wilablabbb 😝"];
+const msgs=["sure na yarn, baby? 🥺","aww, that hurts my feelings, baby 😭","it's a love story, baby, just say, YES 🥰","oops wrong button nganiii 😂","say YES to heaven 😇","nye nyee nyeee 🤪","baby, be serious pls 😤","i love you, baby 🥰","stop playing, baby 😆","click YES na garod 😌💕","say YES to me 😭","halla si oa hahaha 🤣","how are u so pretty, baby 🥺","baby, please? 🥺👉👈","wilablabbb 😝"];
 
 function move(){
 
