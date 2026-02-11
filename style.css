@@ -152,35 +152,3 @@ html,body{
 }
 
 
-/* 💌 letter wrapper */
-.letterWrap{
-  position:fixed;
-  inset:0;
-  display:flex;
-  justify-content:center;
-  align-items:flex-start;
-  pointer-events:none;
-  z-index:9999;
-}
-
-/* folded letter */
-.letter{
-  margin-top:-400px;
-  width:260px;
-  background:white;
-  padding:25px;
-  border-radius:12px;
-  box-shadow:0 15px 35px rgba(0,0,0,0.2);
-  text-align:center;
-  font-family:Poppins;
-  transform:rotate(-8deg) scale(0.6);
-  opacity:0;
-  transition:1s;
-}
-
-/* drop animation */
-.letter.show{
-  margin-top:100px;
-  transform:rotate(0deg) scale(1);
-  opacity:1;
-}
