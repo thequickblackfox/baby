@@ -1,26 +1,13 @@
 
-
-// ========================================
-// 💖 TYPING FUNCTION
-// ========================================
-function startTyping(){
-  const text = "To: Jeam Abby Keith Panganiban 😊";
-  let i = 0;
-
-  function type(){
-    if(i < text.length){
-      document.getElementById("typing").innerHTML += text.charAt(i);
-      i++;
-      setTimeout(type, 50);
-    }
-  }
-  type();
-}
-
 document.addEventListener("DOMContentLoaded", function () {
 
+// typing intro
+const text="To: Jeam Abby Keith Panganiban 😊";
+let i=0;
+function type(){ if(i<text.length){document.getElementById("typing").innerHTML+=text.charAt(i); i++; setTimeout(type,50);} }
+type();
 
-// 💖 CLICK HEART BURST ANYWHERE
+// hearts burst anywhere clicked
 document.addEventListener("click", function(e){
  for(let i=0;i<10;i++){
   let heart=document.createElement("div");
@@ -38,13 +25,11 @@ document.addEventListener("click", function(e){
     {transform:"translate(0,0) scale(1)",opacity:1},
     {transform:`translate(${x}px,${y}px) scale(1.8)`,opacity:0}
   ],{duration:1200,easing:"ease-out"});
-
   setTimeout(()=>heart.remove(),1200);
  }
 });
 
-
-// 💖 FLOATING BACKGROUND HEARTS
+// 💖 Slow floating hearts in background
 setInterval(()=>{
   let heart=document.createElement("div");
   heart.innerHTML=["💖","💕","💗","💘"][Math.floor(Math.random()*4)];
@@ -54,44 +39,35 @@ setInterval(()=>{
   heart.style.fontSize=(Math.random()*12+16)+"px";
   heart.style.opacity="0.6";
   heart.style.pointerEvents="none";
+
   document.body.appendChild(heart);
 
   heart.animate([
     { transform:"translateY(0)", opacity:0.6 },
     { transform:"translateY(-120vh)", opacity:0 }
-  ],{ duration:9000, easing:"linear" });
+  ],{
+    duration:9000,   // slow movement
+    easing:"linear"
+  });
 
   setTimeout(()=>heart.remove(),9000);
-},1200);
+},1200); // new heart every 1.2 sec
 
-
-// 😈 RUNAWAY NO BUTTON
+// runaway NO button
 const noBtn=document.getElementById("noBtn");
-
-const msgs=[
-"sure na yarn, baby? 🥺",
-"aww, that hurts my feelings, baby 😭",
-"it's a love story, baby, just say YES 🥰",
-"oops, wrong button nganiii 🙄",
-"say YES to heaven 😇",
-"nye nyee nyeee 🤪",
-"baby, be serious pls 😤",
-"i love you, my princess 😍",
-"stappph playing, baby 😆",
-"click YES na garod 😌💕",
-"yieee, enjoy yarn syaaa 😚",
-"halla si oa hahaha 🤣",
-"how are u so pretty, baby 🥹",
-"baby, please? 🥺👉👈",
-"wilab na wilab sayo 😝"
-];
+const msgs=["sure na yarn, baby? 🥺","aww, that hurts my feelings, baby 😭","it's a love story, baby, just say, YES 🥰","oops, wrong button nganiii 🙄","say YES to heaven 😇","nye nyee nyeee 🤪","baby, be serious pls 😤","i love you, my princess 😍","stappph playing, baby 😆","click YES na garod 😌💕","yieee, enjoy yarn syaaa 😚","halla si oa hahaha 🤣","how are u so pretty, baby 🥹","baby, please? 🥺👉👈","wilab na wilab sayo 😝"];
 
 function move(){
+
+  // change text FIRST so width updates
   noBtn.innerText = msgs[Math.floor(Math.random()*msgs.length)];
+
   const btnW = noBtn.offsetWidth;
   const btnH = noBtn.offsetHeight;
+
   const x = Math.random() * (window.innerWidth - btnW - 20);
   const y = Math.random() * (window.innerHeight - btnH - 20);
+
   noBtn.style.position="fixed";
   noBtn.style.left = x + "px";
   noBtn.style.top  = y + "px";
@@ -99,32 +75,33 @@ function move(){
 noBtn.onmouseover=move;
 noBtn.onclick=move;
 
+// YES click message + confetti
+document.getElementById("yesBtn").onclick=()=>{
 
-// 💖 YES BUTTON (YOUR TEXT UNCHANGED)
-const yesBtn = document.getElementById("yesBtn");
-if(yesBtn){
-  yesBtn.onclick = function(){
+// 📳 vibration
+if(navigator.vibrate) navigator.vibrate([200,100,200,100,400]);
 
-    if(navigator.vibrate) navigator.vibrate([200,100,200,100,400]);
+document.body.innerHTML=`
+<div style="padding:30px">
 
-    document.body.innerHTML=`
-    <div style="padding:30px">
-    <img src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExODhia3UwN3BrOWVtczloajJycWFkbWY3dnBha2plcGxlb3BxNjhsNCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/MDJ9IbxxvDUQM/giphy.gif"
-    style="width:320px;max-width:85vw;border-radius:20px;margin-bottom:15px;box-shadow:0 5px 15px rgba(0,0,0,.2);">
-    <h1 id="yesText">She said YES gaizzz!!! 💕</h1>
-    <p id="loveMsg"></p>
-    </div>`;
+<img src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExODhia3UwN3BrOWVtczloajJycWFkbWY3dnBha2plcGxlb3BxNjhsNCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/MDJ9IbxxvDUQM/giphy.gif"
+ style="width:320px;max-width:85vw;border-radius:20px;margin-bottom:15px;box-shadow:0 5px 15px rgba(0,0,0,.2);">
 
-    const msg="You just made me the happiest person alive. I can't wait to spend Valentine's Day with you 🌹 You're stuck with me now 😌💖";
-    let j=0;
-    function typeLove(){
-     if(j<msg.length){
-      document.getElementById("loveMsg").innerHTML+=msg.charAt(j);
-      j++;
-      setTimeout(typeLove,40);
-     }
-    }
-    typeLove();
+<h1 id="yesText" style="font-family:Pacifico;">She said YES gaizzz!!! 💕</h1>
+<p id="loveMsg"></p>
+</div>`;
+
+// 💌 typing love message
+const msg="You just made me the happiest person alive. I can't wait to spend Valentine's Day with you 🌹 You're stuck with me now 😌💖";
+let j=0;
+function typeLove(){
+ if(j<msg.length){
+  document.getElementById("loveMsg").innerHTML+=msg.charAt(j);
+  j++;
+  setTimeout(typeLove,40);
+ }
+}
+typeLove();
 
 const music = new Audio("music.mp3");
 music.loop = true;
@@ -141,54 +118,51 @@ const fade = setInterval(()=>{
   }
 },300);
 
-    // 💥 HEART EXPLOSIONS ON YES PAGE
-    setInterval(()=>{
-      const centerX = Math.random()*window.innerWidth;
-      const centerY = Math.random()*window.innerHeight*0.8;
-
-      for(let i=0;i<20;i++){
-        let heart=document.createElement("div");
-        heart.innerHTML=["💓","💕","💗","💞","💖"][Math.floor(Math.random()*5)];
-        heart.style.position="fixed";
-        heart.style.left=centerX+"px";
-        heart.style.top=centerY+"px";
-        heart.style.fontSize="22px";
-        heart.style.pointerEvents="none";
-        document.body.appendChild(heart);
-
-        const angle=Math.random()*2*Math.PI;
-        const distance=Math.random()*200+50;
-        const x=Math.cos(angle)*distance;
-        const y=Math.sin(angle)*distance;
-
-        heart.animate([
-          {transform:"translate(0,0)",opacity:1},
-          {transform:`translate(${x}px,${y}px) scale(1.6)`,opacity:0}
-        ],{ duration:1400, easing:"ease-out" });
-
-        setTimeout(()=>heart.remove(),1400);
-      }
-    },1200);
-  }
+// 💖 heart rain
+for(let i=0;i<200;i++){
+ let c=document.createElement("div");
+ c.innerHTML="💖";
+ c.style.position="fixed";
+ c.style.left=Math.random()*100+"vw";
+ c.style.top="-20px";
+ c.style.fontSize="24px";
+ c.style.animation="float 4s linear forwards";
+ document.body.appendChild(c);
 }
 
+ // 💥 RANDOM HEART BURSTS
+setInterval(()=>{
+  const centerX = Math.random()*window.innerWidth;
+  const centerY = Math.random()*window.innerHeight*0.8;
+
+  for(let i=0;i<20;i++){
+    let heart=document.createElement("div");
+    heart.innerHTML=["💓","💕","💗","💞","💖"][Math.floor(Math.random()*5)];
+    heart.style.position="fixed";
+    heart.style.left=centerX+"px";
+    heart.style.top=centerY+"px";
+    heart.style.fontSize="22px";
+    heart.style.pointerEvents="none";
+    document.body.appendChild(heart);
+
+    const angle=Math.random()*2*Math.PI;
+    const distance=Math.random()*200+50;
+    const x=Math.cos(angle)*distance;
+    const y=Math.sin(angle)*distance;
+
+    heart.animate([
+      {transform:"translate(0,0)",opacity:1},
+      {transform:`translate(${x}px,${y}px) scale(1.6)`,opacity:0}
+    ],{
+      duration:1400,
+      easing:"ease-out"
+    });
+
+    setTimeout(()=>heart.remove(),1400);
+  }
+
+},1200); 
+};
+
 });
 
-
-// ⏳ LOADER → TYPING → MUSIC
-window.addEventListener("load", () => {
-  const loader = document.getElementById("loader");
-  const loaderStayTime = 5000;
-
-  setTimeout(() => {
-      loader.style.opacity = "0";
-      document.body.style.opacity = "1";
-
-      setTimeout(() => {
-         loader.style.display = "none";
-         startTyping();
-         startMusic();
-      }, 800);
-
-  }, loaderStayTime);
-});
