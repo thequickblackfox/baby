@@ -166,10 +166,20 @@ setInterval(()=>{
 
 });
 
-// professional loading screen
+// PRO LOADER FIX
 window.addEventListener("load", () => {
+
   const loader = document.getElementById("loader");
+
+  // show page after short cinematic delay
   setTimeout(() => {
-    loader.classList.add("hide");
-  }, 1200); // delay for smooth intro
+      loader.style.opacity = "0";
+      document.body.style.opacity = "1";
+      
+      setTimeout(() => {
+         loader.style.display = "none";
+      }, 800);
+      
+  }, 1200);
+
 });
