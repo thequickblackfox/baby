@@ -12,7 +12,6 @@ function startTyping(){
       setTimeout(type, 50);
     }
   }
-
   type();
 }
 
@@ -46,7 +45,7 @@ document.addEventListener("click", function(e){
 
 
 // ========================================
-// 💖 FLOATING BACKGROUND HEARTS
+// 💖 FLOATING HEARTS BACKGROUND
 // ========================================
 setInterval(()=>{
   let heart=document.createElement("div");
@@ -62,10 +61,7 @@ setInterval(()=>{
   heart.animate([
     { transform:"translateY(0)", opacity:0.6 },
     { transform:"translateY(-120vh)", opacity:0 }
-  ],{
-    duration:9000,
-    easing:"linear"
-  });
+  ],{ duration:9000, easing:"linear" });
 
   setTimeout(()=>heart.remove(),9000);
 },1200);
@@ -96,20 +92,49 @@ const msgs=[
 
 function move(){
   noBtn.innerText = msgs[Math.floor(Math.random()*msgs.length)];
-
   const btnW = noBtn.offsetWidth;
   const btnH = noBtn.offsetHeight;
-
   const x = Math.random() * (window.innerWidth - btnW - 20);
   const y = Math.random() * (window.innerHeight - btnH - 20);
-
   noBtn.style.position="fixed";
   noBtn.style.left = x + "px";
   noBtn.style.top  = y + "px";
 }
-
 noBtn.onmouseover=move;
 noBtn.onclick=move;
+
+
+// ========================================
+// 💖 YES BUTTON (YOUR ORIGINAL TEXT)
+// ========================================
+const yesBtn = document.getElementById("yesBtn");
+if(yesBtn){
+  yesBtn.onclick = function(){
+
+    if(navigator.vibrate) navigator.vibrate([200,100,200,100,400]);
+
+    document.body.innerHTML=`
+    <div style="padding:30px">
+
+    <img src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExODhia3UwN3BrOWVtczloajJycWFkbWY3dnBha2plcGxlb3BxNjhsNCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/MDJ9IbxxvDUQM/giphy.gif"
+    style="width:320px;max-width:85vw;border-radius:20px;margin-bottom:15px;box-shadow:0 5px 15px rgba(0,0,0,.2);">
+
+    <h1 id="yesText">She said YES gaizzz!!! 💕</h1>
+    <p id="loveMsg"></p>
+    </div>`;
+
+    const msg="You just made me the happiest person alive. I can't wait to spend Valentine's Day with you 🌹 You're stuck with me now 😌💖";
+    let j=0;
+    function typeLove(){
+     if(j<msg.length){
+      document.getElementById("loveMsg").innerHTML+=msg.charAt(j);
+      j++;
+      setTimeout(typeLove,40);
+     }
+    }
+    typeLove();
+  }
+}
 
 });
 
@@ -118,9 +143,8 @@ noBtn.onclick=move;
 // ⏳ LOADER + START TYPING AFTER LOADER
 // ========================================
 window.addEventListener("load", () => {
-
   const loader = document.getElementById("loader");
-  const loaderStayTime = 5000; // change delay here
+  const loaderStayTime = 5000;
 
   setTimeout(() => {
       loader.style.opacity = "0";
@@ -128,9 +152,8 @@ window.addEventListener("load", () => {
 
       setTimeout(() => {
          loader.style.display = "none";
-         startTyping(); // 💖 typing starts after loader
+         startTyping();
       }, 800);
 
   }, loaderStayTime);
-
 });
