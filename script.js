@@ -166,3 +166,29 @@ setInterval(()=>{
 
 });
 
+// 💌 LOVE LETTER AFTER 10 TAPS
+let tapCount = 0;
+let eggUnlocked = false;
+
+document.addEventListener("click", function() {
+  if(eggUnlocked) return;
+
+  tapCount++;
+
+  if(tapCount >= 10){
+    eggUnlocked = true;
+    showLetter();
+  }
+});
+
+function showLetter(){
+  const letter = document.getElementById("letter");
+  letter.classList.add("show");
+
+  setTimeout(()=>{
+    letter.classList.remove("show");
+    tapCount = 0;
+    eggUnlocked = false;
+  },6000);
+}
+
