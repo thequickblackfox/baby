@@ -1,6 +1,17 @@
 
 document.addEventListener("DOMContentLoaded", function () {
 
+// LOADER 5 seconds then show site
+window.addEventListener("load", function(){
+  setTimeout(()=>{
+    document.getElementById("loader").style.opacity="0";
+    document.getElementById("loader").style.transition="1s";
+    setTimeout(()=>{
+      document.getElementById("loader").style.display="none";
+    },1000);
+  },5000);
+});
+
 // typing intro
 const text="To: Jeam Abby Keith Panganiban 😊";
 let i=0;
