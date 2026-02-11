@@ -166,22 +166,21 @@ setInterval(()=>{
 
 });
 
-// PRO LOADER (longer cinematic intro)
 window.addEventListener("load", () => {
 
   const loader = document.getElementById("loader");
 
-  // ⏳ change this number to control delay
-  const delay = 2800; // 2.8 seconds (perfect sweet spot)
+  // ⏳ how long the loading screen stays visible
+  const loaderStayTime = 5000; // 5 seconds (nice dramatic intro)
 
   setTimeout(() => {
       loader.style.opacity = "0";
       document.body.style.opacity = "1";
-      
+
       setTimeout(() => {
          loader.style.display = "none";
       }, 800);
-      
-  }, delay);
+
+  }, loaderStayTime);
 
 });
