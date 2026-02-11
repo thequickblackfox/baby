@@ -1,3 +1,9 @@
+/* hide page until loader finishes */
+body{
+  opacity:0;
+  transition:opacity 0.9s ease;
+}
+
 body{
   margin:0;
   min-height:100vh;
