@@ -8,7 +8,7 @@ function type(){ if(i<text.length){document.getElementById("typing").innerHTML+=
 type();
 
 // hearts burst anywhere clicked
-document.addEventListener("click", function(e){
+function heartBurst(e){
  for(let i=0;i<10;i++){
   let heart=document.createElement("div");
   heart.innerHTML=["💖","💗","💕","💘","❤️"][Math.floor(Math.random()*5)];
@@ -27,7 +27,8 @@ document.addEventListener("click", function(e){
   ],{duration:1200,easing:"ease-out"});
   setTimeout(()=>heart.remove(),1200);
  }
-});
+}
+document.addEventListener("click", heartBurst);
 
 // 💖 Slow floating hearts in background
 setInterval(()=>{
