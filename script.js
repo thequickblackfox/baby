@@ -238,3 +238,6 @@ function countSecretTap(){
     window.removeEventListener("click", countSecretTap);
   }
 }
+};
+
+});
