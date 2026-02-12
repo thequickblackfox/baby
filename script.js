@@ -1,26 +1,14 @@
 
 document.addEventListener("DOMContentLoaded", function () {
 
-// 💌 SAFE typing intro
-const typingEl = document.getElementById("typing");
-
-if (typingEl) {
-  const text = "To: Jeam Abby Keith Panganiban 😊";
-  let i = 0;
-
-  function type(){
-    if(i < text.length){
-      typingEl.innerHTML += text.charAt(i);
-      i++;
-      setTimeout(type, 50);
-    }
-  }
-
-  type();
-}
+// typing intro
+const text="To: Jeam Abby Keith Panganiban 😊";
+let i=0;
+function type(){ if(i<text.length){document.getElementById("typing").innerHTML+=text.charAt(i); i++; setTimeout(type,50);} }
+type();
 
 // hearts burst anywhere clicked
-function heartBurst(e){
+document.addEventListener("click", function(e){
  for(let i=0;i<10;i++){
   let heart=document.createElement("div");
   heart.innerHTML=["💖","💗","💕","💘","❤️"][Math.floor(Math.random()*5)];
@@ -39,8 +27,7 @@ function heartBurst(e){
   ],{duration:1200,easing:"ease-out"});
   setTimeout(()=>heart.remove(),1200);
  }
-}
-document.addEventListener("click", heartBurst);
+});
 
 // 💖 Slow floating hearts in background
 setInterval(()=>{
@@ -66,12 +53,8 @@ setInterval(()=>{
   setTimeout(()=>heart.remove(),9000);
 },1200); // new heart every 1.2 sec
 
- 
 // runaway NO button
-const noBtn = document.getElementById("noBtn");
-
-if(noBtn){   // ⭐ prevent script crash
-
+const noBtn=document.getElementById("noBtn");
 const msgs=["sure na yarn, baby? 🥺","aww, that hurts my feelings, baby 😭","it's a love story, baby, just say, YES 🥰","oops, wrong button nganiii 🙄","say YES to heaven 😇","nye nyee nyeee 🤪","baby, be serious pls 😤","i love you, my princess 😍","stappph playing, baby 😆","click YES na garod 😌💕","yieee, enjoy yarn syaaa 😚","halla si oa hahaha 🤣","how are u so pretty, baby 🥹","baby, please? 🥺👉👈","wilab na wilab sayo 😝"];
 
 function move(){
@@ -92,23 +75,14 @@ function move(){
 noBtn.onmouseover=move;
 noBtn.onclick=move;
 
-}
-
 // YES click message + confetti
-const yesBtn = document.getElementById("yesBtn");
-
-if(yesBtn){   // ⭐ attach click only when button exists
-yesBtn.onclick = () => {
+document.getElementById("yesBtn").onclick=()=>{
 
 // 📳 vibration
 if(navigator.vibrate) navigator.vibrate([200,100,200,100,400]);
 
-// remove ONLY the heart burst listener safely
-document.removeEventListener("click", heartBurst, true);
-document.removeEventListener("click", heartBurst, false);
-
 document.body.innerHTML=`
-<div id="yesPage" style="padding:30px">
+<div style="padding:30px">
 
 <img src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExODhia3UwN3BrOWVtczloajJycWFkbWY3dnBha2plcGxlb3BxNjhsNCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/MDJ9IbxxvDUQM/giphy.gif"
  style="width:320px;max-width:85vw;border-radius:20px;margin-bottom:15px;box-shadow:0 5px 15px rgba(0,0,0,.2);">
@@ -188,88 +162,7 @@ setInterval(()=>{
   }
 
 },1200); 
-
-/* 💌 SECRET LOVE LETTER EASTER EGG (YES PAGE ONLY) */
-
-const letter = document.createElement("div");
-letter.id = "loveLetter";
-letter.style.position = "fixed";
-letter.style.inset = "0";
-letter.style.background = "rgba(0,0,0,.75)";
-letter.style.display = "none";
-letter.style.justifyContent = "center";
-letter.style.alignItems = "center";
-letter.style.zIndex = "99999";
-
-letter.innerHTML = `
-<div style="
-background:#fffafc;
-width:92%;
-max-width:650px;
-max-height:85vh;
-overflow-y:auto;
-padding:clamp(22px,4vw,40px);
-border-radius:24px;
-font-family:Poppins;
-line-height:1.8;
-text-align:left;
-box-shadow:0 25px 60px rgba(0,0,0,.25);
-">
-<h2 style="color:#ff4fa3;margin-bottom:18px;font-size:clamp(22px,3vw,30px);"> Cong🐀s! You found my secret 🥳</h2>
-
-<p style="font-size:clamp(15px,2.2vw,18px);">So ayun, sobrang HS-coded nito for me baby. Ang nostalgic niya sobra.
-Naluluha nga ako habang ginagawa ko to e, si OA na naman ako hahaha 😭🤣</p>
-
-<p>Ito pala yung sinasabi ko baby na may na-realize ako. Dito talaga nagsimula yung interest ko sa computers.
-Dati akala ko puro games lang siya, pero hindi pala. This was my first love. Ito yung bumuhay sakin noon,
-at dito ko rin nakuha yung first paycheck ko.</p>
-
-<p>Kung ano man narating ko ngayon, nagsimula lahat sa basic HTML na to 🥹</p>
-
-<p>Kaya thank you talaga baby. Thank you sa buhay mo, at thank you rin sa dad mo na hindi ka niya pinutok sa tiyan ng mom mo 🤣</p>
-
-<p>Thank you kasi dumating ka sa buhay ko. Thank you kasi kahit nabuburnout ako sa work,
-nung naalala ko to parang gusto ko pang mag-extend ng mga five years eme haha.
-Thank you, binuhay mo ako. Thank you for making me do this kahit hindi mo naman ako inutusan.</p>
-
-<p style="font-weight:bold;margin-top:10px"> I love you baby 💗<br>Mwaaaah mwaaah mwah</p>
-
-<p style="text-align:right">Swerte mo naman 😌<br>Ikaw ang kauna-unahang ginawan ko nito hahaha</p>
-
-<button onclick="document.getElementById('loveLetter').style.display='none'"
-style="margin-top:15px;width:100%;padding:12px;border:none;border-radius:30px;background:#ff4fa3;color:white;">
-Close 💌
-</button>
-</div>
-`;
-
-// 🔎 WAIT until YES page really exists (no timeout guessing)
-const waitForYesPage = setInterval(() => {
-
-  const yesPage = document.getElementById("yesPage");
-  if(!yesPage) return; // keep waiting
-
-  clearInterval(waitForYesPage); // stop checking
-
-  yesPage.appendChild(letter);
-
-  let secretTaps = 0;
-
-function countSecretTap(){
-  secretTaps++;
-  console.log("secret taps:", secretTaps);
-
-  if(secretTaps >= 5){
-    letter.style.display = "flex";
-    yesPage.removeEventListener("click", countSecretTap);
-    yesPage.removeEventListener("touchstart", countSecretTap);
-  }
-}
-
-// listen to BOTH desktop + mobile taps
-yesPage.addEventListener("click", countSecretTap);
-yesPage.addEventListener("touchstart", countSecretTap);
-}, 50);
 };
-}); // closes yesBtn IF
-}); // closes DOMContentLoaded
+
+});
+
