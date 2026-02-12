@@ -186,6 +186,7 @@ if(window.innerWidth >= 768){
 letter.innerHTML = `
 
 <div style="
+<div style="
 background:#fffafc;
 width:100%;
 max-width:520px;
@@ -193,9 +194,10 @@ max-height:85vh;
 overflow:auto;
 padding:30px 26px;
 font-family:Poppins;
-line-height:1.6;
+line-height:1.7;
 box-shadow:0 15px 50px rgba(0,0,0,.25);
 border-radius:28px;
+text-align:left;
 ">
 <h2 style="color:#ff4fa3;text-align:center">To Abby 💖</h2>  
 <p>So ayun, sobrang HS-coded nito for me baby. Ang nostalgic niya sobra. Naluluha nga ako habang ginagawa ko to e, si OA na naman ako hahaha 😭🤣</p>  
