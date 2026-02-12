@@ -107,7 +107,7 @@ letter.style.overflowY="auto";
 letter.innerHTML=`
 <div style="background:#fffafc;width:92%;max-width:420px;max-height:82vh;margin:auto;padding:26px 22px 24px;font-family:Poppins;line-height:1.7;overflow:auto;box-shadow:0 20px 60px rgba(0,0,0,.25);border-radius:26px;text-align:justify;">
 <h2 style="color:#ff4fa3;text-align:center;margin-bottom:22px;font-size:24px;">Hallu, babyyy! 💖</h2>
-<p>So ayun... I love you 💖</p>
+<p>So ayun… I love you 💖</p>
 <button id="closeLetter" style="margin-top:15px;width:100%;padding:12px;border:none;border-radius:30px;background:#ff4fa3;color:white;">Close 💌</button>
 </div>`;
 document.body.appendChild(letter);
@@ -131,37 +131,40 @@ document.addEventListener("click", function(e){
 });
 
 
-/* 🦋 BUTTERFLIES — FIXED */
+/* 🦋 REAL WORKING BUTTERFLIES */
 setInterval(()=>{
   if(!letterOpen) return;
 
+  const wrapper=document.createElement("div");
+  wrapper.style.position="fixed";
+  wrapper.style.left="-40px";
+  wrapper.style.top=Math.random()*80+"vh";
+  wrapper.style.zIndex="100000";
+  wrapper.style.pointerEvents="none";
+
   const butterfly=document.createElement("div");
   butterfly.innerHTML="🦋";
-  butterfly.style.position="fixed";
-  butterfly.style.left="-40px";
-  butterfly.style.top=Math.random()*80+"vh";
-  butterfly.style.fontSize="26px";
-  butterfly.style.pointerEvents="none";
-  butterfly.style.zIndex="100000"; // FIXED HERE
+  butterfly.style.fontSize="28px";
 
-  document.body.appendChild(butterfly);
+  wrapper.appendChild(butterfly);
+  document.body.appendChild(wrapper);
 
   const midY=Math.random()*60+10;
 
-  butterfly.animate([
-    {transform:`translate(0,0)`},
+  wrapper.animate([
+    {transform:"translateX(0)"},
     {transform:`translate(40vw,-${midY}px)`},
     {transform:`translate(80vw,${midY}px)`},
-    {transform:`translate(120vw,0px)`}
+    {transform:`translateX(120vw)`}
   ],{duration:12000,easing:"ease-in-out"});
 
   butterfly.animate([
     {transform:"scale(1)"},
-    {transform:"scale(1.2)"},
+    {transform:"scale(1.25)"},
     {transform:"scale(1)"}
   ],{duration:600,iterations:Infinity});
 
-  setTimeout(()=>butterfly.remove(),12000);
+  setTimeout(()=>wrapper.remove(),12000);
 
 },3500);
 
