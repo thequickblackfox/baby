@@ -115,26 +115,9 @@ document.body.appendChild(letter);
 let taps=0;
 let letterOpen=false;
 
-document.addEventListener("click", function(e){
-  if(e.target && e.target.id==="closeLetter"){
-    letter.style.display="none";
-    letterOpen=false;
-    taps=0;
-    return;
-  }
-  if(letterOpen) return;
-  taps++;
-  if(taps>=10){
-    letter.style.display="flex";
-    letterOpen=true;
-  }
-});
 
-
-/* 🦋 REAL WORKING BUTTERFLIES */
-setInterval(()=>{
-  if(!letterOpen) return;
-
+// 🦋 butterfly creator function
+function spawnButterfly(){
   const wrapper=document.createElement("div");
   wrapper.style.position="fixed";
   wrapper.style.left="-40px";
@@ -165,7 +148,34 @@ setInterval(()=>{
   ],{duration:600,iterations:Infinity});
 
   setTimeout(()=>wrapper.remove(),12000);
+}
 
+
+// open / close logic
+document.addEventListener("click", function(e){
+  if(e.target && e.target.id==="closeLetter"){
+    letter.style.display="none";
+    letterOpen=false;
+    taps=0;
+    return;
+  }
+
+  if(letterOpen) return;
+
+  taps++;
+  if(taps>=10){
+    letter.style.display="flex";
+    letterOpen=true;
+
+    // spawn butterflies instantly
+    for(let i=0;i<3;i++) spawnButterfly();
+  }
+});
+
+// keep spawning butterflies while open
+setInterval(()=>{
+  if(!letterOpen) return;
+  spawnButterfly();
 },3500);
 
 };
