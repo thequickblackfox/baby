@@ -153,8 +153,9 @@ let taps=0;
 let letterOpen=false;
 
 
-// 🦋 REAL BUTTERFLY VIDEO
+// 🦋 UPDATED BUTTERFLY
 function flyRealButterfly(){
+
   const card=document.getElementById("letterCard");
   if(!card) return;
 
@@ -165,30 +166,35 @@ function flyRealButterfly(){
   butterfly.playsInline=true;
 
   butterfly.style.position="absolute";
-  butterfly.style.width="120px";
-  butterfly.style.left="-120px";
-  butterfly.style.top=Math.random()*60+"%";
+  butterfly.style.width="180px";
   butterfly.style.pointerEvents="none";
-  butterfly.style.mixBlendMode="multiply";
+  butterfly.style.mixBlendMode="screen";
+  butterfly.style.filter="brightness(1.1) contrast(1.2) saturate(1.2)";
   butterfly.style.opacity="0.95";
+  butterfly.style.left=Math.random()*70+"%";
+  butterfly.style.top=Math.random()*70+"%";
 
   card.appendChild(butterfly);
 
-  const midY=Math.random()*40-20;
+  const x1=(Math.random()*80)-40;
+  const y1=(Math.random()*80)-40;
+  const x2=(Math.random()*80)-40;
+  const y2=(Math.random()*80)-40;
+  const x3=(Math.random()*80)-40;
+  const y3=(Math.random()*80)-40;
 
   butterfly.animate([
-    { transform:"translateX(0)" },
-    { transform:`translate(40%, ${midY}px)` },
-    { transform:`translate(80%, ${-midY}px)` },
-    { transform:`translateX(120%)` }
+    { transform:"translate(0,0) scale(1)" },
+    { transform:`translate(${x1}px, ${y1}px) scale(1.1)` },
+    { transform:`translate(${x2}px, ${y2}px) scale(1.05)` },
+    { transform:`translate(${x3}px, ${y3}px) scale(1.1)` }
   ],{
-    duration:8000,
+    duration:9000,
     easing:"ease-in-out"
   });
 
-  setTimeout(()=>butterfly.remove(),8000);
+  setTimeout(()=>butterfly.remove(),9000);
 }
-
 
 document.addEventListener("click", function(e){
 
@@ -210,7 +216,6 @@ flyRealButterfly();
 
 });
 
-// keep butterflies flying
 setInterval(()=>{
 if(!letterOpen) return;
 flyRealButterfly();
