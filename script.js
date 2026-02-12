@@ -17,7 +17,6 @@ heart.style.top=e.clientY+"px";
 heart.style.fontSize=(Math.random()*10+18)+"px";
 heart.style.pointerEvents="none";
 document.body.appendChild(heart);
-
 const x=(Math.random()-0.5)*200;
 const y=(Math.random()-0.5)*200;
 heart.animate([
@@ -28,7 +27,7 @@ setTimeout(()=>heart.remove(),1200);
 }
 });
 
-// floating hearts
+// floating hearts background
 setInterval(()=>{
 let heart=document.createElement("div");
 heart.innerHTML=["💖","💕","💗","💘"][Math.floor(Math.random()*4)];
@@ -39,21 +38,18 @@ heart.style.fontSize=(Math.random()*12+16)+"px";
 heart.style.opacity="0.6";
 heart.style.pointerEvents="none";
 document.body.appendChild(heart);
-
 heart.animate([
 { transform:"translateY(0)", opacity:0.6 },
 { transform:"translateY(-120vh)", opacity:0 }
 ],{duration:9000,easing:"linear"});
-
 setTimeout(()=>heart.remove(),9000);
 },1200);
 
 // runaway NO button
 const noBtn=document.getElementById("noBtn");
 const msgs=["sure na yarn, baby? 🥺","aww, that hurts my feelings, baby 😭","it's a love story, baby, just say, YES 🥰","oops, wrong button nganiii 🙄","say YES to heaven 😇","nye nyee nyeee 🤪","baby, be serious pls 😤","i love you, my princess 😍","stappph playing, baby 😆","click YES na garod 😌💕","yieee, enjoy yarn syaaa 😚","halla si oa hahaha 🤣","how are u so pretty, baby 🥹","baby, please? 🥺👉👈","wilab na wilab sayo 😝"];
-
 function move(){
-noBtn.innerText = msgs[Math.floor(Math.random()*msgs.length)];
+noBtn.innerText=msgs[Math.floor(Math.random()*msgs.length)];
 const btnW=noBtn.offsetWidth;
 const btnH=noBtn.offsetHeight;
 const x=Math.random()*(window.innerWidth-btnW-20);
@@ -77,17 +73,19 @@ document.body.innerHTML=`
 <p id="loveMsg"></p>
 </div>`;
 
+// typing love msg
 const msg="You just made me the happiest person alive. I can't wait to spend Valentine's Day with you 🌹 You're stuck with me now 😌💖";
 let j=0;
 function typeLove(){ if(j<msg.length){document.getElementById("loveMsg").innerHTML+=msg.charAt(j); j++; setTimeout(typeLove,40);} }
 typeLove();
 
+// music fade in
 const music=new Audio("music.mp3");
 music.loop=true; music.volume=0; music.play();
 let volume=0;
 const fade=setInterval(()=>{ if(volume<0.6){volume+=0.03;music.volume=volume;} else clearInterval(fade); },300);
 
-// HEART BURSTS YES PAGE
+// bursts on YES page
 setInterval(()=>{
 const centerX=Math.random()*window.innerWidth;
 const centerY=Math.random()*window.innerHeight*0.8;
@@ -107,6 +105,7 @@ heart.animate([{transform:"translate(0,0)",opacity:1},{transform:`translate(${x}
 setTimeout(()=>heart.remove(),1400);
 }},1200);
 
+
 // 💌 EASTER EGG LETTER
 const letter=document.createElement("div");
 letter.style.position="fixed";
@@ -121,34 +120,9 @@ letter.style.alignItems= window.innerWidth>=768 ? "center":"flex-end";
 letter.style.overflowY="auto";
 
 letter.innerHTML=`
-<div style="
-background:#fffafc;
-opacity:1;
-position:relative;
-z-index:2;
-
-/* PERFECT LETTER SIZE */
-width:92%;
-max-width:420px;
-max-height:82vh;
-
-/* spacing */
-margin:auto;
-padding:26px 22px 24px 22px;
-
-/* scroll if long */
-overflow:auto;
-
-/* typography */
-font-family:Poppins;
-line-height:1.7;
-text-align:left;
-
-/* aesthetics */
-box-shadow:0 20px 60px rgba(0,0,0,.25);
-border-radius:26px;
-">
+<div style="background:#fffafc;opacity:1;position:relative;z-index:2;width:92%;max-width:420px;max-height:82vh;margin:auto;padding:26px 22px 24px;font-family:Poppins;line-height:1.7;overflow:auto;box-shadow:0 20px 60px rgba(0,0,0,.25);border-radius:26px;text-align:left;">
 <h2 style="color:#ff4fa3;text-align:center;margin-bottom:22px;font-size:24px;">To Abby 💖</h2>
+
 <p>So ayun, sobrang HS-coded nito for me baby. Ang nostalgic niya sobra. Naluluha nga ako habang ginagawa ko to e, si OA na naman ako hahaha 😭🤣</p>
 <p>Ito pala yung sinasabi ko baby na may na-realize ako. Dito talaga nagsimula yung interest ko sa computers. Dati akala ko puro games lang siya, pero hindi pala. This was my first love. Ito yung bumuhay sakin noon, at dito ko rin nakuha yung first paycheck ko.</p>
 <p>Kung ano man narating ko ngayon, nagsimula lahat sa basic HTML na ’to 🥹</p>
@@ -157,11 +131,17 @@ border-radius:26px;
 <p style="font-weight:bold;margin-top:18px;">I love you baby 💗<br>Mwaaaah mwaaah mwah</p>
 <p style="margin-top:10px;">Swerte mo naman 😌<br>Ikaw ang kauna-unahang ginawan ko nito hahaha</p>
 
-<button onclick="this.parentElement.parentElement.style.display='none'" style="margin-top:15px;width:100%;padding:12px;border:none;border-radius:30px;background:#ff4fa3;color:white;">Close 💌</button>
+<button id="closeLetter" style="margin-top:15px;width:100%;padding:12px;border:none;border-radius:30px;background:#ff4fa3;color:white;">Close 💌</button>
 </div>`;
-
 document.body.appendChild(letter);
 
+// close button fix
+setTimeout(()=>{
+const closeBtn=document.getElementById("closeLetter");
+if(closeBtn){ closeBtn.onclick=()=>{ letter.style.display="none"; }; }
+},100);
+
+// open easter egg after 5 taps
 let taps=0;
 setTimeout(()=>{document.addEventListener("click",()=>{taps++; if(taps>=5) letter.style.display="flex";});},1000);
 
