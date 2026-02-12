@@ -189,7 +189,7 @@ line-height:1.7;
 text-align:left;
 box-shadow:0 20px 50px rgba(0,0,0,.25);
 ">
-<h2 style="color:#ff4fa3;margin-bottom:15px">To Abby 💖</h2>
+<h2 style="color:#ff4fa3;margin-bottom:15px">Cong🐀s! You found my secret 🥳</h2>
 
 <p>So ayun, sobrang HS-coded nito for me baby. Ang nostalgic niya sobra.
 Naluluha nga ako habang ginagawa ko to e, si OA na naman ako hahaha 😭🤣</p>
@@ -198,12 +198,12 @@ Naluluha nga ako habang ginagawa ko to e, si OA na naman ako hahaha 😭🤣</p>
 Dati akala ko puro games lang siya, pero hindi pala. This was my first love. Ito yung bumuhay sakin noon,
 at dito ko rin nakuha yung first paycheck ko.</p>
 
-<p>Kung ano man narating ko ngayon, nagsimula lahat sa basic HTML na ’to 🥹</p>
+<p>Kung ano man narating ko ngayon, nagsimula lahat sa basic HTML na to 🥹</p>
 
 <p>Kaya thank you talaga baby. Thank you sa buhay mo, at thank you rin sa dad mo na hindi ka niya pinutok sa tiyan ng mom mo 🤣</p>
 
 <p>Thank you kasi dumating ka sa buhay ko. Thank you kasi kahit nabuburnout ako sa work,
-nung naalala ko ’to parang gusto ko pang mag-extend ng mga five years eme haha.
+nung naalala ko to parang gusto ko pang mag-extend ng mga five years eme haha.
 Thank you, binuhay mo ako. Thank you for making me do this kahit hindi mo naman ako inutusan.</p>
 
 <p style="font-weight:bold;margin-top:10px"> I love you baby 💗<br>Mwaaaah mwaaah mwah</p>
