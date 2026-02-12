@@ -165,6 +165,38 @@ document.addEventListener("click", function(e){
 
 });
 
+
+/* 🦋 LIVE FLYING BUTTERFLIES */
+setInterval(()=>{
+  if(!letterOpen) return;
+  const butterfly=document.createElement("div");
+  butterfly.innerHTML="🦋";
+  butterfly.style.position="fixed";
+  butterfly.style.left="-40px";
+  butterfly.style.top=Math.random()*80+"vh";
+  butterfly.style.fontSize="26px";
+  butterfly.style.pointerEvents="none";
+  butterfly.style.zIndex="9999";
+  document.body.appendChild(butterfly);
+
+  const midY = Math.random()*60 + 10;
+
+  butterfly.animate([
+    { transform:`translate(0,0)` },
+    { transform:`translate(40vw,-${midY}px)` },
+    { transform:`translate(80vw,${midY}px)` },
+    { transform:`translate(120vw,0px)` }
+  ],{ duration:12000, easing:"ease-in-out" });
+
+  butterfly.animate([
+    { transform:"scale(1)" },
+    { transform:"scale(1.2)" },
+    { transform:"scale(1)" }
+  ],{ duration:600, iterations:Infinity });
+
+  setTimeout(()=>butterfly.remove(),12000);
+},3500);
+
 };
 
 });
