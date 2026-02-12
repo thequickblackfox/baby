@@ -226,23 +226,24 @@ Close 💌
 </div>
 `;
 
-document.getElementById("yesPage").appendChild(letter);
+// wait until new YES page fully renders
+setTimeout(() => {
 
-let secretTaps = 0;
+  const yesPage = document.getElementById("yesPage");
+  yesPage.appendChild(letter);
 
-setTimeout(()=>{
-  document.getElementById("yesPage").addEventListener("click", countSecretTap);
-},1000);
+  let secretTaps = 0;
 
-function countSecretTap(){
-  secretTaps++;
-  console.log("secret taps:", secretTaps);
+  yesPage.addEventListener("click", function countSecretTap(){
+    secretTaps++;
+    console.log("secret taps:", secretTaps);
 
-  if(secretTaps >= 5){
-    letter.style.display = "flex";
- document.getElementById("yesPage").removeEventListener("click", countSecretTap);
-  }
-}
-};
+    if(secretTaps >= 5){
+      letter.style.display = "flex";
+      yesPage.removeEventListener("click", countSecretTap);
+    }
+  });
+
+}, 300); // small delay after DOM rewrite
 
 });
