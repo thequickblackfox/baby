@@ -176,8 +176,21 @@ letter.style.alignItems = "center";
 letter.style.zIndex = "99999";
 
 letter.innerHTML = `
-<div style="background:#fffafc;max-width:420px;padding:35px;border-radius:20px;font-family:Poppins;line-height:1.6;">
-<h2 style="color:#ff4fa3;text-align:center">To Abby 💖</h2>
+letter.innerHTML = `
+<div style="
+background:#fffafc;
+width:90%;
+max-width:480px;
+max-height:80vh;
+overflow-y:auto;
+padding:28px;
+border-radius:20px;
+font-family:Poppins;
+line-height:1.7;
+text-align:left;
+box-shadow:0 20px 50px rgba(0,0,0,.25);
+">
+<h2 style="color:#ff4fa3;margin-bottom:15px">To Abby 💖</h2>
 
 <p>So ayun, sobrang HS-coded nito for me baby. Ang nostalgic niya sobra.
 Naluluha nga ako habang ginagawa ko to e, si OA na naman ako hahaha 😭🤣</p>
@@ -194,7 +207,7 @@ at dito ko rin nakuha yung first paycheck ko.</p>
 nung naalala ko ’to parang gusto ko pang mag-extend ng mga five years eme haha.
 Thank you, binuhay mo ako. Thank you for making me do this kahit hindi mo naman ako inutusan.</p>
 
-<p style="font-weight:bold;text-align:center">I love you baby 💗<br>Mwaaaah mwaaah mwah</p>
+<p style="font-weight:bold;margin-top:10px"> I love you baby 💗<br>Mwaaaah mwaaah mwah</p>
 
 <p style="text-align:right">Swerte mo naman 😌<br>Ikaw ang kauna-unahang ginawan ko nito hahaha</p>
 
