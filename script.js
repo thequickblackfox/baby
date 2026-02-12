@@ -199,7 +199,7 @@ box-shadow:0 15px 50px rgba(0,0,0,.25);
 border-radius:28px;
 text-align:left;
 ">
-<h2 style="color:#ff4fa3;text-align:center">To Abby 💖</h2>  
+<h2 style="color:#ff4fa3;text-align:center;margin-bottom:18px;">To Abby 💖</h2>  
 <p>So ayun, sobrang HS-coded nito for me baby. Ang nostalgic niya sobra. Naluluha nga ako habang ginagawa ko to e, si OA na naman ako hahaha 😭🤣</p>  
 <p>Ito pala yung sinasabi ko baby na may na-realize ako. Dito talaga nagsimula yung interest ko sa computers. Dati akala ko puro games lang siya, pero hindi pala. This was my first love. Ito yung bumuhay sakin noon, at dito ko rin nakuha yung first paycheck ko.</p>  
 <p>Kung ano man narating ko ngayon, nagsimula lahat sa basic HTML na ’to 🥹</p>  
