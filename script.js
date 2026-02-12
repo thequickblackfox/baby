@@ -245,4 +245,4 @@ function countSecretTap(){
 }
 };
 
-});q
+});
