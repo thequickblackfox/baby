@@ -224,7 +224,7 @@ let secretTaps = 0;
 
 // wait a bit so the YES click doesn't count
 setTimeout(()=>{
-  document.addEventListener("click", ()=>{
+  document.body.addEventListener("click", ()=>{
     secretTaps++;
     console.log("secret taps:", secretTaps);
 
