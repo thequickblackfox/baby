@@ -229,3 +229,9 @@ html,body{
   pointer-events:auto;
 }
 
+@keyframes float{
+  to{
+    transform: translateY(110vh);
+    opacity: 0;
+  }
+}
