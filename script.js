@@ -176,7 +176,6 @@ letter.style.alignItems = "center";
 letter.style.zIndex = "99999";
 
 letter.innerHTML = `
-letter.innerHTML = `
 <div style="
 background:#fffafc;
 width:90%;
