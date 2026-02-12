@@ -121,9 +121,34 @@ letter.style.alignItems= window.innerWidth>=768 ? "center":"flex-end";
 letter.style.overflowY="auto";
 
 letter.innerHTML=`
-<div style="background:#fffafc;opacity:1;position:relative;z-index:2;width:100%;max-width:520px;max-height:85vh;overflow:auto;padding:30px 26px;font-family:Poppins;line-height:1.7;box-shadow:0 15px 50px rgba(0,0,0,.25);border-radius:28px;text-align:left;">
-<h2 style="color:#ff4fa3;text-align:center;margin-bottom:18px;">To Abby 💖</h2>
+<div style="
+background:#fffafc;
+opacity:1;
+position:relative;
+z-index:2;
 
+/* PERFECT LETTER SIZE */
+width:92%;
+max-width:420px;
+max-height:82vh;
+
+/* spacing */
+margin:auto;
+padding:26px 22px 24px 22px;
+
+/* scroll if long */
+overflow:auto;
+
+/* typography */
+font-family:Poppins;
+line-height:1.7;
+text-align:left;
+
+/* aesthetics */
+box-shadow:0 20px 60px rgba(0,0,0,.25);
+border-radius:26px;
+">
+<h2 style="color:#ff4fa3;text-align:center;margin-bottom:22px;font-size:24px;">To Abby 💖</h2>
 <p>So ayun, sobrang HS-coded nito for me baby. Ang nostalgic niya sobra. Naluluha nga ako habang ginagawa ko to e, si OA na naman ako hahaha 😭🤣</p>
 <p>Ito pala yung sinasabi ko baby na may na-realize ako. Dito talaga nagsimula yung interest ko sa computers. Dati akala ko puro games lang siya, pero hindi pala. This was my first love. Ito yung bumuhay sakin noon, at dito ko rin nakuha yung first paycheck ko.</p>
 <p>Kung ano man narating ko ngayon, nagsimula lahat sa basic HTML na ’to 🥹</p>
