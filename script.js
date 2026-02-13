@@ -244,24 +244,37 @@ document.addEventListener("click",function(e){
  }
 });
 
-// 💖 VALENTINE TEXT TRANSITION (TRULY OUTSIDE EVERYTHING)
-window.addEventListener("load", function(){
+// 💖 GUARANTEED VALENTINE TEXT TRANSITION
+function startValentineWatcher(){
 
-  setTimeout(function(){
+  const check = setInterval(function(){
 
     const el = document.getElementById("ginayumaText");
+
+    // wait until element truly exists
     if(!el) return;
 
-    el.style.transition = "all .8s ease";
-    el.style.opacity = "0";
-    el.style.transform = "scale(.9)";
+    clearInterval(check); // stop checking once found
 
+    // wait 3.5s before transition
     setTimeout(function(){
-      el.innerHTML = "Will you be my Valentine? 💖";
-      el.style.opacity = "1";
-      el.style.transform = "scale(1)";
-    },800);
 
-  },3500);
+      el.style.transition = "all .8s ease";
+      el.style.opacity = "0";
+      el.style.transform = "scale(.9)";
+
+      setTimeout(function(){
+        el.innerHTML = "Will you be my Valentine? 💖";
+        el.style.opacity = "1";
+        el.style.transform = "scale(1)";
+      },800);
+
+    },3500);
+
+  },200); // check every 0.2s until element exists
+
+}
+
+startValentineWatcher();
 
 });
