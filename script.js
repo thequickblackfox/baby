@@ -139,14 +139,18 @@ letter.innerHTML=`
 document.body.appendChild(letter);
 
 
-//////////////// 🌸 PETALS INSIDE LETTER (added)
+
+//////////////// 🌸 PETALS REACH REAL BOTTOM OF LETTER
 let letterOpen=false;
 let petalInterval=null;
 let butterflyInterval=null;
 
 function spawnPetal(){
  if(!letterOpen) return;
+
  const card=document.getElementById("letterCard");
+ if(!card) return;
+
  const petal=document.createElement("div");
  petal.innerHTML="🌸";
  petal.style.position="absolute";
@@ -154,15 +158,31 @@ function spawnPetal(){
  petal.style.top="-40px";
  petal.style.fontSize="16px";
  petal.style.pointerEvents="none";
+ petal.style.zIndex="2";
  card.appendChild(petal);
- petal.animate([{transform:"translateY(0)"},{transform:"translateY(120%)"}],{duration:8000});
- setTimeout(()=>petal.remove(),8000);
+
+ // ⭐ calculate real distance to bottom of card
+ const cardHeight = card.scrollHeight;
+
+ petal.animate([
+  { transform:"translateY(0) rotate(0deg)", opacity:1 },
+  { transform:`translateY(${cardHeight}px) rotate(360deg)`, opacity:0 }
+ ],{ duration:9000, easing:"linear" });
+
+ setTimeout(()=>petal.remove(),9000);
 }
 
-//////////////// 🦋 ONE BUTTERFLY ONLY (added)
+//////////////// 🦋 STRICT ONE BUTTERFLY AT A TIME
+let butterflyAlive=false;
+
 function spawnButterfly(){
- if(!letterOpen) return;
+ if(!letterOpen || butterflyAlive) return;
+
  const card=document.getElementById("letterCard");
+ if(!card) return;
+
+ butterflyAlive=true;
+
  const butterfly=document.createElement("video");
  butterfly.src="butterfly.webm";
  butterfly.autoplay=true;
@@ -170,20 +190,25 @@ function spawnButterfly(){
  butterfly.playsInline=true;
  butterfly.style.position="absolute";
  butterfly.style.width="220px";
- butterfly.style.filter=`hue-rotate(${Math.random()*360}deg) saturate(260%)`;
  butterfly.style.pointerEvents="none";
- butterfly.style.left="20%";
- butterfly.style.top="20%";
- card.appendChild(butterfly);
- butterfly.animate([
-  {transform:"translate(0,0)"},
-  {transform:"translate(120px,-60px)"},
-  {transform:"translate(-60px,80px)"},
-  {transform:"translate(80px,40px)"}
- ],{duration:9000});
- setTimeout(()=>butterfly.remove(),9000);
-}
+ butterfly.style.filter=`hue-rotate(${Math.random()*360}deg) saturate(260%)`;
+ butterfly.style.left="15%";
+ butterfly.style.top="25%";
 
+ card.appendChild(butterfly);
+
+ butterfly.animate([
+  { transform:"translate(0,0)" },
+  { transform:"translate(140px,-80px)" },
+  { transform:"translate(-80px,120px)" },
+  { transform:"translate(100px,60px)" }
+ ],{ duration:9000, easing:"ease-in-out" });
+
+ setTimeout(()=>{
+   butterfly.remove();
+   butterflyAlive=false; // allow next butterfly
+ },9000);
+}
 
 // open after 10 taps
 let taps=0;
