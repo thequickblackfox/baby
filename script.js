@@ -6,7 +6,6 @@ const text="To: Jeam Abby Keith Panganiban 😊";
 function startTypingIntro(){
  const el=document.getElementById("typing");
  if(!el) return;
-
  let i=0;
  function type(){
    if(i<text.length){
@@ -19,7 +18,6 @@ function startTypingIntro(){
 }
 setTimeout(startTypingIntro,200);
 
-
 //////////////////// HEART BURST CLICK ////////////////////
 document.addEventListener("click", function(e){
 for(let i=0;i<10;i++){
@@ -31,19 +29,12 @@ for(let i=0;i<10;i++){
  heart.style.fontSize=(Math.random()*10+18)+"px";
  heart.style.pointerEvents="none";
  document.body.appendChild(heart);
-
  const x=(Math.random()-0.5)*200;
  const y=(Math.random()-0.5)*200;
-
- heart.animate([
-  {transform:"translate(0,0) scale(1)",opacity:1},
-  {transform:`translate(${x}px,${y}px) scale(1.8)`,opacity:0}
- ],{duration:1200,easing:"ease-out"});
-
+ heart.animate([{transform:"translate(0,0)"},{transform:`translate(${x}px,${y}px)`}],{duration:1200});
  setTimeout(()=>heart.remove(),1200);
 }
 });
-
 
 //////////////////// FLOATING HEARTS ////////////////////
 setInterval(()=>{
@@ -56,15 +47,9 @@ setInterval(()=>{
  heart.style.opacity="0.6";
  heart.style.pointerEvents="none";
  document.body.appendChild(heart);
-
- heart.animate([
-  { transform:"translateY(0)", opacity:0.6 },
-  { transform:"translateY(-120vh)", opacity:0 }
- ],{duration:9000,easing:"linear"});
-
+ heart.animate([{ transform:"translateY(0)"},{ transform:"translateY(-120vh)"}],{duration:9000});
  setTimeout(()=>heart.remove(),9000);
 },1200);
-
 
 //////////////////// BUTTON SETUP ////////////////////
 function setupButtons(){
@@ -72,15 +57,7 @@ function setupButtons(){
  const noBtn=document.getElementById("noBtn");
  if(!yesBtn || !noBtn) return;
 
- const msgs=[
- "sure na yarn, baby? 🥺","aww, that hurts my feelings, baby 😭",
- "it's a love story, baby, just say, YES 🥰","oops, wrong button nganiii 🙄",
- "say YES to heaven 😇","nye nyee nyeee 🤪","baby, be serious pls 😤",
- "i love you, my princess 😍","stappph playing, baby 😆",
- "click YES na garod 😌💕","yieee, enjoy yarn syaaa 😚",
- "halla si oa hahaha 🤣","how are u so pretty, baby 🥹",
- "baby, please? 🥺👉👈","wilab na wilab sayo 😝"
- ];
+ const msgs=["sure na yarn, baby? 🥺","aww, that hurts my feelings, baby 😭","it's a love story, baby, just say, YES 🥰","oops, wrong button nganiii 🙄","say YES to heaven 😇","nye nyee nyeee 🤪","baby, be serious pls 😤","i love you, my princess 😍","stappph playing, baby 😆","click YES na garod 😌💕","yieee, enjoy yarn syaaa 😚","halla si oa hahaha 🤣","how are u so pretty, baby 🥹","baby, please? 🥺👉👈","wilab na wilab sayo 😝"];
 
  function move(){
    noBtn.innerText=msgs[Math.floor(Math.random()*msgs.length)];
@@ -97,20 +74,13 @@ function setupButtons(){
 }
 setTimeout(setupButtons,300);
 
-
 //////////////////// YES PAGE ////////////////////
 function startYesPage(){
 
- // 🎵 MUSIC
  const music=new Audio("music.mp3");
- music.loop=true;
- music.volume=0;
- music.play();
+ music.loop=true; music.volume=0; music.play();
  let volume=0;
- const fade=setInterval(()=>{
-   if(volume<0.6){volume+=0.03;music.volume=volume;}
-   else clearInterval(fade);
- },300);
+ const fade=setInterval(()=>{ if(volume<0.6){volume+=0.03;music.volume=volume;} else clearInterval(fade); },300);
 
  document.body.innerHTML=`
  <div style="padding:30px">  
@@ -121,14 +91,8 @@ function startYesPage(){
 
  const msg="You just made me the happiest person alive. I can't wait to spend Valentine's Day with you 🌹 You're stuck with me now 😌💖";
  let j=0;
- function typeLove(){
-   if(j<msg.length){
-     document.getElementById("loveMsg").innerHTML+=msg.charAt(j);
-     j++; setTimeout(typeLove,40);
-   }
- }
+ function typeLove(){ if(j<msg.length){document.getElementById("loveMsg").innerHTML+=msg.charAt(j); j++; setTimeout(typeLove,40);} }
  typeLove();
-
 
 //////////////////// CREATE LETTER ////////////////////
 const letter=document.createElement("div");
@@ -148,19 +112,65 @@ letter.innerHTML=`
 <h2 style="color:#ff4fa3;text-align:center;">Hallu, my babyyy! 💖</h2>
 
 <p>So ayun… sobrang HS-coded nito for me baby. Ang nostalgic niya sobra. Naluluha nga ako habang ginagawa ko to e, si OA na naman ako hahaha 😭🤣</p>
+
 <p>Ito pala yung sinasabi ko baby na may na-realize ako. Dito talaga nagsimula yung interest ko sa computers. Dati akala ko puro games lang siya… pero hindi pala. This was my first love. Ito yung bumuhay sakin noon, at dito ko rin nakuha yung first paycheck ko.</p>
+
 <p>Kung ano man narating ko ngayon, nagsimula lahat sa basic HTML na to 🥹</p>
+
 <p>Kaya thank you talaga baby. Thank you sa buhay mo, at thank you rin sa dad mo na hindi ka niya pinutok sa tiyan ng mom mo 🤣</p>
+
 <p>Thank you kasi dumating ka sa buhay ko. Thank you kasi kahit nabuburnout ako sa work, nung naalala ko to parang gusto ko pang mag-extend ng mga five years eme haha.</p>
+
+<p>Thank you kasi dumating ka sa buhay ko. Thank you kasi kahit nabuburnout ako sa work, nung naalala ko to parang gusto ko pang mag-extend ng mga five years eme haha.</p>
+
 <p>Thank you… binuhay mo ako. Thank you for making me do this kahit hindi mo naman ako inutusan. Thank you for being my inspiration without even trying.</p>
+
 <p>Sobrang mais ko na ba? HAHAHAHAHA OKI BYE NA GAROD!</p>
-<p style="font-weight:bold;">I love you, my baby abby! 💗😚😚😚</p>
-<p>Love,<br>Cebby — baliw na baliw pa rin sayo 😵‍💫</p>
+
+<p style="font-weight:bold;margin-top:18px;">I love you, my baby abby! 💗😚😚😚</p>
+
+<p style="margin-top:10px;">Love,<br>Cebby — baliw na baliw pa rin sayo 😵‍💫</p>
 
 <button id="closeLetter" style="margin-top:20px;width:100%;padding:12px;border:none;border-radius:30px;background:#ff4fa3;color:white;">Close 💌</button>
 </div>`;
 document.body.appendChild(letter);
 
+//////////////////// PETALS ////////////////////
+function spawnPetal(){
+ if(!letterOpen) return;
+ const petal=document.createElement("div");
+ petal.innerHTML="🌸";
+ petal.style.position="fixed";
+ petal.style.top="-40px";
+ petal.style.left=Math.random()*100+"vw";
+ petal.style.fontSize="18px";
+ petal.style.pointerEvents="none";
+ petal.style.zIndex="99998";
+ document.body.appendChild(petal);
+ petal.animate([{transform:"translateY(0)"},{transform:"translateY(110vh)"}],{duration:9000});
+ setTimeout(()=>petal.remove(),9000);
+}
+
+//////////////////// BUTTERFLIES ////////////////////
+function flyButterfly(){
+ if(!letterOpen) return;
+ const card=document.getElementById("letterCard");
+ if(!card) return;
+ const butterfly=document.createElement("video");
+ butterfly.src="butterfly.webm";
+ butterfly.autoplay=true;
+ butterfly.muted=true;
+ butterfly.playsInline=true;
+ butterfly.style.filter=`hue-rotate(${Math.random()*360}deg) saturate(260%)`;
+ butterfly.style.position="absolute";
+ butterfly.style.width="220px";
+ butterfly.style.pointerEvents="none";
+ butterfly.style.left=Math.random()*70+"%";
+ butterfly.style.top=Math.random()*70+"%";
+ card.appendChild(butterfly);
+ butterfly.animate([{transform:"translate(0,0)"},{transform:`translate(${(Math.random()*120)-60}px, ${(Math.random()*120)-60}px)`}],{duration:9000});
+ setTimeout(()=>butterfly.remove(),9000);
+}
 
 //////////////////// TAP 10 ////////////////////
 let taps=0, letterOpen=false;
@@ -168,9 +178,13 @@ document.addEventListener("click", function(e){
  if(e.target.id==="closeLetter"){letter.style.display="none";letterOpen=false;taps=0;return;}
  if(letterOpen) return;
  taps++;
- if(taps>=10){letter.style.display="flex";letterOpen=true;}
+ if(taps>=10){
+   letter.style.display="flex";
+   letterOpen=true;
+   setInterval(spawnPetal,2500);
+   setInterval(flyButterfly,9000);
+ }
 });
 
 }
-
 });
