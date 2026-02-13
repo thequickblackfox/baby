@@ -160,7 +160,7 @@ function flyRealButterfly(){
   if(!card) return;
 
   const butterfly=document.createElement("video");
-  butterfly.src="butterfly.mp4";
+  butterfly.src="butterfly.webm";
   butterfly.autoplay=true;
   butterfly.muted=true;
   butterfly.playsInline=true;
