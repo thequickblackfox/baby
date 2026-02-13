@@ -172,3 +172,16 @@ button{
   z-index:5;
   filter:saturate(1.4) contrast(1.1);
 }
+
+.question{
+  position:absolute;
+  left:50%;
+  top:40%;
+  transform:translate(-50%, -50%);
+  opacity:0;
+  transition:opacity 1.2s ease;
+}
+
+.question.show{
+  opacity:1;
+}
