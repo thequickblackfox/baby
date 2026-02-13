@@ -14,7 +14,7 @@ function type(){
 type();
 
 
-// 💖 hearts burst anywhere clicked
+// 💖 hearts burst anywhere clicked (FIRST PAGE ONLY)
 document.addEventListener("click", function(e){
 for(let i=0;i<10;i++){
  let heart=document.createElement("div");
@@ -37,27 +37,6 @@ for(let i=0;i<10;i++){
  setTimeout(()=>heart.remove(),1200);
 }
 });
-
-
-// floating hearts background
-setInterval(()=>{
- let heart=document.createElement("div");
- heart.innerHTML=["💖","💕","💗","💘"][Math.floor(Math.random()*4)];
- heart.style.position="fixed";
- heart.style.left=Math.random()*100+"vw";
- heart.style.bottom="-30px";
- heart.style.fontSize=(Math.random()*12+16)+"px";
- heart.style.opacity="0.6";
- heart.style.pointerEvents="none";
- document.body.appendChild(heart);
-
- heart.animate([
- { transform:"translateY(0)", opacity:0.6 },
- { transform:"translateY(-120vh)", opacity:0 }
- ],{duration:9000,easing:"linear"});
-
- setTimeout(()=>heart.remove(),9000);
-},1200);
 
 
 // runaway NO button
@@ -83,7 +62,7 @@ noBtn.onclick=move;
 // ⭐ GLOBAL CLICK HANDLER
 document.addEventListener("click", function(e){
 
-// 💚 YES BUTTON
+// 💚 YES BUTTON CLICK
 if(e.target && e.target.id==="yesBtn"){
 
  document.body.innerHTML=`
@@ -93,18 +72,50 @@ if(e.target && e.target.id==="yesBtn"){
  <p id="loveMsg"></p>  
  </div>`;
 
+ // typing love message
  const msg="You just made me the happiest person alive. I can't wait to spend Valentine's Day with you 🌹 You're stuck with me now 😌💖";
  let j=0;
  function typeLove(){ if(j<msg.length){document.getElementById("loveMsg").innerHTML+=msg.charAt(j); j++; setTimeout(typeLove,40);} }
  typeLove();
 
+ // 🎵 music
  const music=new Audio("music.mp3");
  music.loop=true; music.volume=0; music.play();
  let volume=0;
  setInterval(()=>{ if(volume<0.6){volume+=0.03;music.volume=volume;} },300);
 
 
- // 💌 CREATE LETTER AFTER YES
+ // 💥 RANDOM HEART BURSTS ON YES PAGE
+ function heartBurst(){
+  const centerX=Math.random()*window.innerWidth;
+  const centerY=Math.random()*window.innerHeight*0.8;
+  for(let i=0;i<15;i++){
+   let heart=document.createElement("div");
+   heart.innerHTML=["💓","💕","💗","💞","💖"][Math.floor(Math.random()*5)];
+   heart.style.position="fixed";
+   heart.style.left=centerX+"px";
+   heart.style.top=centerY+"px";
+   heart.style.fontSize="22px";
+   heart.style.pointerEvents="none";
+   document.body.appendChild(heart);
+
+   const angle=Math.random()*2*Math.PI;
+   const distance=Math.random()*200+50;
+   const x=Math.cos(angle)*distance;
+   const y=Math.sin(angle)*distance;
+
+   heart.animate([
+    {transform:"translate(0,0)",opacity:1},
+    {transform:`translate(${x}px,${y}px) scale(1.6)`,opacity:0}
+   ],{duration:1400,easing:"ease-out"});
+
+   setTimeout(()=>heart.remove(),1400);
+  }
+ }
+ setInterval(heartBurst,2000); // 💥 YES PAGE ONLY
+
+
+ // 💌 CREATE LETTER
  const letter=document.createElement("div");
  letter.style.position="fixed";
  letter.style.inset="0";
@@ -132,65 +143,63 @@ if(e.target && e.target.id==="yesBtn"){
  document.body.appendChild(letter);
 
 
- // 🌸 FEWER PETALS
- function spawnPetal(){
-  if(!letterOpen) return;
-  const card=document.getElementById("letterCard");
-  const rect=card.getBoundingClientRect();
-  const startY=rect.top-60;
-  const endY=rect.bottom+60;
-  const travel=endY-startY;
+// 🌸 PETALS + 🦋 BUTTERFLIES ONLY INSIDE LETTER
+function spawnPetal(){
+ if(!letterOpen) return;
+ const card=document.getElementById("letterCard");
+ const rect=card.getBoundingClientRect();
+ const startY=rect.top-60;
+ const endY=rect.bottom+60;
+ const travel=endY-startY;
 
-  const petal=document.createElement("div");
-  petal.innerHTML="🌸";
-  petal.style.position="fixed";
-  petal.style.top=startY+"px";
-  petal.style.left=rect.left+Math.random()*rect.width+"px";
-  petal.style.fontSize=(Math.random()*8+16)+"px";
-  petal.style.pointerEvents="none";
-  petal.style.zIndex="100000";
-  document.body.appendChild(petal);
+ const petal=document.createElement("div");
+ petal.innerHTML="🌸";
+ petal.style.position="fixed";
+ petal.style.top=startY+"px";
+ petal.style.left=rect.left+Math.random()*rect.width+"px";
+ petal.style.fontSize=(Math.random()*8+16)+"px";
+ petal.style.pointerEvents="none";
+ petal.style.zIndex="100000";
+ document.body.appendChild(petal);
 
-  petal.animate([
-   {transform:"translate(0,0)",opacity:1},
-   {transform:`translate(${(Math.random()*160)-80}px,${travel}px)`,opacity:0}
-  ],{duration:9000,easing:"linear"});
+ petal.animate([
+  {transform:"translate(0,0)",opacity:1},
+  {transform:`translate(${(Math.random()*160)-80}px,${travel}px)`,opacity:0}
+ ],{duration:9000,easing:"linear"});
 
-  setTimeout(()=>petal.remove(),9000);
+ setTimeout(()=>petal.remove(),9000);
+}
+
+function flyButterfly(){
+ if(!letterOpen) return;
+ const card=document.getElementById("letterCard");
+ const butterfly=document.createElement("video");
+ butterfly.src="butterfly.webm";
+ butterfly.autoplay=true; butterfly.muted=true; butterfly.playsInline=true;
+ butterfly.style.position="absolute";
+ butterfly.style.width="220px";
+ butterfly.style.pointerEvents="none";
+ butterfly.style.left=Math.random()*70+"%";
+ butterfly.style.top=Math.random()*70+"%";
+ card.appendChild(butterfly);
+ butterfly.animate([{transform:"translate(0,0)"},{transform:`translate(${(Math.random()*120)-60}px, ${(Math.random()*120)-60}px)`}],{duration:9000});
+ setTimeout(()=>butterfly.remove(),9000);
+}
+
+let taps=0;
+let letterOpen=false;
+
+document.addEventListener("click", function(e){
+ if(e.target && e.target.id==="closeLetter"){letter.style.display="none";letterOpen=false;taps=0;return;}
+ if(letterOpen) return;
+ taps++;
+ if(taps>=10){
+  letter.style.display="flex";
+  letterOpen=true;
+  setInterval(spawnPetal,1500);
+  setInterval(flyButterfly,9000);
  }
-
- // 🦋 BUTTERFLIES
- function flyButterfly(){
-  if(!letterOpen) return;
-  const card=document.getElementById("letterCard");
-  const butterfly=document.createElement("video");
-  butterfly.src="butterfly.webm";
-  butterfly.autoplay=true; butterfly.muted=true; butterfly.playsInline=true;
-  butterfly.style.position="absolute";
-  butterfly.style.width="220px";
-  butterfly.style.pointerEvents="none";
-  butterfly.style.left=Math.random()*70+"%";
-  butterfly.style.top=Math.random()*70+"%";
-  card.appendChild(butterfly);
-  butterfly.animate([{transform:"translate(0,0)"},{transform:`translate(${(Math.random()*120)-60}px, ${(Math.random()*120)-60}px)`}],{duration:9000});
-  setTimeout(()=>butterfly.remove(),9000);
- }
-
- let taps=0;
- let letterOpen=false;
-
- document.addEventListener("click", function(e){
-  if(e.target && e.target.id==="closeLetter"){letter.style.display="none";letterOpen=false;taps=0;return;}
-  if(letterOpen) return;
-  taps++;
-  if(taps>=10){
-    letter.style.display="flex";
-    letterOpen=true;
-    setInterval(spawnPetal,1500); // 🌸 slower spawn
-    flyButterfly();
-    setInterval(flyButterfly,9000);
-  }
- });
+});
 
 }
 
