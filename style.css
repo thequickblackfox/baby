@@ -174,11 +174,10 @@ button{
 }
 
 #ginayumaText{
-  font-size:26px;
+  font-size:30px;
   color:#ff4d88;
   margin-top:10px;
-  transition:0.8s ease;
-  opacity:1;
+  transition:all .8s ease;
 }
 
 .fadeOut{
