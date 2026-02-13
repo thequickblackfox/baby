@@ -3,117 +3,84 @@ document.addEventListener("DOMContentLoaded", function () {
 // typing intro
 const text="To: Jeam Abby Keith Panganiban 😊";
 let i=0;
-function type(){ 
-  const el=document.getElementById("typing");
-  if(!el) return;
-  if(i<text.length){
-    el.innerHTML+=text.charAt(i);
-    i++;
-    setTimeout(type,50);
-  }
-}
+function type(){
+ const el=document.getElementById("typing");
+ if(!el) return;
+ if(i<text.length){
+   el.innerHTML+=text.charAt(i);
+   i++;
+   setTimeout(type,50);
+ }}
 type();
 
 
 // 💖 hearts burst anywhere clicked
 document.addEventListener("click", function(e){
 for(let i=0;i<10;i++){
-let heart=document.createElement("div");
-heart.innerHTML=["💖","💗","💕","💘","❤️"][Math.floor(Math.random()*5)];
-heart.style.position="fixed";
-heart.style.left=e.clientX+"px";
-heart.style.top=e.clientY+"px";
-heart.style.fontSize=(Math.random()*10+18)+"px";
-heart.style.pointerEvents="none";
-document.body.appendChild(heart);
+ let heart=document.createElement("div");
+ heart.innerHTML=["💖","💗","💕","💘","❤️"][Math.floor(Math.random()*5)];
+ heart.style.position="fixed";
+ heart.style.left=e.clientX+"px";
+ heart.style.top=e.clientY+"px";
+ heart.style.fontSize=(Math.random()*10+18)+"px";
+ heart.style.pointerEvents="none";
+ document.body.appendChild(heart);
 
-const x=(Math.random()-0.5)*200;
-const y=(Math.random()-0.5)*200;
+ const x=(Math.random()-0.5)*200;
+ const y=(Math.random()-0.5)*200;
 
-heart.animate([
-{transform:"translate(0,0) scale(1)",opacity:1},
-{transform:`translate(${x}px,${y}px) scale(1.8)`,opacity:0}
-],{duration:1200,easing:"ease-out"});
+ heart.animate([
+ {transform:"translate(0,0) scale(1)",opacity:1},
+ {transform:`translate(${x}px,${y}px) scale(1.8)`,opacity:0}
+ ],{duration:1200,easing:"ease-out"});
 
-setTimeout(()=>heart.remove(),1200);
+ setTimeout(()=>heart.remove(),1200);
 }
 });
 
 
 // floating hearts background
 setInterval(()=>{
-let heart=document.createElement("div");
-heart.innerHTML=["💖","💕","💗","💘"][Math.floor(Math.random()*4)];
-heart.style.position="fixed";
-heart.style.left=Math.random()*100+"vw";
-heart.style.bottom="-30px";
-heart.style.fontSize=(Math.random()*12+16)+"px";
-heart.style.opacity="0.6";
-heart.style.pointerEvents="none";
-document.body.appendChild(heart);
+ let heart=document.createElement("div");
+ heart.innerHTML=["💖","💕","💗","💘"][Math.floor(Math.random()*4)];
+ heart.style.position="fixed";
+ heart.style.left=Math.random()*100+"vw";
+ heart.style.bottom="-30px";
+ heart.style.fontSize=(Math.random()*12+16)+"px";
+ heart.style.opacity="0.6";
+ heart.style.pointerEvents="none";
+ document.body.appendChild(heart);
 
-heart.animate([
-{ transform:"translateY(0)", opacity:0.6 },
-{ transform:"translateY(-120vh)", opacity:0 }
-],{duration:9000,easing:"linear"});
+ heart.animate([
+ { transform:"translateY(0)", opacity:0.6 },
+ { transform:"translateY(-120vh)", opacity:0 }
+ ],{duration:9000,easing:"linear"});
 
-setTimeout(()=>heart.remove(),9000);
+ setTimeout(()=>heart.remove(),9000);
 },1200);
 
 
-// runaway NO button (CRASH FIXED)
+// runaway NO button (no crash)
 const noBtn=document.getElementById("noBtn");
 if(noBtn){
-
 const msgs=["sure na yarn, baby? 🥺","aww, that hurts my feelings, baby 😭","it's a love story, baby, just say, YES 🥰","oops, wrong button nganiii 🙄","say YES to heaven 😇","nye nyee nyeee 🤪","baby, be serious pls 😤","i love you, my princess 😍","stappph playing, baby 😆","click YES na garod 😌💕","yieee, enjoy yarn syaaa 😚","halla si oa hahaha 🤣","how are u so pretty, baby 🥹","baby, please? 🥺👉👈","wilab na wilab sayo 😝"];
 
 function move(){
-noBtn.innerText=msgs[Math.floor(Math.random()*msgs.length)];
-const btnW=noBtn.offsetWidth;
-const btnH=noBtn.offsetHeight;
-const x=Math.random()*(window.innerWidth-btnW-20);
-const y=Math.random()*(window.innerHeight-btnH-20);
-noBtn.style.position="fixed";
-noBtn.style.left=x+"px";
-noBtn.style.top=y+"px";
+ noBtn.innerText=msgs[Math.floor(Math.random()*msgs.length)];
+ const btnW=noBtn.offsetWidth;
+ const btnH=noBtn.offsetHeight;
+ const x=Math.random()*(window.innerWidth-btnW-20);
+ const y=Math.random()*(window.innerHeight-btnH-20);
+ noBtn.style.position="fixed";
+ noBtn.style.left=x+"px";
+ noBtn.style.top=y+"px";
 }
-
 noBtn.onmouseover=move;
 noBtn.onclick=move;
 }
 
 
-// 💚 YES PAGE
-const yesBtn=document.getElementById("yesBtn");
-if(yesBtn){
-yesBtn.onclick=()=>{
-
-if(navigator.vibrate) navigator.vibrate([200,100,200,100,400]);
-
-document.body.innerHTML=`
-<div style="padding:30px">  
-<img src="https://media3.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif" style="width:320px;max-width:85vw;border-radius:20px;margin-bottom:15px;">  
-<h1 id="yesText" style="font-family:Pacifico;">She said YES gaizzz!!! 💕</h1>  
-<p id="loveMsg"></p>  
-</div>`;
-
-const msg="You just made me the happiest person alive. I can't wait to spend Valentine's Day with you 🌹 You're stuck with me now 😌💖";
-let j=0;
-function typeLove(){
-if(j<msg.length){
-document.getElementById("loveMsg").innerHTML+=msg.charAt(j);
-j++;
-setTimeout(typeLove,40);
-}}
-typeLove();
-
-const music=new Audio("music.mp3");
-music.loop=true; music.volume=0; music.play();
-let volume=0;
-setInterval(()=>{ if(volume<0.6){volume+=0.03;music.volume=volume;} },300);
-
-
-// 💌 EASTER EGG LETTER
+// 💌 EASTER EGG LETTER CREATION
 const letter=document.createElement("div");
 letter.style.position="fixed";
 letter.style.inset="0";
@@ -141,7 +108,7 @@ letter.innerHTML=`
 document.body.appendChild(letter);
 
 
-// 🌸 FINAL PETALS (FULL HEIGHT)
+// 🌸 PETALS FULL HEIGHT FIX
 function spawnPetal(){
  if(!letterOpen) return;
  const card=document.getElementById("letterCard");
@@ -169,22 +136,44 @@ function spawnPetal(){
 }
 
 
-// tap logic
+// ⭐ GLOBAL CLICK HANDLER (YES + EASTER EGG)
 let taps=0;
 let letterOpen=false;
 
 document.addEventListener("click", function(e){
- if(e.target && e.target.id==="closeLetter"){letter.style.display="none";letterOpen=false;taps=0;return;}
- if(letterOpen) return;
- taps++;
- if(taps>=10){
-  letter.style.display="flex";
-  letterOpen=true;
-  setInterval(spawnPetal,400);
- }
-});
 
-};
+// YES BUTTON WORKS AFTER PAGE CHANGE
+if(e.target && e.target.id==="yesBtn"){
+ document.body.innerHTML=`
+ <div style="padding:30px">  
+ <img src="https://media3.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif" style="width:320px;max-width:85vw;border-radius:20px;margin-bottom:15px;">  
+ <h1 id="yesText" style="font-family:Pacifico;">She said YES gaizzz!!! 💕</h1>  
+ <p id="loveMsg"></p>  
+ </div>`;
+
+ const msg="You just made me the happiest person alive. I can't wait to spend Valentine's Day with you 🌹 You're stuck with me now 😌💖";
+ let j=0;
+ function typeLove(){ if(j<msg.length){document.getElementById("loveMsg").innerHTML+=msg.charAt(j); j++; setTimeout(typeLove,40);} }
+ typeLove();
+
+ const music=new Audio("music.mp3");
+ music.loop=true; music.volume=0; music.play();
+ let volume=0;
+ setInterval(()=>{ if(volume<0.6){volume+=0.03;music.volume=volume;} },300);
 }
+
+// close letter
+if(e.target && e.target.id==="closeLetter"){ letter.style.display="none"; letterOpen=false; taps=0; return; }
+
+// open easter egg
+if(letterOpen) return;
+taps++;
+if(taps>=10){
+ letter.style.display="flex";
+ letterOpen=true;
+ setInterval(spawnPetal,400);
+}
+
+});
 
 });
