@@ -141,19 +141,22 @@ letter.innerHTML=`
 document.body.appendChild(letter);
 
 
-// 🌸 petals (behind letter text)
+// 🌸 PETALS INSIDE EASTER EGG ONLY
 function spawnPetal(){
  if(!letterOpen) return;
  const petal=document.createElement("div");
  petal.innerHTML="🌸";
- petal.style.position="fixed";
+ petal.style.position="absolute";
  petal.style.top="-40px";
- petal.style.left=Math.random()*100+"vw";
+ petal.style.left=Math.random()*100+"%";
  petal.style.fontSize=(Math.random()*10+18)+"px";
  petal.style.pointerEvents="none";
- petal.style.zIndex="99990";
- document.body.appendChild(petal);
- petal.animate([{transform:"translate(0,0)"},{transform:`translate(${(Math.random()*200)-100}px,110vh)`}],{duration:9000});
+ petal.style.zIndex="1";
+ letter.appendChild(petal);
+ petal.animate([
+  { transform:"translate(0,0) rotate(0deg)", opacity:1 },
+  { transform:`translate(${(Math.random()*200)-100}px,110vh) rotate(${Math.random()*360}deg)`, opacity:0 }
+ ],{ duration:9000, easing:"linear" });
  setTimeout(()=>petal.remove(),9000);
 }
 
@@ -181,7 +184,7 @@ function flyRealButterfly(){
 }
 
 
-// ⭐ enable easter egg after YES page loads
+// ⭐ Easter egg tap logic
 let taps=0;
 let letterOpen=false;
 
