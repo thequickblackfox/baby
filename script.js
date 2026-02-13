@@ -11,19 +11,6 @@ function type(){
  }}
 type();
 
-// 💖 FADE SWITCH QUESTION (PASTE HERE AT THE BOTTOM)
-setTimeout(() => {
-  const first = document.getElementById("ginayumaQuestion");
-  const second = document.getElementById("valentineQuestion");
-
-  first.classList.remove("show"); // fade out Ginayuma
-
-  setTimeout(() => {
-    second.classList.add("show"); // fade in Valentine
-  }, 1200);
-
-}, 2500);
-
 //////////////////// HEART BURST CLICK ////////////////////
 document.addEventListener("click", function(e){
 for(let i=0;i<10;i++){
@@ -153,6 +140,22 @@ setInterval(()=>{
  }
 },2000);
 
+// 💖 FADE SWITCH QUESTION (Ginayuma → Valentine)
+setTimeout(() => {
+  const first = document.getElementById("ginayumaQuestion");
+  const second = document.getElementById("valentineQuestion");
+
+  if(first && second){
+    first.classList.remove("show"); // fade out first text
+
+    setTimeout(() => {
+      second.classList.add("show"); // fade in second text
+    }, 1200);
+  }
+
+}, 2500);
+
+});
 
 //////////////////// CREATE EASTER EGG LETTER ////////////////////
 const letter=document.createElement("div");
