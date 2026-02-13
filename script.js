@@ -244,21 +244,17 @@ document.addEventListener("click",function(e){
  }
 });
 
-// 💖 GUARANTEED VALENTINE TEXT TRANSITION
+// 💖 GUARANTEED VALENTINE TEXT TRANSITION (OUTSIDE EVERYTHING)
 function startValentineWatcher(){
 
   const check = setInterval(function(){
 
     const el = document.getElementById("ginayumaText");
-
-    // wait until element truly exists
     if(!el) return;
 
-    clearInterval(check); // stop checking once found
+    clearInterval(check);
 
-    // wait 3.5s before transition
     setTimeout(function(){
-
       el.style.transition = "all .8s ease";
       el.style.opacity = "0";
       el.style.transform = "scale(.9)";
@@ -271,7 +267,7 @@ function startValentineWatcher(){
 
     },3500);
 
-  },200); // check every 0.2s until element exists
+  },200);
 
 }
 
