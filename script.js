@@ -155,7 +155,7 @@ letter.style.justifyContent="center";
 letter.style.alignItems="center";
 
 letter.innerHTML=`
-<div id="letterCard" style="position:relative;background:#fffafc;width:92%;max-width:420px;max-height:82vh;overflow:auto;padding:26px;border-radius:26px;font-family:Poppins;line-height:1.7;text-align:justify;">
+<div id="letterCard" style="position:relative; overflow:hidden; background:#fffafc;width:92%;max-width:420px;max-height:82vh;overflow:auto;padding:26px;border-radius:26px;font-family:Poppins;line-height:1.7;text-align:justify;">
 
 <h2 style="color:#ff4fa3;text-align:center;">Hallu, my babyyy! 💖</h2>
 
@@ -174,7 +174,7 @@ letter.innerHTML=`
 document.body.appendChild(letter);
 
 
-//////////////// PETALS INSIDE LETTER ONLY ////////////////////
+//////////////// PETALS INSIDE LETTER (FINAL FIX) ////////////////////
 function spawnPetal(){
 
  if(!letterOpen) return;
@@ -182,30 +182,31 @@ function spawnPetal(){
  const card = document.getElementById("letterCard");
  if(!card) return;
 
- const petal = document.createElement("div");
+ const petal=document.createElement("div");
  petal.innerHTML="🌸";
 
- /* ⭐ attach to the LETTER CARD, not body */
+ // attach to letter paper
  card.appendChild(petal);
 
  petal.style.position="absolute";
- petal.style.left = Math.random()*90 + "%";
- petal.style.top  = "-40px";
- petal.style.fontSize = "20px";
+ petal.style.left=Math.random()*100+"%";
+ petal.style.top="-30px";
+ petal.style.fontSize="20px";
  petal.style.pointerEvents="none";
-
- /* ⭐ BEHIND TEXT BUT INSIDE PAPER */
  petal.style.zIndex="0";
 
+ const drift=(Math.random()*60)-30;
+ const rotate=Math.random()*360;
+
  petal.animate([
-   { transform:"translateY(0) rotate(0deg)", opacity:0.9 },
-   { transform:"translateY(110%) rotate(360deg)", opacity:0 }
+   { transform:`translate(0,0) rotate(0deg)`, opacity:0.9 },
+   { transform:`translate(${drift}px,120%) rotate(${rotate}deg)`, opacity:0 }
  ],{
-   duration:18000,   // slower & romantic 🌸
+   duration:16000,
    easing:"linear"
  });
 
- setTimeout(()=>petal.remove(),18000);
+ setTimeout(()=>petal.remove(),16000);
 }
 
 
