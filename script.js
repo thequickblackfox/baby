@@ -153,7 +153,7 @@ let taps=0;
 let letterOpen=false;
 
 
-// 🦋 COLORFUL BIG BUTTERFLY
+// 🦋 RANDOM COLOR BUTTERFLY
 function flyRealButterfly(){
 
   const card=document.getElementById("letterCard");
@@ -165,6 +165,9 @@ function flyRealButterfly(){
   butterfly.muted=true;
   butterfly.playsInline=true;
 
+  const colors=[0,40,90,140,190,230,280,320];
+  const hue=colors[Math.floor(Math.random()*colors.length)];
+
   butterfly.style.position="absolute";
   butterfly.style.width="230px";
   butterfly.style.height="auto";
@@ -172,7 +175,7 @@ function flyRealButterfly(){
   butterfly.style.background="transparent";
   butterfly.style.objectFit="contain";
   butterfly.style.isolation="isolate";
-  butterfly.style.filter="hue-rotate(320deg) saturate(260%) contrast(115%) brightness(100%)";
+  butterfly.style.filter=`hue-rotate(${hue}deg) saturate(260%) contrast(115%) brightness(100%)`;
   butterfly.style.left=Math.random()*70+"%";
   butterfly.style.top=Math.random()*70+"%";
 
