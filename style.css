@@ -172,20 +172,3 @@ button{
   z-index:5;
   filter:saturate(1.4) contrast(1.1);
 }
-
-#ginayumaText{
-  font-size:30px;
-  color:#ff4d88;
-  margin-top:10px;
-  transition:all .8s ease;
-}
-
-.fadeOut{
-  opacity:0;
-  transform:scale(0.9);
-}
-
-.fadeIn{
-  opacity:1;
-  transform:scale(1);
-}
