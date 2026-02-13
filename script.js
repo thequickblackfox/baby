@@ -244,7 +244,7 @@ document.addEventListener("click",function(e){
  }
 });
 
-// 💖 TEXT CHANGE (OUTSIDE ALL SCRIPTS)
+// 💖 VALENTINE TEXT TRANSITION (TRULY OUTSIDE EVERYTHING)
 window.addEventListener("load", function(){
 
   setTimeout(function(){
@@ -252,12 +252,14 @@ window.addEventListener("load", function(){
     const el = document.getElementById("ginayumaText");
     if(!el) return;
 
-    el.classList.add("fadeOut");
+    el.style.transition = "all .8s ease";
+    el.style.opacity = "0";
+    el.style.transform = "scale(.9)";
 
     setTimeout(function(){
       el.innerHTML = "Will you be my Valentine? 💖";
-      el.classList.remove("fadeOut");
-      el.classList.add("fadeIn");
+      el.style.opacity = "1";
+      el.style.transform = "scale(1)";
     },800);
 
   },3500);
