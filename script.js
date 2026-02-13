@@ -4,11 +4,16 @@ document.addEventListener("DOMContentLoaded", function () {
 const text="To: Jeam Abby Keith Panganiban 😊";
 let i=0;
 function type(){
- if(i<text.length){
-   document.getElementById("typing").innerHTML+=text.charAt(i);
+ if(i < text.length){
+   document.getElementById("typing").innerHTML += text.charAt(i);
    i++;
    setTimeout(type,50);
- }}
+ } 
+ else {
+   // 💖 RUN VALENTINE TRANSITION AFTER TYPING FINISHES
+   startValentineChange();
+ }
+}
 type();
 
 
@@ -244,34 +249,29 @@ document.addEventListener("click",function(e){
  }
 });
 
-// 💖 GUARANTEED VALENTINE TEXT TRANSITION (OUTSIDE EVERYTHING)
-function startValentineWatcher(){
 
-  const check = setInterval(function(){
+// 💖 FINAL WORKING TRANSITION
+function startValentineChange(){
 
-    const el = document.getElementById("ginayumaText");
-    if(!el) return;
+  const el = document.getElementById("ginayumaText");
+  if(!el) return;
 
-    clearInterval(check);
+  setTimeout(() => {
 
-    setTimeout(function(){
-      el.style.transition = "all .8s ease";
-      el.style.opacity = "0";
-      el.style.transform = "scale(.9)";
+    el.style.transition = "all .8s ease";
+    el.style.opacity = "0";
+    el.style.transform = "scale(.9)";
 
-      setTimeout(function(){
-        el.innerHTML = "Will you be my Valentine? 💖";
-        el.style.opacity = "1";
-        el.style.transform = "scale(1)";
-      },800);
+    setTimeout(() => {
+      el.innerHTML = "Will you be my Valentine? 💖";
+      el.style.opacity = "1";
+      el.style.transform = "scale(1)";
+    },800);
 
-    },3500);
-
-  },200);
+  },1500);
 
 }
 
 });
-startValentineWatcher();
 
 
