@@ -173,10 +173,11 @@ button{
   filter:saturate(1.4) contrast(1.1);
 }
 
+/* QUESTION FADE ANIMATION */
 .question{
   position:absolute;
   left:50%;
-  top:40%;
+  top:63%;
   transform:translate(-50%, -50%);
   opacity:0;
   transition:opacity 1.2s ease;
