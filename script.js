@@ -1,100 +1,98 @@
 document.addEventListener("DOMContentLoaded", function () {
 
-//////////////////// SAFE TYPING INTRO ////////////////////
+// typing intro
 const text="To: Jeam Abby Keith Panganiban 😊";
+let i=0;
+function type(){
+ if(i<text.length){
+   document.getElementById("typing").innerHTML+=text.charAt(i);
+   i++;
+   setTimeout(type,50);
+ }}
+type();
 
-function startTypingIntro(){
- const el=document.getElementById("typing");
- if(!el) return;
- let i=0;
- function type(){
-   if(i<text.length){
-     el.innerHTML+=text.charAt(i);
-     i++;
-     setTimeout(type,50);
-   }
- }
- type();
-}
-setTimeout(startTypingIntro,200);
 
-//////////////////// HEART BURST CLICK ////////////////////
+// 💖 hearts burst anywhere clicked
 document.addEventListener("click", function(e){
 for(let i=0;i<10;i++){
- let heart=document.createElement("div");
- heart.innerHTML=["💖","💗","💕","💘","❤️"][Math.floor(Math.random()*5)];
- heart.style.position="fixed";
- heart.style.left=e.clientX+"px";
- heart.style.top=e.clientY+"px";
- heart.style.fontSize=(Math.random()*10+18)+"px";
- heart.style.pointerEvents="none";
- document.body.appendChild(heart);
- const x=(Math.random()-0.5)*200;
- const y=(Math.random()-0.5)*200;
- heart.animate([{transform:"translate(0,0)"},{transform:`translate(${x}px,${y}px)`}],{duration:1200});
- setTimeout(()=>heart.remove(),1200);
+let heart=document.createElement("div");
+heart.innerHTML=["💖","💗","💕","💘","❤️"][Math.floor(Math.random()*5)];
+heart.style.position="fixed";
+heart.style.left=e.clientX+"px";
+heart.style.top=e.clientY+"px";
+heart.style.fontSize=(Math.random()*10+18)+"px";
+heart.style.pointerEvents="none";
+document.body.appendChild(heart);
+
+const x=(Math.random()-0.5)*200;
+const y=(Math.random()-0.5)*200;
+
+heart.animate([
+{transform:"translate(0,0) scale(1)",opacity:1},
+{transform:`translate(${x}px,${y}px) scale(1.8)`,opacity:0}
+],{duration:1200,easing:"ease-out"});
+
+setTimeout(()=>heart.remove(),1200);
 }
 });
 
-//////////////////// FLOATING HEARTS ////////////////////
+
+// floating hearts background
 setInterval(()=>{
- let heart=document.createElement("div");
- heart.innerHTML=["💖","💕","💗","💘"][Math.floor(Math.random()*4)];
- heart.style.position="fixed";
- heart.style.left=Math.random()*100+"vw";
- heart.style.bottom="-30px";
- heart.style.fontSize=(Math.random()*12+16)+"px";
- heart.style.opacity="0.6";
- heart.style.pointerEvents="none";
- document.body.appendChild(heart);
- heart.animate([{ transform:"translateY(0)"},{ transform:"translateY(-120vh)"}],{duration:9000});
- setTimeout(()=>heart.remove(),9000);
+let heart=document.createElement("div");
+heart.innerHTML=["💖","💕","💗","💘"][Math.floor(Math.random()*4)];
+heart.style.position="fixed";
+heart.style.left=Math.random()*100+"vw";
+heart.style.bottom="-30px";
+heart.style.fontSize=(Math.random()*12+16)+"px";
+heart.style.opacity="0.6";
+heart.style.pointerEvents="none";
+document.body.appendChild(heart);
+
+heart.animate([
+{ transform:"translateY(0)", opacity:0.6 },
+{ transform:"translateY(-120vh)", opacity:0 }
+],{duration:9000,easing:"linear"});
+
+setTimeout(()=>heart.remove(),9000);
 },1200);
 
-//////////////////// BUTTON SETUP ////////////////////
-function setupButtons(){
- const yesBtn=document.getElementById("yesBtn");
- const noBtn=document.getElementById("noBtn");
- if(!yesBtn || !noBtn) return;
 
- const msgs=["sure na yarn, baby? 🥺","aww, that hurts my feelings, baby 😭","it's a love story, baby, just say, YES 🥰","oops, wrong button nganiii 🙄","say YES to heaven 😇","nye nyee nyeee 🤪","baby, be serious pls 😤","i love you, my princess 😍","stappph playing, baby 😆","click YES na garod 😌💕","yieee, enjoy yarn syaaa 😚","halla si oa hahaha 🤣","how are u so pretty, baby 🥹","baby, please? 🥺👉👈","wilab na wilab sayo 😝"];
+// runaway NO button
+const noBtn=document.getElementById("noBtn");
+const msgs=["sure na yarn, baby? 🥺","aww, that hurts my feelings, baby 😭","it's a love story, baby, just say, YES 🥰","oops, wrong button nganiii 🙄","say YES to heaven 😇","nye nyee nyeee 🤪","baby, be serious pls 😤","i love you, my princess 😍","stappph playing, baby 😆","click YES na garod 😌💕","yieee, enjoy yarn syaaa 😚","halla si oa hahaha 🤣","how are u so pretty, baby 🥹","baby, please? 🥺👉👈","wilab na wilab sayo 😝"];
 
- function move(){
-   noBtn.innerText=msgs[Math.floor(Math.random()*msgs.length)];
-   const x=Math.random()*(window.innerWidth-noBtn.offsetWidth-20);
-   const y=Math.random()*(window.innerHeight-noBtn.offsetHeight-20);
-   noBtn.style.position="fixed";
-   noBtn.style.left=x+"px";
-   noBtn.style.top=y+"px";
- }
- noBtn.onmouseover=move;
- noBtn.onclick=move;
-
- yesBtn.onclick=startYesPage;
+function move(){
+noBtn.innerText=msgs[Math.floor(Math.random()*msgs.length)];
+const btnW=noBtn.offsetWidth;
+const btnH=noBtn.offsetHeight;
+const x=Math.random()*(window.innerWidth-btnW-20);
+const y=Math.random()*(window.innerHeight-btnH-20);
+noBtn.style.position="fixed";
+noBtn.style.left=x+"px";
+noBtn.style.top=y+"px";
 }
-setTimeout(setupButtons,300);
+noBtn.onmouseover=move;
+noBtn.onclick=move;
 
-//////////////////// YES PAGE ////////////////////
-function startYesPage(){
 
- const music=new Audio("music.mp3");
- music.loop=true; music.volume=0; music.play();
- let volume=0;
- const fade=setInterval(()=>{ if(volume<0.6){volume+=0.03;music.volume=volume;} else clearInterval(fade); },300);
+// 💚 YES PAGE
+document.getElementById("yesBtn").onclick=()=>{
 
- document.body.innerHTML=`
- <div style="padding:30px">  
- <img src="https://media3.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif" style="width:320px;max-width:85vw;border-radius:20px;margin-bottom:15px;">  
- <h1 style="font-family:Pacifico;">She said YES gaizzz!!! 💕</h1>  
- <p id="loveMsg"></p>  
- </div>`;
+document.body.innerHTML=`
+<div style="padding:30px">  
+<img src="https://media3.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif" style="width:320px;max-width:85vw;border-radius:20px;margin-bottom:15px;">  
+<h1 style="font-family:Pacifico;">She said YES gaizzz!!! 💕</h1>  
+<p id="loveMsg"></p>  
+</div>`;
 
- const msg="You just made me the happiest person alive. I can't wait to spend Valentine's Day with you 🌹 You're stuck with me now 😌💖";
- let j=0;
- function typeLove(){ if(j<msg.length){document.getElementById("loveMsg").innerHTML+=msg.charAt(j); j++; setTimeout(typeLove,40);} }
- typeLove();
+const msg="You just made me the happiest person alive. I can't wait to spend Valentine's Day with you 🌹 You're stuck with me now 😌💖";
+let j=0;
+function typeLove(){ if(j<msg.length){document.getElementById("loveMsg").innerHTML+=msg.charAt(j); j++; setTimeout(typeLove,40);} }
+typeLove();
 
-//////////////////// CREATE LETTER ////////////////////
+
+// 💌 EASTER EGG LETTER
 const letter=document.createElement("div");
 letter.style.position="fixed";
 letter.style.inset="0";
@@ -104,12 +102,14 @@ letter.style.display="none";
 letter.style.zIndex="99999";
 letter.style.padding="20px";
 letter.style.justifyContent="center";
-letter.style.alignItems="center";
+letter.style.alignItems= window.innerWidth>=768 ? "center":"flex-end";
+letter.style.overflowY="auto";
 
 letter.innerHTML=`
-<div id="letterCard" style="position:relative;background:#fffafc;width:92%;max-width:420px;max-height:82vh;overflow:auto;padding:26px;border-radius:26px;font-family:Poppins;line-height:1.7;text-align:justify;box-shadow:0 20px 60px rgba(0,0,0,.25);">
+<div style="background:#fffafc;width:92%;max-width:420px;max-height:82vh;margin:auto;padding:26px 22px 24px;font-family:Poppins;line-height:1.7;overflow:auto;box-shadow:0 20px 60px rgba(0,0,0,.25);border-radius:26px;text-align:justify;text-justify:inter-word;">  
 
-<h2 style="color:#ff4fa3;text-align:center;">Hallu, my babyyy! 💖</h2>
+
+<h2 style="color:#ff4fa3;text-align:center;margin-bottom:22px;font-size:24px;">Hallu, my babyyy! 💖</h2>
 
 <p>So ayun… sobrang HS-coded nito for me baby. Ang nostalgic niya sobra. Naluluha nga ako habang ginagawa ko to e, si OA na naman ako hahaha 😭🤣</p>
 
@@ -131,60 +131,19 @@ letter.innerHTML=`
 
 <p style="margin-top:10px;">Love,<br>Cebby — baliw na baliw pa rin sayo 😵‍💫</p>
 
-<button id="closeLetter" style="margin-top:20px;width:100%;padding:12px;border:none;border-radius:30px;background:#ff4fa3;color:white;">Close 💌</button>
+<button id="closeLetter" style="margin-top:15px;width:100%;padding:12px;border:none;border-radius:30px;background:#ff4fa3;color:white;">Close 💌</button>
 </div>`;
 document.body.appendChild(letter);
 
-//////////////////// PETALS ////////////////////
-function spawnPetal(){
- if(!letterOpen) return;
- const petal=document.createElement("div");
- petal.innerHTML="🌸";
- petal.style.position="fixed";
- petal.style.top="-40px";
- petal.style.left=Math.random()*100+"vw";
- petal.style.fontSize="18px";
- petal.style.pointerEvents="none";
- petal.style.zIndex="99998";
- document.body.appendChild(petal);
- petal.animate([{transform:"translateY(0)"},{transform:"translateY(110vh)"}],{duration:9000});
- setTimeout(()=>petal.remove(),9000);
-}
 
-//////////////////// BUTTERFLIES ////////////////////
-function flyButterfly(){
- if(!letterOpen) return;
- const card=document.getElementById("letterCard");
- if(!card) return;
- const butterfly=document.createElement("video");
- butterfly.src="butterfly.webm";
- butterfly.autoplay=true;
- butterfly.muted=true;
- butterfly.playsInline=true;
- butterfly.style.filter=`hue-rotate(${Math.random()*360}deg) saturate(260%)`;
- butterfly.style.position="absolute";
- butterfly.style.width="220px";
- butterfly.style.pointerEvents="none";
- butterfly.style.left=Math.random()*70+"%";
- butterfly.style.top=Math.random()*70+"%";
- card.appendChild(butterfly);
- butterfly.animate([{transform:"translate(0,0)"},{transform:`translate(${(Math.random()*120)-60}px, ${(Math.random()*120)-60}px)`}],{duration:9000});
- setTimeout(()=>butterfly.remove(),9000);
-}
-
-//////////////////// TAP 10 ////////////////////
-let taps=0, letterOpen=false;
+// open after 10 taps
+let taps=0;
 document.addEventListener("click", function(e){
- if(e.target.id==="closeLetter"){letter.style.display="none";letterOpen=false;taps=0;return;}
- if(letterOpen) return;
+ if(e.target.id==="closeLetter"){letter.style.display="none";taps=0;return;}
  taps++;
- if(taps>=10){
-   letter.style.display="flex";
-   letterOpen=true;
-   setInterval(spawnPetal,2500);
-   setInterval(flyButterfly,9000);
- }
+ if(taps>=10) letter.style.display="flex";
 });
 
-}
+};
+
 });
