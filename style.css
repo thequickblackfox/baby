@@ -198,9 +198,13 @@ p{
 }
 
 #ginayumaText{
-  font-size:clamp(24px, 6.5vw, 38px);
-  padding:0 15px;
   text-align:center;
+  white-space:nowrap;          /* ⭐ prevents line break */
+  overflow:hidden;             
+  text-overflow:ellipsis;      /* prevents overflow on super tiny phones */
+  font-size:clamp(18px, 6vw, 38px);
+  padding:0 10px;
+  margin:10px 0 15px;
 }
 
 /* GIF sizing */
