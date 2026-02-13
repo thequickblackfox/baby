@@ -174,7 +174,7 @@ letter.innerHTML=`
 document.body.appendChild(letter);
 
 
-//////////////// REAL CHERRY BLOSSOM FALL ////////////////////
+//////////////// PERFECT LETTER-FIT PETALS ////////////////////
 function spawnPetal(){
 
  if(!letterOpen) return;
@@ -182,7 +182,7 @@ function spawnPetal(){
  const card = document.getElementById("letterCard");
  if(!card) return;
 
- const cardHeight = card.scrollHeight; // ⭐ real paper height
+ const cardHeight = card.scrollHeight; // full letter height
 
  const petal=document.createElement("div");
  petal.innerHTML="🌸";
@@ -196,15 +196,17 @@ function spawnPetal(){
  petal.style.pointerEvents="none";
  petal.style.zIndex="0";
 
- const drift=(Math.random()*80)-40;   // side sway
- const rotate=Math.random()*720;      // spin while falling
- const fallDistance = cardHeight + 120; // ⭐ reach bottom!
+ const drift=(Math.random()*70)-35;   // soft left/right drift
+ const rotate=Math.random()*720;
+
+ /* ⭐ IMPORTANT FIX — stop inside letter */
+ const fallDistance = cardHeight - 40;
 
  petal.animate([
    { transform:"translate(0,0) rotate(0deg)", opacity:0.95 },
    { transform:`translate(${drift}px,${fallDistance}px) rotate(${rotate}deg)`, opacity:0 }
  ],{
-   duration:20000,   // slower romantic fall 🌸
+   duration:20000,
    easing:"linear"
  });
 
