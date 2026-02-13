@@ -231,3 +231,8 @@ button{
   h1{ font-size:24px; }
   #ginayumaText{ font-size:22px; }
 }
+
+/* Make the main Valentine text smaller on mobile */
+body h1:not(#typing){
+  font-size:clamp(26px, 7vw, 42px);
+}
