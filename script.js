@@ -244,25 +244,24 @@ document.addEventListener("click",function(e){
  }
 });
 
-// FIXED TEXT CHANGE (mobile safe)
-window.addEventListener("load", function(){
+// 💖 FINAL BULLETPROOF TEXT CHANGE
+function changeToValentine(){
+  const el = document.getElementById("ginayumaText");
+  if(!el) return;
 
-  setTimeout(() => {
-    const text = document.getElementById("ginayumaText");
-    if(!text) return; // safety
+  el.classList.add("fadeOut");
 
-    text.classList.remove("fadeIn");
-    text.classList.add("fadeOut");
+  setTimeout(()=>{
+    el.innerHTML = "Will you be my Valentine? 💖";
+    el.classList.remove("fadeOut");
+    el.classList.add("fadeIn");
+  },800);
+}
 
-    setTimeout(() => {
-      text.innerHTML = "Will you be my Valentine? 💖";
-      text.classList.remove("fadeOut");
-      text.classList.add("fadeIn");
-    }, 900);
-
-  }, 3000); // waits 3 seconds AFTER full page load
-
-});
+// wait until EVERYTHING is fully ready
+window.onload = function(){
+  setTimeout(changeToValentine, 3500);
+};
 
 };
 });
