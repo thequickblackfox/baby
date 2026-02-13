@@ -183,3 +183,14 @@ button{
 .question.show{
   opacity:1;
 }
+
+/* REMOVE GAP ABOVE QUESTION */
+.question{
+  opacity:0;
+  transition:opacity 1.2s ease;
+  margin-top:5px;     /* smaller space */
+}
+
+#valentineGif{
+  margin-bottom:5px;  /* reduce space under gif */
+}
