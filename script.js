@@ -92,7 +92,7 @@ function typeLove(){ if(j<msg.length){document.getElementById("loveMsg").innerHT
 typeLove();
 
 
-// 🎵 SAFE MUSIC
+// 🎵 MUSIC
 const music=new Audio("music.mp3");
 music.loop=true;
 music.volume=0;
@@ -120,8 +120,7 @@ letter.style.overflowY="auto";
 
 letter.innerHTML=`
 <div id="letterCard" style="position:relative;background:#fffafc;width:92%;max-width:420px;max-height:82vh;margin:auto;padding:26px 22px 24px;font-family:Poppins;line-height:1.7;overflow:auto;box-shadow:0 20px 60px rgba(0,0,0,.25);border-radius:26px;text-align:justify;">
-
-<div id="fxLayer" style="position:absolute; inset:0; z-index:1; pointer-events:none;"></div>
+<div id="fxLayer" style="position:absolute; inset:0; pointer-events:none;"></div>
 
 <h2 style="color:#ff4fa3;text-align:center;margin-bottom:22px;font-size:24px;">Hallu, my babyyy! 💖</h2>
 
@@ -142,60 +141,61 @@ document.body.appendChild(letter);
 
 let letterOpen=false;
 
-
-// 🌸 PETALS (behind text)
+// 🌸 PETALS reach bottom
 function spawnPetal(){
  if(!letterOpen) return;
  const layer=document.getElementById("fxLayer");
- if(!layer) return;
+ const card=document.getElementById("letterCard");
+ if(!layer || !card) return;
+
+ const rect=card.getBoundingClientRect();
+ const travel=rect.height+80;
 
  const petal=document.createElement("div");
  petal.innerHTML="🌸";
  petal.style.position="absolute";
  petal.style.left=Math.random()*90+"%";
  petal.style.top="-40px";
- petal.style.fontSize="22px";
- petal.style.opacity="0.6";
  layer.appendChild(petal);
 
  petal.animate([
   {transform:"translateY(0)"},
-  {transform:"translateY(520px)"}
- ],{duration:9000,easing:"linear"});
+  {transform:`translateY(${travel}px)`}
+ ],{duration:10000,easing:"linear"});
 
- setTimeout(()=>petal.remove(),9000);
+ setTimeout(()=>petal.remove(),10000);
 }
 
-
-// 🦋 ONE BUTTERFLY AT A TIME
+// 🦋 REAL BUTTERFLY WEBM
 function spawnButterfly(){
  if(!letterOpen || window.butterflyAlive) return;
  window.butterflyAlive=true;
 
  const layer=document.getElementById("fxLayer");
- if(!layer) return;
-
- const butterfly=document.createElement("div");
- butterfly.innerHTML="🦋";
+ const butterfly=document.createElement("video");
+ butterfly.src="butterfly.webm";
+ butterfly.autoplay=true;
+ butterfly.muted=true;
+ butterfly.loop=true;
+ butterfly.playsInline=true;
  butterfly.style.position="absolute";
- butterfly.style.fontSize="42px";
+ butterfly.style.width="160px";
  butterfly.style.left=Math.random()*80+"%";
- butterfly.style.top=Math.random()*80+"%";
+ butterfly.style.top=Math.random()*70+"%";
  layer.appendChild(butterfly);
 
  butterfly.animate([
   {transform:"translate(0,0)"},
-  {transform:`translate(${Math.random()*120-60}px, ${Math.random()*120-60}px)`}
- ],{duration:9000,easing:"ease-in-out"});
+  {transform:`translate(${Math.random()*200-100}px,${Math.random()*160-80}px)`}
+ ],{duration:12000,easing:"ease-in-out"});
 
  setTimeout(()=>{
   butterfly.remove();
   window.butterflyAlive=false;
- },9000);
+ },12000);
 }
 
-
-// open after 10 taps
+// tap open
 let taps=0;
 document.addEventListener("click", function(e){
  if(e.target.id==="closeLetter"){letter.style.display="none";letterOpen=false;taps=0;return;}
@@ -204,8 +204,8 @@ document.addEventListener("click", function(e){
    letter.style.display="flex";
    letterOpen=true;
    spawnButterfly();
-   setInterval(spawnPetal,9000);
-   setInterval(spawnButterfly,10000);
+   setInterval(spawnPetal,8000);
+   setInterval(spawnButterfly,15000);
  }
 });
 
