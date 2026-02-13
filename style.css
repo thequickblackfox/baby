@@ -172,3 +172,10 @@ button{
   z-index:5;
   filter:saturate(1.4) contrast(1.1);
 }
+
+#ginayumaText{
+  font-size:38px;
+  color:#ff4d88;
+  margin:10px 0 15px;
+  transition:all .8s ease;
+}
