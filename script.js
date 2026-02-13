@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
 //////////////////// TYPING INTRO ////////////////////
 const text="To: Jeam Abby Keith Panganiban 😊";
 let i=0;
+let letterOpen = false;
 function type(){
  if(i < text.length){
    document.getElementById("typing").innerHTML += text.charAt(i);
