@@ -92,7 +92,7 @@ function typeLove(){ if(j<msg.length){document.getElementById("loveMsg").innerHT
 typeLove();
 
 
-// 🎵 SAFE MUSIC (added only)
+// 🎵 SAFE MUSIC
 const music=new Audio("music.mp3");
 music.loop=true;
 music.volume=0;
@@ -120,80 +120,50 @@ letter.style.overflowY="auto";
 
 letter.innerHTML=`
 <div id="letterCard" style="position:relative;background:#fffafc;width:92%;max-width:420px;max-height:82vh;margin:auto;padding:26px 22px 24px;font-family:Poppins;line-height:1.7;overflow:auto;box-shadow:0 20px 60px rgba(0,0,0,.25);border-radius:26px;text-align:justify;text-justify:inter-word;">  
-
 <h2 style="color:#ff4fa3;text-align:center;margin-bottom:22px;font-size:24px;">Hallu, my babyyy! 💖</h2>
-
 <p>So ayun… sobrang HS-coded nito for me baby. Ang nostalgic niya sobra. Naluluha nga ako habang ginagawa ko to e, si OA na naman ako hahaha 😭🤣</p>
 <p>Ito pala yung sinasabi ko baby na may na-realize ako. Dito talaga nagsimula yung interest ko sa computers. Dati akala ko puro games lang siya… pero hindi pala. This was my first love. Ito yung bumuhay sakin noon, at dito ko rin nakuha yung first paycheck ko.</p>
 <p>Kung ano man narating ko ngayon, nagsimula lahat sa basic HTML na to 🥹</p>
 <p>Kaya thank you talaga baby. Thank you sa buhay mo, at thank you rin sa dad mo na hindi ka niya pinutok sa tiyan ng mom mo 🤣</p>
 <p>Thank you kasi dumating ka sa buhay ko. Thank you kasi kahit nabuburnout ako sa work, nung naalala ko to parang gusto ko pang mag-extend ng mga five years eme haha.</p>
-<p>Thank you kasi dumating ka sa buhay ko. Thank you kasi kahit nabuburnout ako sa work, nung naalala ko to parang gusto ko pang mag-extend ng mga five years eme haha.</p>
-<p>Thank you… binuhay mo ako. Thank you for making me do this kahit hindi mo naman ako inutusan. Thank you for being my inspiration without even trying.</p>
-<p>Sobrang mais ko na ba? HAHAHAHAHA OKI BYE NA GAROD!</p>
-<p style="font-weight:bold;margin-top:18px;">I love you, my baby abby! 💗😚😚😚</p>
-<p style="margin-top:10px;">Love,<br>Cebby — baliw na baliw pa rin sayo 😵‍💫</p>
-
+<p>Thank you… binuhay mo ako. Thank you for making me do this kahit hindi mo naman ako inutusan.</p>
 <button id="closeLetter" style="margin-top:15px;width:100%;padding:12px;border:none;border-radius:30px;background:#ff4fa3;color:white;">Close 💌</button>
 </div>`;
 document.body.appendChild(letter);
 
-// 🌸 PHYSICS CORRECT PETALS
+let letterOpen=false;
+let butterflyAlive=false;
+
 function spawnPetal(){
-
  if(!letterOpen) return;
-
- const card = document.getElementById("letterCard");
- if(!card) return;
-
- const rect = card.getBoundingClientRect();
- const startY = rect.top - 60;
- const endY   = rect.bottom + 60;
- const travel = endY - startY;
-
- const petal = document.createElement("div");
+ const card=document.getElementById("letterCard");
+ const petal=document.createElement("div");
  petal.innerHTML="🌸";
- petal.style.position="fixed";
- petal.style.top=startY+"px";
- petal.style.left=rect.left + Math.random()*rect.width + "px";
- petal.style.fontSize=(Math.random()*10+18)+"px";
- petal.style.pointerEvents="none";
- petal.style.zIndex="99998";
-
- document.body.appendChild(petal);
-
- const drift=(Math.random()*160)-80;
- const rotate=Math.random()*360;
-
- petal.animate([
-   { transform:"translate(0,0) rotate(0deg)", opacity:1 },
-   { transform:`translate(${drift}px, ${travel}px) rotate(${rotate}deg)`, opacity:0 }
- ],{ duration:9000, easing:"linear" });
-
- setTimeout(()=>petal.remove(),9000);
+ petal.style.position="absolute";
+ petal.style.left=Math.random()*90+"%";
+ petal.style.top="-40px";
+ card.appendChild(petal);
+ const cardHeight=card.scrollHeight;
+ petal.animate([{transform:"translateY(0)"},{transform:`translateY(${cardHeight}px)`}],{duration:12000});
+ setTimeout(()=>petal.remove(),12000);
 }
 
-
-// 🦋 butterflies
-function flyRealButterfly(){
+function spawnButterfly(){
+ if(!letterOpen || butterflyAlive) return;
+ butterflyAlive=true;
  const card=document.getElementById("letterCard");
- if(!card) return;
  const butterfly=document.createElement("video");
  butterfly.src="butterfly.webm";
  butterfly.autoplay=true; butterfly.muted=true; butterfly.playsInline=true;
  butterfly.style.position="absolute";
- butterfly.style.width="230px";
- butterfly.style.pointerEvents="none";
+ butterfly.style.width="220px";
  butterfly.style.left=Math.random()*70+"%";
  butterfly.style.top=Math.random()*70+"%";
  card.appendChild(butterfly);
- butterfly.animate([{transform:"translate(0,0)"},{transform:`translate(${(Math.random()*80)-40}px, ${(Math.random()*80)-40}px)`}],{duration:9000});
- setTimeout(()=>butterfly.remove(),9000);
+ butterfly.animate([{transform:"translate(0,0)"},{transform:`translate(${Math.random()*200-100}px,${Math.random()*200-100}px)`}],{duration:9000});
+ setTimeout(()=>{butterfly.remove();butterflyAlive=false;},9000);
 }
 
-
-
-// open after 10 taps
 let taps=0;
 document.addEventListener("click", function(e){
  if(e.target.id==="closeLetter"){letter.style.display="none";letterOpen=false;taps=0;return;}
@@ -202,7 +172,7 @@ document.addEventListener("click", function(e){
    letter.style.display="flex";
    letterOpen=true;
    spawnButterfly();
-   setInterval(spawnPetal,6000);
+   setInterval(spawnPetal,9000);
    setInterval(spawnButterfly,10000);
  }
 });
