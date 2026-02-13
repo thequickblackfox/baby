@@ -11,6 +11,18 @@ function type(){
  }}
 type();
 
+// 💖 FADE SWITCH QUESTION (PASTE HERE AT THE BOTTOM)
+setTimeout(() => {
+  const first = document.getElementById("ginayumaQuestion");
+  const second = document.getElementById("valentineQuestion");
+
+  first.classList.remove("show"); // fade out Ginayuma
+
+  setTimeout(() => {
+    second.classList.add("show"); // fade in Valentine
+  }, 1200);
+
+}, 2500);
 
 //////////////////// HEART BURST CLICK ////////////////////
 document.addEventListener("click", function(e){
