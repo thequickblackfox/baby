@@ -138,65 +138,59 @@ letter.innerHTML=`
 </div>`;
 document.body.appendChild(letter);
 
-// 🌸 FINAL PETALS (FULL HEIGHT)
+// 🌸 PHYSICS CORRECT PETALS
 function spawnPetal(){
- if(!letterOpen) return;
- const card=document.getElementById("letterCard");
- const rect=card.getBoundingClientRect();
- const startY=rect.top-60;
- const endY=rect.bottom+60;
- const travel=endY-startY;
 
- const petal=document.createElement("div");
+ if(!letterOpen) return;
+
+ const card = document.getElementById("letterCard");
+ if(!card) return;
+
+ const rect = card.getBoundingClientRect();
+ const startY = rect.top - 60;
+ const endY   = rect.bottom + 60;
+ const travel = endY - startY;
+
+ const petal = document.createElement("div");
  petal.innerHTML="🌸";
  petal.style.position="fixed";
  petal.style.top=startY+"px";
- petal.style.left=rect.left+Math.random()*rect.width+"px";
+ petal.style.left=rect.left + Math.random()*rect.width + "px";
  petal.style.fontSize=(Math.random()*10+18)+"px";
  petal.style.pointerEvents="none";
- petal.style.zIndex="100000";
+ petal.style.zIndex="99998";
+
  document.body.appendChild(petal);
 
+ const drift=(Math.random()*160)-80;
+ const rotate=Math.random()*360;
+
  petal.animate([
- {transform:"translate(0,0)",opacity:1},
- {transform:`translate(${(Math.random()*160)-80}px,${travel}px)`,opacity:0}
- ],{duration:9000,easing:"linear"});
+   { transform:"translate(0,0) rotate(0deg)", opacity:1 },
+   { transform:`translate(${drift}px, ${travel}px) rotate(${rotate}deg)`, opacity:0 }
+ ],{ duration:9000, easing:"linear" });
 
  setTimeout(()=>petal.remove(),9000);
 }
 
-//////////////// 🦋 ONE RANDOM BUTTERFLY (added)
-function spawnButterfly(){
- if(!letterOpen || butterflyAlive) return;
- butterflyAlive=true;
 
+// 🦋 butterflies
+function flyRealButterfly(){
  const card=document.getElementById("letterCard");
+ if(!card) return;
  const butterfly=document.createElement("video");
  butterfly.src="butterfly.webm";
- butterfly.autoplay=true;
- butterfly.muted=true;
- butterfly.playsInline=true;
+ butterfly.autoplay=true; butterfly.muted=true; butterfly.playsInline=true;
  butterfly.style.position="absolute";
- butterfly.style.width="220px";
- butterfly.style.filter=`hue-rotate(${Math.random()*360}deg) saturate(260%)`;
+ butterfly.style.width="230px";
  butterfly.style.pointerEvents="none";
  butterfly.style.left=Math.random()*70+"%";
  butterfly.style.top=Math.random()*70+"%";
  card.appendChild(butterfly);
-
- const x1=(Math.random()*200)-100;
- const y1=(Math.random()*200)-100;
- const x2=(Math.random()*200)-100;
- const y2=(Math.random()*200)-100;
-
- butterfly.animate([
-  {transform:"translate(0,0)"},
-  {transform:`translate(${x1}px,${y1}px)`},
-  {transform:`translate(${x2}px,${y2}px)`}
- ],{duration:9000,easing:"ease-in-out"});
-
- setTimeout(()=>{butterfly.remove();butterflyAlive=false;},9000);
+ butterfly.animate([{transform:"translate(0,0)"},{transform:`translate(${(Math.random()*80)-40}px, ${(Math.random()*80)-40}px)`}],{duration:9000});
+ setTimeout(()=>butterfly.remove(),9000);
 }
+
 
 
 // open after 10 taps
