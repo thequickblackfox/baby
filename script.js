@@ -129,92 +129,79 @@ letter.style.overflowY="auto";
 letter.innerHTML=`
 <div id="letterCard" style="background:#fffafc;width:92%;max-width:420px;max-height:82vh;margin:auto;padding:26px 22px 24px;font-family:Poppins;line-height:1.7;overflow:auto;box-shadow:0 20px 60px rgba(0,0,0,.25);border-radius:26px;text-align:justify;text-justify:inter-word;">  
 <h2 style="color:#ff4fa3;text-align:center;margin-bottom:22px;font-size:24px;">Hallu, babyyy! 💖</h2>
-
 <p>So ayun, sobrang HS-coded nito for me baby. Ang nostalgic niya sobra. Naluluha nga ako habang ginagawa ko to e, si OA na naman ako hahaha 😭🤣</p>
-
 <p>Ito pala yung sinasabi ko baby na may na-realize ako. Dito talaga nagsimula yung interest ko sa computers. Dati akala ko puro games lang siya, pero hindi pala. This was my first love. Ito yung bumuhay sakin noon, at dito ko rin nakuha yung first paycheck ko.</p>
-
 <p>Kung ano man narating ko ngayon, nagsimula lahat sa basic HTML na ’to 🥹</p>
-
 <p>Kaya thank you talaga baby. Thank you sa buhay mo, at thank you rin sa dad mo na hindi ka niya pinutok sa tiyan ng mom mo 🤣</p>
-
 <p>Thank you kasi dumating ka sa buhay ko. Thank you kasi kahit nabuburnout ako sa work, nung naalala ko ’to parang gusto ko pang mag-extend ng mga five years eme haha. Thank you, binuhay mo ako. Thank you for making me do this kahit hindi mo naman ako inutusan.</p>
-
 <p style="font-weight:bold;margin-top:18px;">I love you, my baby abby! 😚😚😚💗</p>
 <p style="margin-top:10px;">Love, 😌<br>Cebby — baliw na baliw pa rin sayo</p>
-
 <button id="closeLetter" style="margin-top:15px;width:100%;padding:12px;border:none;border-radius:30px;background:#ff4fa3;color:white;">Close 💌</button>
 </div>`;
 document.body.appendChild(letter);
 
 
-// ⭐ OPEN/CLOSE LOGIC — 10 TAPS
+// 🌸 petals
+function spawnPetal(){
+ if(!letterOpen) return;
+ const petal=document.createElement("div");
+ petal.innerHTML="🌸";
+ petal.style.position="fixed";
+ petal.style.top="-40px";
+ petal.style.left=Math.random()*100+"vw";
+ petal.style.fontSize=(Math.random()*10+18)+"px";
+ petal.style.pointerEvents="none";
+ petal.style.zIndex="999999";
+ document.body.appendChild(petal);
+ petal.animate([{transform:"translate(0,0)"},{transform:`translate(${(Math.random()*200)-100}px,110vh)`}],{duration:9000});
+ setTimeout(()=>petal.remove(),9000);
+}
+
+
+// 🦋 butterfly
+function flyRealButterfly(){
+ const card=document.getElementById("letterCard");
+ if(!card) return;
+ const butterfly=document.createElement("video");
+ butterfly.src="butterfly.webm";
+ butterfly.autoplay=true; butterfly.muted=true; butterfly.playsInline=true;
+ const colors=[0,40,90,140,190,230,280,320];
+ const hue=colors[Math.floor(Math.random()*colors.length)];
+ butterfly.style.position="absolute";
+ butterfly.style.width="230px";
+ butterfly.style.pointerEvents="none";
+ butterfly.style.background="transparent";
+ butterfly.style.objectFit="contain";
+ butterfly.style.filter=`hue-rotate(${hue}deg) saturate(260%) contrast(115%)`;
+ butterfly.style.left=Math.random()*70+"%";
+ butterfly.style.top=Math.random()*70+"%";
+ card.appendChild(butterfly);
+ butterfly.animate([{transform:"translate(0,0)"},{transform:`translate(${(Math.random()*80)-40}px, ${(Math.random()*80)-40}px)`}],{duration:9000});
+ setTimeout(()=>butterfly.remove(),9000);
+}
+
+
+// ⭐ enable easter egg AFTER YES page loads
 let taps=0;
 let letterOpen=false;
 
-
-// 🌸 CHERRY BLOSSOM PETALS
-function spawnPetal(){
-  if(!letterOpen) return;
-  const petal=document.createElement("div");
-  petal.innerHTML="🌸";
-  petal.style.position="fixed";
-  petal.style.top="-40px";
-  petal.style.left=Math.random()*100+"vw";
-  petal.style.fontSize=(Math.random()*10+18)+"px";
-  petal.style.pointerEvents="none";
-  petal.style.zIndex="999999";
-  document.body.appendChild(petal);
-  const drift=(Math.random()*200)-100;
-  const rotate=Math.random()*360;
-  petal.animate([
-    { transform:"translate(0,0) rotate(0deg)", opacity:1 },
-    { transform:`translate(${drift}px,110vh) rotate(${rotate}deg)`, opacity:0 }
-  ],{ duration:9000, easing:"linear" });
-  setTimeout(()=>petal.remove(),9000);
+function enableEasterEgg(){
+ document.addEventListener("click", function(e){
+  if(e.target && e.target.id==="closeLetter"){ letter.style.display="none"; letterOpen=false; taps=0; return; }
+  if(letterOpen) return;
+  taps++;
+  if(taps>=10){
+   letter.style.display="flex";
+   letterOpen=true;
+   flyRealButterfly();
+   setInterval(flyRealButterfly,9000);
+   setInterval(spawnPetal,400);
+  }
+ });
 }
 
-
-// 🦋 RANDOM COLOR BUTTERFLY
-function flyRealButterfly(){
-  const card=document.getElementById("letterCard");
-  if(!card) return;
-  const butterfly=document.createElement("video");
-  butterfly.src="butterfly.webm";
-  butterfly.autoplay=true;
-  butterfly.muted=true;
-  butterfly.playsInline=true;
-  const colors=[0,40,90,140,190,230,280,320];
-  const hue=colors[Math.floor(Math.random()*colors.length)];
-  butterfly.style.position="absolute";
-  butterfly.style.width="230px";
-  butterfly.style.pointerEvents="none";
-  butterfly.style.background="transparent";
-  butterfly.style.objectFit="contain";
-  butterfly.style.isolation="isolate";
-  butterfly.style.filter=`hue-rotate(${hue}deg) saturate(260%) contrast(115%) brightness(100%)`;
-  butterfly.style.left=Math.random()*70+"%";
-  butterfly.style.top=Math.random()*70+"%";
-  card.appendChild(butterfly);
-  butterfly.animate([
-    { transform:"translate(0,0)" },
-    { transform:`translate(${(Math.random()*80)-40}px, ${(Math.random()*80)-40}px)` },
-    { transform:`translate(${(Math.random()*80)-40}px, ${(Math.random()*80)-40}px)` }
-  ],{ duration:9000, easing:"ease-in-out" });
-  setTimeout(()=>butterfly.remove(),9000);
-}
-
-document.addEventListener("click", function(e){
-if(e.target && e.target.id==="closeLetter"){ letter.style.display="none"; letterOpen=false; taps=0; return; }
-if(letterOpen) return;
-taps++;
-if(taps>=10){
-letter.style.display="flex";
-letterOpen=true;
-flyRealButterfly();
-setInterval(flyRealButterfly,9000);
-setInterval(spawnPetal,400);
-}
-});
+enableEasterEgg();
 
 };
+
+});
