@@ -179,3 +179,51 @@ button{
   margin:10px 0 15px;
   transition:all .8s ease;
 }
+
+/* ============================= */
+/* 📱 MOBILE & TABLET RESPONSIVE */
+/* ============================= */
+
+/* Base scaling (works on all screens) */
+h1{
+  font-size:clamp(26px, 6vw, 42px);
+  line-height:1.25;
+  padding:0 15px;
+}
+
+p{
+  font-size:clamp(15px, 3.8vw, 18px);
+  padding:0 18px;
+  line-height:1.6;
+}
+
+#ginayumaText{
+  font-size:clamp(24px, 6.5vw, 38px);
+  padding:0 15px;
+  text-align:center;
+}
+
+/* GIF sizing */
+#valentineGif{
+  width:clamp(220px, 70vw, 320px);
+  max-width:90%;
+}
+
+/* Buttons responsive */
+button{
+  font-size:clamp(16px, 4.5vw, 20px);
+  padding:clamp(10px,3vw,14px) clamp(18px,5vw,28px);
+  max-width:90%;
+}
+
+/* Button row spacing */
+.btnRow{
+  gap:12px;
+  flex-wrap:wrap;
+}
+
+/* Extra small phones */
+@media (max-width:380px){
+  h1{ font-size:24px; }
+  #ginayumaText{ font-size:22px; }
+}
