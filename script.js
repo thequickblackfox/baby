@@ -108,27 +108,16 @@ letter.style.overflowY="auto";
 letter.innerHTML=`
 <div style="background:#fffafc;width:92%;max-width:420px;max-height:82vh;margin:auto;padding:26px 22px 24px;font-family:Poppins;line-height:1.7;overflow:auto;box-shadow:0 20px 60px rgba(0,0,0,.25);border-radius:26px;text-align:justify;text-justify:inter-word;">  
 
-
 <h2 style="color:#ff4fa3;text-align:center;margin-bottom:22px;font-size:24px;">Hallu, my babyyy! 💖</h2>
 
 <p>So ayun… sobrang HS-coded nito for me baby. Ang nostalgic niya sobra. Naluluha nga ako habang ginagawa ko to e, si OA na naman ako hahaha 😭🤣</p>
-
 <p>Ito pala yung sinasabi ko baby na may na-realize ako. Dito talaga nagsimula yung interest ko sa computers. Dati akala ko puro games lang siya… pero hindi pala. This was my first love. Ito yung bumuhay sakin noon, at dito ko rin nakuha yung first paycheck ko.</p>
-
 <p>Kung ano man narating ko ngayon, nagsimula lahat sa basic HTML na to 🥹</p>
-
 <p>Kaya thank you talaga baby. Thank you sa buhay mo, at thank you rin sa dad mo na hindi ka niya pinutok sa tiyan ng mom mo 🤣</p>
-
 <p>Thank you kasi dumating ka sa buhay ko. Thank you kasi kahit nabuburnout ako sa work, nung naalala ko to parang gusto ko pang mag-extend ng mga five years eme haha.</p>
-
-<p>Thank you kasi dumating ka sa buhay ko. Thank you kasi kahit nabuburnout ako sa work, nung naalala ko to parang gusto ko pang mag-extend ng mga five years eme haha.</p>
-
 <p>Thank you… binuhay mo ako. Thank you for making me do this kahit hindi mo naman ako inutusan. Thank you for being my inspiration without even trying.</p>
-
 <p>Sobrang mais ko na ba? HAHAHAHAHA OKI BYE NA GAROD!</p>
-
 <p style="font-weight:bold;margin-top:18px;">I love you, my baby abby! 💗😚😚😚</p>
-
 <p style="margin-top:10px;">Love,<br>Cebby — baliw na baliw pa rin sayo 😵‍💫</p>
 
 <button id="closeLetter" style="margin-top:15px;width:100%;padding:12px;border:none;border-radius:30px;background:#ff4fa3;color:white;">Close 💌</button>
@@ -138,11 +127,52 @@ document.body.appendChild(letter);
 
 // open after 10 taps
 let taps=0;
+let letterOpen=false;
+
 document.addEventListener("click", function(e){
- if(e.target.id==="closeLetter"){letter.style.display="none";taps=0;return;}
+ if(e.target.id==="closeLetter"){letter.style.display="none";letterOpen=false;taps=0;return;}
  taps++;
- if(taps>=10) letter.style.display="flex";
+ if(taps>=10){letter.style.display="flex";letterOpen=true;}
 });
+
+
+// 🌸 PETALS
+function spawnPetal(){
+ if(!letterOpen) return;
+ const petal=document.createElement("div");
+ petal.innerHTML="🌸";
+ petal.style.position="fixed";
+ petal.style.top="-40px";
+ petal.style.left=Math.random()*100+"vw";
+ petal.style.fontSize="18px";
+ petal.style.zIndex="99998";
+ document.body.appendChild(petal);
+ petal.animate([{transform:"translateY(0)"},{transform:"translateY(110vh)"}],{duration:9000});
+ setTimeout(()=>petal.remove(),9000);
+}
+setInterval(spawnPetal,2500);
+
+
+// 🦋 BUTTERFLIES
+function flyButterfly(){
+ if(!letterOpen) return;
+ const card=document.querySelector("div[style*='background:#fffafc']");
+ if(!card) return;
+ const butterfly=document.createElement("video");
+ butterfly.src="butterfly.webm";
+ butterfly.autoplay=true;
+ butterfly.muted=true;
+ butterfly.playsInline=true;
+ butterfly.style.filter=`hue-rotate(${Math.random()*360}deg) saturate(260%)`;
+ butterfly.style.position="absolute";
+ butterfly.style.width="220px";
+ butterfly.style.left=Math.random()*70+"%";
+ butterfly.style.top=Math.random()*70+"%";
+ card.appendChild(butterfly);
+ butterfly.animate([{transform:"translate(0,0)"},{transform:`translate(${(Math.random()*120)-60}px, ${(Math.random()*120)-60}px)`}],{duration:9000});
+ setTimeout(()=>butterfly.remove(),9000);
+}
+setInterval(flyButterfly,9000);
 
 };
 
