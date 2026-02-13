@@ -61,6 +61,22 @@ setTimeout(()=>heart.remove(),9000);
 const noBtn=document.getElementById("noBtn");
 const yesBtn=document.getElementById("yesBtn");
 
+// 💖 FADE SWITCH QUESTION (Ginayuma → Valentine)
+setTimeout(() => {
+  const first = document.getElementById("ginayumaQuestion");
+  const second = document.getElementById("valentineQuestion");
+
+  if(first && second){
+    first.classList.remove("show");
+
+    setTimeout(() => {
+      second.classList.add("show");
+    }, 1200);
+  }
+
+}, 2500);
+});
+
 const msgs=[
 "sure na yarn, baby? 🥺","aww, that hurts my feelings, baby 😭",
 "it's a love story, baby, just say, YES 🥰","oops, wrong button nganiii 🙄",
@@ -140,22 +156,6 @@ setInterval(()=>{
  }
 },2000);
 
-// 💖 FADE SWITCH QUESTION (Ginayuma → Valentine)
-setTimeout(() => {
-  const first = document.getElementById("ginayumaQuestion");
-  const second = document.getElementById("valentineQuestion");
-
-  if(first && second){
-    first.classList.remove("show"); // fade out first text
-
-    setTimeout(() => {
-      second.classList.add("show"); // fade in second text
-    }, 1200);
-  }
-
-}, 2500);
-
-});
 
 //////////////////// CREATE EASTER EGG LETTER ////////////////////
 const letter=document.createElement("div");
