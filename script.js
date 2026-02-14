@@ -47,6 +47,7 @@ heart.style.bottom="-30px";
 heart.style.fontSize=(Math.random()*12+16)+"px";
 heart.style.opacity="0.6";
 heart.style.pointerEvents="none";
+heart.style.zIndex="9000";
 document.body.appendChild(heart);
 
 heart.animate([
@@ -135,6 +136,7 @@ setInterval(()=>{
   heart.style.left=centerX+"px";
   heart.style.top=centerY+"px";
   heart.style.fontSize="22px";
+  heart.style.zIndex="9000";
   document.body.appendChild(heart);
   const angle=Math.random()*2*Math.PI;
   const distance=Math.random()*200+50;
