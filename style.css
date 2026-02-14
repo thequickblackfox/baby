@@ -244,7 +244,7 @@ button{
 
 /* n2 CENTER BELOW TEXT (raised a bit) */
 .n2{
-  top:74%;
+  top:70%;
   left:50%;
   transform:translateX(-50%) rotate(-3deg);
 }
@@ -272,7 +272,7 @@ button{
   }
 
   .n2{
-    top:76%;
+    top:72%;
     left:50%;
     transform:translateX(-50%) rotate(-3deg);
   }
@@ -301,7 +301,7 @@ button{
   }
 
   .n2{
-    top:80%;
+    top:76%;
     left:50%;
     transform:translateX(-50%) rotate(-3deg);
   }
