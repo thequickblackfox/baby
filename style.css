@@ -203,7 +203,17 @@ button{
   font-family:"Comic Sans MS", cursive;
   box-shadow:0 6px 14px rgba(0,0,0,0.15);
   animation: floatNote 4s ease-in-out infinite alternate;
+border:1px solid rgba(0,0,0,0.08); /* little paper edge */
 }
+
+/* 🎨 STICKY NOTE COLORS */
+.n1{ background:#fff3a6; } /* yellow */
+.n2{ background:#ffd1dc; } /* pink */
+.n3{ background:#c9f7e8; } /* mint */
+.n4{ background:#d7c6ff; } /* lavender */
+.n5{ background:#ffdfba; } /* peach */
+.n6{ background:#bde0fe; } /* baby blue */
+
 .note{
   position:absolute;
   pointer-events:none;
