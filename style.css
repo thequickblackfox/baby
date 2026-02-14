@@ -247,17 +247,19 @@ body{
   padding:20px;
 }
 
+/* 💖 FLOAT AROUND CENTER (MOBILE) */
 @media (max-width:600px){
 
-  /* top notes */
-  .n1{ top:95px; left:10px; }
-  .n2{ top:95px; right:10px; }
+  /* top floating notes */
+  .n1{ top:12%; left:8%; }
+  .n2{ top:12%; right:8%; }
 
-  /* ⭐ MOVE SIDE NOTES ABOVE GIF */
-  .n3{ top:155px; left:10px; }
-  .n4{ top:155px; right:10px; }
+  /* mid floating notes near text */
+  .n3{ top:32%; left:5%; }
+  .n4{ top:32%; right:5%; }
 
-  /* bottom notes */
-  .n5{ bottom:170px; left:10px; }
-  .n6{ bottom:170px; right:10px; }
+  /* bottom floating notes near heart 7 */
+  .n5{ top:70%; left:10%; }
+  .n6{ top:70%; right:10%; }
+
 }
