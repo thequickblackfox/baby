@@ -115,8 +115,8 @@ document.body.innerHTML=`
 <div id="yesScreen">
   <div id="yesContent">
 
-    <img src="https://media3.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif"
-    style="width:320px;max-width:85vw;border-radius:20px;margin-bottom:15px;">
+  <img src="https://media3.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif"
+style="width:320px;max-width:85vw;border-radius:20px;margin-bottom:15px; position:relative; z-index:1;">
 
     <h1 id="yesText" style="font-family:Pacifico;">She said YES gaizzz!!! 💕</h1>
 
