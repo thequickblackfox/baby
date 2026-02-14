@@ -182,6 +182,8 @@ document.body.appendChild(letter);
 
 
 //////////////// PERFECT LETTER-FIT PETALS ////////////////////
+let letterOpen = false;
+
 function spawnPetal(){
 
  if(!letterOpen) return;
