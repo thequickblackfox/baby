@@ -224,3 +224,21 @@ body{
   min-height:100vh;
   overflow:hidden; /* prevents scrolling */
 }
+
+/* FULLSCREEN LOCK FOR YES PAGE */
+#yesScreen{
+  position:fixed;
+  inset:0;
+  width:100vw;
+  height:100vh;
+  overflow:hidden;      /* prevents scroll on all devices */
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+/* centered content */
+#yesContent{
+  text-align:center;
+  padding:20px;
+}
