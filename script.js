@@ -112,7 +112,15 @@ document.body.innerHTML=`
   <div class="note n6">You make me happy 💞</div>
 </div>
 
-<div style="padding:30px; max-width:520px; margin:auto; text-align:center;">
+<div style="
+height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+padding:20px;
+">
 
 <img src="https://media3.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif" 
 style="width:320px;max-width:85vw;border-radius:20px;margin-bottom:15px;">
