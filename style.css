@@ -186,6 +186,11 @@ button{
   z-index:0;
 }
 
+#yesText{
+  position:relative;
+  z-index:2;
+}
+
 .note{
   position:absolute;
   width:120px;
