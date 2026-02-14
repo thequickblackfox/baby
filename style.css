@@ -180,8 +180,11 @@ button{
 }
 
 .sticky-notes{
-  position:fixed;   /* ⭐ important change */
-  inset:0;
+  position:fixed;   /* ⭐ THIS IS THE FIX */
+  top:0;
+  left:0;
+  width:100vw;
+  height:100vh;
   pointer-events:none;
   z-index:0;
 }
@@ -195,13 +198,16 @@ button{
   position:absolute;
   width:120px;
   padding:10px;
-  font-size:13px;
+  font-size:14px;
   border-radius:10px;
   font-family:"Comic Sans MS", cursive;
   box-shadow:0 6px 14px rgba(0,0,0,0.15);
   animation: floatNote 4s ease-in-out infinite alternate;
 }
-
+.note{
+  position:absolute;
+  pointer-events:none;
+}
 @keyframes floatNote{
   from{ transform:translateY(0px) rotate(-4deg); }
   to{ transform:translateY(-12px) rotate(4deg); }
@@ -242,3 +248,4 @@ body{
   text-align:center;
   padding:20px;
 }
+
