@@ -101,11 +101,8 @@ music.play().then(()=>{
 
 
 document.body.innerHTML=`
-<div style="padding:30px; max-width:520px; position:relative;">
 
-<img src="https://media3.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif" 
-style="width:320px;max-width:85vw;border-radius:20px;margin-bottom:15px;">
-
+<!-- 🌸 STICKY NOTES IN BACKGROUND -->
 <div class="sticky-notes">
   <div class="note n1">Best day ever 💕</div>
   <div class="note n2">Happy Valentine’s 💌</div>
@@ -114,6 +111,11 @@ style="width:320px;max-width:85vw;border-radius:20px;margin-bottom:15px;">
   <div class="note n5">Next Valentine’s date 😆</div>
   <div class="note n6">You make me happy 💞</div>
 </div>
+
+<div style="padding:30px; max-width:520px; margin:auto; text-align:center;">
+
+<img src="https://media3.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif" 
+style="width:320px;max-width:85vw;border-radius:20px;margin-bottom:15px;">
 
 <h1 id="yesText" style="font-family:Pacifico;">She said YES gaizzz!!! 💕</h1>
 
