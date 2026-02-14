@@ -118,14 +118,6 @@ style="width:320px;max-width:85vw;border-radius:20px;margin-bottom:15px;">
 <h1 id="yesText" style="font-family:Pacifico;">She said YES gaizzz!!! 💕</h1>
 
 </div>`;
-let j=0;
-function typeLove(){
- if(j<msg.length){
-   document.getElementById("loveMsg").innerHTML+=msg.charAt(j);
-   j++; setTimeout(typeLove,40);
- }}
-typeLove();
-
 
 //////////////// RANDOM HEART BURSTS ON YES PAGE ////////////////////
 setInterval(()=>{
