@@ -266,30 +266,14 @@ body{
 @media (max-width:600px){
 
   /* top notes */
-  .n1{ top:110px; left:10px; }
-  .n2{ top:110px; right:10px; }
+  .n1{ top:95px; left:10px; }
+  .n2{ top:95px; right:10px; }
 
   /* move side notes ABOVE gif */
-  .n3{ top:220px; left:10px; }
-  .n4{ top:220px; right:10px; }
+  .n3{ top:180px; left:10px; }
+  .n4{ top:180px; right:10px; }
 
   /* bottom notes higher */
   .n5{ bottom:140px; left:10px; }
   .n6{ bottom:140px; right:10px; }
-}
-
-/* 📲 TABLET SAFE POSITIONS */
-@media (min-width:601px) and (max-width:1024px){
-
-  /* top notes lower so not hidden by browser bar */
-  .n1{ top:140px; }
-  .n2{ top:140px; }
-
-  /* side notes above GIF */
-  .n3{ top:240px; }
-  .n4{ top:240px; }
-
-  /* bottom notes higher so no scrolling */
-  .n5{ bottom:140px; }
-  .n6{ bottom:140px; }
 }
