@@ -328,11 +328,32 @@ body > div[style*="backdrop-filter"]{
   top:20px;
   right:20px;
   background:#ff4d88;
-  color:white;
-  padding:12px 18px;
-  border-radius:30px;
-  font-weight:bold;
-  box-shadow:0 5px 15px rgba(0,0,0,0.2);
-  z-index:9999;
+  color:#fff;
+  padding:14px 18px;
+  border-radius:25px;
+  font-weight:600;
   font-size:14px;
+  box-shadow:0 8px 20px rgba(0,0,0,0.15);
+  z-index:9999;
+  animation:floatBubble 3s ease-in-out infinite;
+}
+
+/* bubble tail */
+#yesBubble::after{
+  content:"";
+  position:absolute;
+  bottom:-8px;
+  right:25px;
+  width:15px;
+  height:15px;
+  background:#ff4d88;
+  transform:rotate(45deg);
+  border-radius:3px;
+}
+
+/* soft floating animation */
+@keyframes floatBubble{
+  0%{ transform:translateY(0px); }
+  50%{ transform:translateY(-6px); }
+  100%{ transform:translateY(0px); }
 }
