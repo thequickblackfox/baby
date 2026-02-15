@@ -327,35 +327,56 @@ body > div[style*="backdrop-filter"]{
   position:fixed;
   top:20px;
   right:20px;
-  background:linear-gradient(135deg,#ffb6c9,#ffd1dc,#ffe4ec);
-  color:#ffffff;
-  padding:15px 20px;
-  border-radius:22px;
-  font-size:14px;
-  font-weight:500;
-  max-width:220px;
-  line-height:1.4;
-  box-shadow:0 10px 25px rgba(255,182,201,0.45);
+  width:130px;
+  height:120px;
+  background:#ff8fb1;
+  color:#fff;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  font-size:13px;
+  font-weight:600;
+  padding:15px;
+  box-shadow:0 10px 25px rgba(255,105,140,0.35);
   z-index:9999;
   animation:floatBubble 3s ease-in-out infinite;
+
+  /* heart shape 💘 */
+  transform: rotate(-45deg);
+  border-radius:25px;
 }
 
-/* chat bubble tail */
+/* heart top circles */
+#yesBubble::before,
 #yesBubble::after{
   content:"";
   position:absolute;
-  right:-8px;
-  top:18px;
-  width:0;
-  height:0;
-  border-left:10px solid #ffd1dc;
-  border-top:8px solid transparent;
-  border-bottom:8px solid transparent;
+  width:130px;
+  height:120px;
+  background:#ff8fb1;
+  border-radius:50%;
 }
 
-/* number emphasis */
+#yesBubble::before{
+  top:-65px;
+  left:0;
+}
+
+#yesBubble::after{
+  left:65px;
+  top:0;
+}
+
+/* rotate text back so it's straight */
+#yesBubble span,
+#yesBubble{
+  transform: rotate(45deg);
+}
+
+/* number style */
 #yesCount{
-  display:block;
   font-size:20px;
   font-weight:800;
   margin-top:4px;
@@ -363,7 +384,7 @@ body > div[style*="backdrop-filter"]{
 
 /* floating animation */
 @keyframes floatBubble{
-  0%{ transform:translateY(0px); }
-  50%{ transform:translateY(-6px); }
-  100%{ transform:translateY(0px); }
+  0%{ transform:translateY(0) rotate(-45deg); }
+  50%{ transform:translateY(-6px) rotate(-45deg); }
+  100%{ transform:translateY(0) rotate(-45deg); }
 }
