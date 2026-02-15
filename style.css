@@ -327,7 +327,7 @@ body > div[style*="backdrop-filter"]{
   position:fixed;
   top:12px;
   right:12px;
-  width:150px;          /* a bit bigger */
+  width:200px;      /* wider bubble */
   z-index:99999;
 }
 
@@ -336,23 +336,27 @@ body > div[style*="backdrop-filter"]{
   display:block;
 }
 
+/* bubble sentence (one row only) */
 #bubbleText{
   position:absolute;
-  top:44%;
+  top:38%;
   left:50%;
   transform:translate(-50%,-50%);
-  width:70%;
+  width:80%;
   text-align:center;
-  font-size:10px;       /* slightly bigger text */
+  font-size:10px;
   font-weight:700;
   color:#6b4b2a;
-  line-height:1.1;
-  white-space:nowrap;   /* ⭐ keep text in ONE LINE */
+  white-space:nowrap;   /* keep in one row */
 }
 
+/* counter centered under text */
 #yesCount{
-  display:block;
-  font-size:16px;
+  position:absolute;
+  top:60%;
+  left:50%;
+  transform:translateX(-50%);
+  font-size:18px;
   font-weight:900;
-  margin-top:2px;
+  color:#6b4b2a;
 }
