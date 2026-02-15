@@ -322,17 +322,3 @@ button{
 body > div[style*="backdrop-filter"]{
   z-index:99998 !important;
 }
-
-/* ================= VISIT COUNTER ================= */
-.visit-counter{
-  margin-top:15px;
-  font-size:14px;
-  color:#b04b6f;
-  background:#ffffffaa;
-  padding:8px 14px;
-  border-radius:20px;
-  backdrop-filter:blur(6px);
-  box-shadow:0 5px 12px rgba(0,0,0,0.15);
-  display:inline-block;
-  animation:fadeIn 1.5s ease;
-}
