@@ -187,11 +187,16 @@ document.addEventListener("click",function(e){
 
 });
 
-//////////////// FLOATING VISIT COUNTER //////////////////
+//////////////// YES CLICK COUNTER //////////////////
 document.addEventListener("DOMContentLoaded", function(){
-let visits=localStorage.getItem("visitCount");
-if(!visits){visits=1}else{visits=Number(visits)+1}
-localStorage.setItem("visitCount",visits);
-const badge=document.getElementById("visitCounterBadge");
-if(badge){badge.innerHTML="You visited this page "+visits+" times… and counting 👀💕";}
+
+  const badge = document.getElementById("visitCounterBadge");
+
+  // show saved YES clicks when page loads
+  let yesClicks = localStorage.getItem("yesClicks") || 0;
+
+  if(badge){
+    badge.innerHTML = "She clicked YES " + yesClicks + " times 💖";
+  }
+
 });
