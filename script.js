@@ -1,18 +1,16 @@
 document.addEventListener("DOMContentLoaded", function () {
 
 //////////////////// TYPING INTRO ////////////////////
-const typingEl = document.getElementById("typing");
-if(typingEl){
 const text="To: Jeam Abby Keith Panganiban 😊";
 let i=0;
 function type(){
  if(i<text.length){
-   typingEl.innerHTML+=text.charAt(i);
+   document.getElementById("typing").innerHTML+=text.charAt(i);
    i++;
    setTimeout(type,50);
  }}
 type();
-}
+
 
 //////////////////// HEART BURST CLICK ////////////////////
 document.addEventListener("click", function(e){
@@ -39,6 +37,7 @@ setTimeout(()=>heart.remove(),1200);
 }
 });
 
+
 //////////////////// FLOATING HEARTS ////////////////////
 setInterval(()=>{
 let heart=document.createElement("div");
@@ -60,11 +59,10 @@ heart.animate([
 setTimeout(()=>heart.remove(),9000);
 },1200);
 
+
 //////////////////// BUTTONS ////////////////////
 const noBtn=document.getElementById("noBtn");
 const yesBtn=document.getElementById("yesBtn");
-
-if(noBtn && yesBtn){
 
 const msgs=[
 "sure na yarn, baby? 🤨","aww, that hurts my feelings, baby 😭",
@@ -87,18 +85,11 @@ noBtn.style.top=y+"px";
 noBtn.onmouseover=move;
 noBtn.onclick=move;
 
+
 //////////////////// YES PAGE ////////////////////
 yesBtn.onclick=()=>{
-// 🌍 GLOBAL YES COUNTER (online)
-fetch("https://api.countapi.xyz/hit/cebbybaby/yesClicks")
-  .then(res => res.json())
-  .then(data => {
-     const badge = document.getElementById("visitCounterBadge");
-     if(badge){
-       badge.innerHTML = "She clicked YES " + data.value + " times 💖";
-     }
-  });
 
+// 🎵 MUSIC (mobile safe)
 const music=new Audio("music.mp3");
 music.loop=true;
 music.volume=0;
@@ -110,8 +101,10 @@ music.play().then(()=>{
  },300);
 }).catch(()=>{document.addEventListener("click",()=>music.play(),{once:true});});
 
+
 document.body.innerHTML=`
 
+<!-- 🌸 STICKY NOTES IN BACKGROUND -->
 <div class="sticky-notes">
   <div class="note n1">My baby, Abby! 💕</div>
   <div class="note n2">Happy Valentine’s Day! 💌</div>
@@ -123,13 +116,41 @@ document.body.innerHTML=`
 
 <div id="yesScreen">
   <div id="yesContent">
+
   <img src="https://media3.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif"
-  style="width:320px;max-width:85vw;border-radius:20px;margin-bottom:15px; position:relative; z-index:1;">
-  <h1 id="yesText" style="font-family:Pacifico;">She said YES gaizzz!!! 💕</h1>
-  <div id="visitCounterBadge"></div>
+style="width:320px;max-width:85vw;border-radius:20px;margin-bottom:15px; position:relative; z-index:1;">
+
+    <h1 id="yesText" style="font-family:Pacifico;">She said YES gaizzz!!! 💕</h1>
+
   </div>
 </div>
 `;
+
+//////////////// RANDOM HEART BURSTS ON YES PAGE ////////////////////
+setInterval(()=>{
+ const centerX=Math.random()*window.innerWidth;
+ const centerY=Math.random()*window.innerHeight*0.8;
+ for(let i=0;i<20;i++){
+  let heart=document.createElement("div");
+  heart.innerHTML=["💓","💕","💗","💞","💖"][Math.floor(Math.random()*5)];
+  heart.style.position="fixed";
+  heart.style.left=centerX+"px";
+  heart.style.top=centerY+"px";
+  heart.style.fontSize="22px";
+  heart.style.zIndex="9000";
+  document.body.appendChild(heart);
+  const angle=Math.random()*2*Math.PI;
+  const distance=Math.random()*200+50;
+  const x=Math.cos(angle)*distance;
+  const y=Math.sin(angle)*distance;
+  heart.animate([
+   {transform:"translate(0,0)",opacity:1},
+   {transform:`translate(${x}px,${y}px) scale(1.6)`,opacity:0}
+  ],{duration:1400});
+  setTimeout(()=>heart.remove(),1400);
+ }
+},2000);
+
 
 //////////////////// CREATE EASTER EGG LETTER ////////////////////
 const letter=document.createElement("div");
@@ -145,7 +166,9 @@ letter.style.alignItems="center";
 
 letter.innerHTML=`
 <div id="letterCard" style="position:relative; overflow:hidden; background:#fffafc;width:92%;max-width:420px;max-height:82vh;overflow:auto;padding:26px;border-radius:26px;font-family:Poppins;line-height:1.7;text-align:justify;">
+
 <h2 style="color:#ff4fa3;text-align:center;">Hallu, my babyyy! 💖</h2>
+
 <p>So ayun… sobrang HS-coded nito for me baby. Ang nostalgic niya sobra. Naluluha nga ako habang ginagawa ko to e, si OA na naman ako hahaha 😭🤣</p>
 <p>Ito pala yung sinasabi ko baby na may na-realize ako. Dito talaga nagsimula yung interest ko sa computers. Dati akala ko puro games lang siya… pero hindi pala. This was my first love. Ito yung bumuhay sakin noon, at dito ko rin nakuha yung first paycheck ko.</p>
 <p>Kung ano man narating ko ngayon, nagsimula lahat sa basic HTML na to 🥹</p>
@@ -155,29 +178,72 @@ letter.innerHTML=`
 <p>Sobrang mais ko na ba? HAHAHAHAHA OKI BYE NA GAROD!</p>
 <p style="font-weight:bold;">I love you, my baby Abby! 💗😚😚😚</p>
 <p>Love,<br>Cebby — baliw na baliw pa rin sayo 😵‍💫</p>
+
 <button id="closeLetter" style="margin-top:20px;width:100%;padding:12px;border:none;border-radius:30px;background:#ff4fa3;color:white;">Close 💌</button>
 </div>`;
 document.body.appendChild(letter);
 
-let letterOpen=false;
+
+//////////////// PERFECT LETTER-FIT PETALS ////////////////////
+let letterOpen = false;
 
 function spawnPetal(){
+
  if(!letterOpen) return;
- const card=document.getElementById("letterCard");
+
+ const card = document.getElementById("letterCard");
  if(!card) return;
+
+ const cardHeight = card.scrollHeight; // full letter height
+
  const petal=document.createElement("div");
  petal.innerHTML="🌸";
+
  card.appendChild(petal);
+
  petal.style.position="absolute";
  petal.style.left=Math.random()*100+"%";
  petal.style.top="-40px";
  petal.style.fontSize=(Math.random()*6+18)+"px";
- petal.animate([{transform:"translateY(0)"},{transform:"translateY(600px)"}],{duration:20000});
+ petal.style.pointerEvents="none";
+ petal.style.zIndex="0";
+
+ const drift=(Math.random()*70)-35;   // soft left/right drift
+ const rotate=Math.random()*720;
+
+ /* ⭐ IMPORTANT FIX — stop inside letter */
+ const fallDistance = cardHeight - 40;
+
+ petal.animate([
+   { transform:"translate(0,0) rotate(0deg)", opacity:0.95 },
+   { transform:`translate(${drift}px,${fallDistance}px) rotate(${rotate}deg)`, opacity:0 }
+ ],{
+   duration:20000,
+   easing:"linear"
+ });
+
  setTimeout(()=>petal.remove(),20000);
 }
 
-function spawnButterfly(){}
 
+//////////////// BUTTERFLY ////////////////////
+function spawnButterfly(){
+ if(document.querySelector(".butterfly")) return;
+ const card=document.getElementById("letterCard");
+ const b=document.createElement("video");
+ b.src="butterfly.webm";
+ b.autoplay=true; b.loop=true; b.muted=true;
+ b.className="butterfly";
+ b.style.position="absolute";
+ b.style.width="200px";
+ b.style.left=Math.random()*70+"%";
+ b.style.top=Math.random()*70+"%";
+ b.style.filter=`hue-rotate(${Math.random()*360}deg) saturate(200%)`;
+ card.appendChild(b);
+}
+
+
+//////////////// OPEN LETTER AFTER 10 TAPS ////////////////////
 let taps=0;
 document.addEventListener("click",function(e){
  if(e.target.id==="closeLetter"){letter.style.display="none";letterOpen=false;taps=0;return;}
@@ -191,21 +257,5 @@ document.addEventListener("click",function(e){
 });
 
 };
-
-}
-
 });
 
-//////////////// YES CLICK COUNTER //////////////////
-document.addEventListener("DOMContentLoaded", function(){
-
-  const badge = document.getElementById("visitCounterBadge");
-
-  // show saved YES clicks when page loads
-  let yesClicks = localStorage.getItem("yesClicks") || 0;
-
-  if(badge){
-    badge.innerHTML = "She clicked YES " + yesClicks + " times 💖";
-  }
-
-});
