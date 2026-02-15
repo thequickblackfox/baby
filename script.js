@@ -257,5 +257,25 @@ document.addEventListener("click",function(e){
 
 });
 
-};
+});
+
+//////////////// FLOATING VISIT COUNTER //////////////////
+document.addEventListener("DOMContentLoaded", function(){
+
+  let visits = localStorage.getItem("visitCount");
+
+  if(!visits){
+    visits = 1;
+  }else{
+    visits = Number(visits) + 1;
+  }
+
+  localStorage.setItem("visitCount", visits);
+
+  const badge = document.getElementById("visitCounterBadge");
+
+  if(badge){
+    badge.innerHTML = "You visited this page " + visits + " times… and counting 👀💕";
+  }
+
 });
