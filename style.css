@@ -325,66 +325,61 @@ body > div[style*="backdrop-filter"]{
 
 #yesBubble{
   position:fixed;
-  top:20px;
-  right:20px;
-  width:130px;
-  height:120px;
-  background:#ff8fb1;
-  color:#fff;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  text-align:center;
-  font-size:13px;
+  top:25px;
+  right:25px;
+  width:240px;
+  padding:20px 22px;
+  background:#f7dbe6;
+  color:#6b4b2a;
+  border:6px solid #8b6b3e;
+  border-radius:40px;
+  font-size:14px;
   font-weight:600;
-  padding:15px;
-  box-shadow:0 10px 25px rgba(255,105,140,0.35);
+  line-height:1.4;
+  box-shadow:0 8px 20px rgba(0,0,0,0.15);
   z-index:9999;
-  animation:floatBubble 3s ease-in-out infinite;
-
-  /* heart shape 💘 */
-  transform: rotate(-45deg);
-  border-radius:25px;
+  text-align:center;
 }
 
-/* heart top circles */
-#yesBubble::before,
+/* speech tail */
 #yesBubble::after{
   content:"";
   position:absolute;
-  width:130px;
-  height:120px;
-  background:#ff8fb1;
-  border-radius:50%;
+  bottom:-22px;
+  left:35px;
+  width:0;
+  height:0;
+  border-top:22px solid #8b6b3e;
+  border-left:22px solid transparent;
+  border-right:22px solid transparent;
 }
 
 #yesBubble::before{
-  top:-65px;
-  left:0;
+  content:"";
+  position:absolute;
+  bottom:-16px;
+  left:37px;
+  width:0;
+  height:0;
+  border-top:18px solid #f7dbe6;
+  border-left:18px solid transparent;
+  border-right:18px solid transparent;
 }
 
-#yesBubble::after{
-  left:65px;
-  top:0;
-}
-
-/* rotate text back so it's straight */
-#yesBubble span,
-#yesBubble{
-  transform: rotate(45deg);
-}
-
-/* number style */
-#yesCount{
+/* decorative hearts */
+.heartDecor{
+  position:absolute;
   font-size:20px;
-  font-weight:800;
-  margin-top:4px;
 }
 
-/* floating animation */
-@keyframes floatBubble{
-  0%{ transform:translateY(0) rotate(-45deg); }
-  50%{ transform:translateY(-6px) rotate(-45deg); }
-  100%{ transform:translateY(0) rotate(-45deg); }
+/* heart positions */
+.heart1{ top:-14px; left:40%; }
+.heart2{ left:-12px; top:45%; }
+.heart3{ right:-10px; bottom:-12px; }
+
+#yesCount{
+  display:block;
+  font-size:22px;
+  font-weight:800;
+  margin-top:6px;
 }
