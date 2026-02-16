@@ -1,11 +1,3 @@
-// YES COUNTER DATABASE
-const counterRef = firebase.database().ref("yesCounter");
-
-// live update listener
-counterRef.on("value", snapshot => {
-  const count = snapshot.val() || 0;
-  document.getElementById("yesCount").innerText = count;
-});
 
 document.addEventListener("DOMContentLoaded", function () {
 
