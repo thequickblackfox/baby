@@ -862,68 +862,59 @@
       let petalTimer = null;
       let taps       = 0;
 
+      function spawnSakura(rect) {
+        // randomly drop 1 or 2 flowers
+        const count = Math.random() < 0.3 ? 2 : 1;
+
+        for (let n = 0; n < count; n++) {
+          const flower   = createPetal();
+          const startX   = rect.left + 10 + Math.random() * (rect.width - 20);
+          const sway     = (Math.random() * 50) - 25;
+          const spin     = (Math.random() > 0.5 ? 1 : -1) * (90 + Math.random() * 120);
+          const duration = 10000 + Math.random() * 6000; // 10–16s very slow
+          const delay    = n * (Math.random() * 800);    // slight stagger if 2
+
+          flower.style.cssText = `
+            position: fixed;
+            left: ${startX}px;
+            top: ${rect.top - 24}px;
+            z-index: 100000;
+            pointer-events: none;
+            overflow: visible;
+            transform-origin: center center;
+          `;
+          document.body.appendChild(flower);
+
+          flower.animate(
+            [
+              { transform: `translate(0px, 0px) rotate(0deg)`,                                                          opacity: 0,    offset: 0    },
+              { transform: `translate(${sway * 0.2}px,  ${rect.height * 0.15}px) rotate(${spin * 0.15}deg)`,            opacity: 0.95, offset: 0.08 },
+              { transform: `translate(${sway * -0.3}px, ${rect.height * 0.35}px) rotate(${spin * 0.35}deg)`,            opacity: 0.9,  offset: 0.3  },
+              { transform: `translate(${sway * 0.5}px,  ${rect.height * 0.55}px) rotate(${spin * 0.55}deg)`,            opacity: 0.85, offset: 0.5  },
+              { transform: `translate(${sway * -0.2}px, ${rect.height * 0.75}px) rotate(${spin * 0.75}deg)`,            opacity: 0.7,  offset: 0.72 },
+              { transform: `translate(${sway}px,        ${rect.height + 28}px)   rotate(${spin}deg)`,                   opacity: 0,    offset: 1    },
+            ],
+            { duration, delay, easing: 'ease-in-out', fill: 'both' }
+          );
+
+          setTimeout(() => flower.remove(), duration + delay + 100);
+        }
+      }
+
       function openModal() {
         modal.classList.add('is-open');
         if (!petalTimer) {
           requestAnimationFrame(() => {
+            // drop first one immediately
+            const rect0 = card.getBoundingClientRect();
+            if (rect0.width) spawnSakura(rect0);
+
+            // then one or two every 2.5–4s
             petalTimer = setInterval(() => {
               const rect = card.getBoundingClientRect();
               if (!rect.width) return;
-
-              const petal    = createPetal();
-              const startX   = rect.left + Math.random() * rect.width;
-              const sway     = (Math.random() * 60) - 30;   // gentle horizontal drift
-              const rotation = Math.random() * 360;          // initial angle
-              const spin     = (Math.random() > 0.5 ? 1 : -1) * (180 + Math.random() * 180);
-              const duration = 7000 + Math.random() * 5000; // 7–12s slow fall
-              const tiltX    = (Math.random() - 0.5) * 30;  // slight 3D tilt
-
-              petal.style.cssText = `
-                position: fixed;
-                left: ${startX}px;
-                top: ${rect.top - 20}px;
-                z-index: 100000;
-                pointer-events: none;
-                overflow: visible;
-                transform-origin: center center;
-                will-change: transform, opacity;
-              `;
-              document.body.appendChild(petal);
-
-              // multi-keyframe sway mimics real petal flutter
-              petal.animate(
-                [
-                  {
-                    transform: `translate(0px, 0px) rotate(${rotation}deg) rotateX(0deg)`,
-                    opacity: 0,
-                    offset: 0
-                  },
-                  {
-                    transform: `translate(${sway * 0.3}px, ${rect.height * 0.25}px) rotate(${rotation + spin * 0.25}deg) rotateX(${tiltX}deg)`,
-                    opacity: 0.9,
-                    offset: 0.1
-                  },
-                  {
-                    transform: `translate(${sway * -0.4}px, ${rect.height * 0.5}px) rotate(${rotation + spin * 0.5}deg) rotateX(${-tiltX}deg)`,
-                    opacity: 0.85,
-                    offset: 0.5
-                  },
-                  {
-                    transform: `translate(${sway * 0.6}px, ${rect.height * 0.75}px) rotate(${rotation + spin * 0.75}deg) rotateX(${tiltX * 0.5}deg)`,
-                    opacity: 0.7,
-                    offset: 0.75
-                  },
-                  {
-                    transform: `translate(${sway}px, ${rect.height + 30}px) rotate(${rotation + spin}deg) rotateX(0deg)`,
-                    opacity: 0,
-                    offset: 1
-                  },
-                ],
-                { duration, easing: 'linear', fill: 'forwards' }
-              );
-
-              setTimeout(() => petal.remove(), duration + 100);
-            }, 500); // one petal every 500ms
+              spawnSakura(rect);
+            }, 2500 + Math.random() * 1500);
           });
         }
       }
