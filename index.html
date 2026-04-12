@@ -264,6 +264,21 @@
       .postit--vday    { top: 76%; }
     }
 
+    /* landscape phones — redistribute postits to left/right sides only */
+    @media (max-height: 500px) and (orientation: landscape) {
+      .postit { font-size: 12px; padding: 8px 12px; white-space: nowrap; }
+
+      /* left column */
+      .postit--myname  { top: 8%;   left: 2%; transform: rotate(-2deg); bottom: auto; }
+      .postit--iloveu  { top: 42%;  left: 2%; transform: rotate(-1deg); bottom: auto; }
+      .postit--heart   { top: 72%;  left: 2%; transform: rotate(2deg);  bottom: auto; }
+
+      /* right column */
+      .postit--missyou { top: 8%;   right: 2%; left: auto; transform: rotate(2deg);  bottom: auto; }
+      .postit--happy   { top: 42%;  right: 2%; left: auto; transform: rotate(-2deg); bottom: auto; }
+      .postit--vday    { top: 72%;  right: 2%; left: auto; transform: rotate(1deg);  bottom: auto; }
+    }
+
     /* ─── Letter Modal ───────────────────────────────────────────────── */
 
     .modal-backdrop {
@@ -779,30 +794,37 @@
       function openModal() {
         modal.classList.add('is-open');
         if (!petalTimer) {
-          petalTimer = setInterval(() => {
-            // get card bounds so we can rain petals precisely over it
-            const rect  = card.getBoundingClientRect();
-            const petal = createPetal();
-            petal.className = 'petal';
-            petal.style.position = 'fixed';
-            petal.style.left     = `${rect.left + Math.random() * rect.width * 0.9}px`;
-            petal.style.top      = `${rect.top}px`;
-            petal.style.zIndex   = '100000';
-            document.body.appendChild(petal);
+          // wait one frame so card is painted and getBoundingClientRect is accurate
+          requestAnimationFrame(() => {
+            petalTimer = setInterval(() => {
+              const rect = card.getBoundingClientRect();
+              if (!rect.width) return; // card not visible yet, skip
 
-            const drift    = (Math.random() * 60) - 30;
-            const rotation = Math.random() * 540 - 270;
-            const duration = 3500 + Math.random() * 3500;
+              const petal = createPetal();
+              petal.style.cssText = `
+                position: fixed;
+                left: ${rect.left + Math.random() * (rect.width - 20)}px;
+                top: ${rect.top - 10}px;
+                z-index: 100000;
+                pointer-events: none;
+                overflow: visible;
+              `;
+              document.body.appendChild(petal);
 
-            petal.animate(
-              [
-                { transform: 'translate(0, 0) rotate(0deg)',                                      opacity: 0.85 },
-                { transform: `translate(${drift}px, ${rect.height + 20}px) rotate(${rotation}deg)`, opacity: 0    },
-              ],
-              { duration, easing: 'linear' }
-            );
-            setTimeout(() => petal.remove(), duration);
-          }, 350);
+              const drift    = (Math.random() * 80) - 40;
+              const rotation = Math.random() * 540 - 270;
+              const duration = 3000 + Math.random() * 3000;
+
+              petal.animate(
+                [
+                  { transform: 'translate(0, 0) rotate(0deg)', opacity: 0.9 },
+                  { transform: `translate(${drift}px, ${rect.height + 30}px) rotate(${rotation}deg)`, opacity: 0 },
+                ],
+                { duration, easing: 'linear' }
+              );
+              setTimeout(() => petal.remove(), duration);
+            }, 300);
+          });
         }
       }
 
