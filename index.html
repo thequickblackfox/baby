@@ -49,45 +49,10 @@
       font-family: 'Poppins', sans-serif;
       padding: 20px;
       animation: fadeIn 1.5s ease both;
-
-      /* layered background: noise SVG + radial vignette + gradient mesh */
-      background-color: #ffd6e7;
-      background-image:
-        /* soft vignette darkening edges */
-        radial-gradient(ellipse at 50% 50%, transparent 40%, rgba(180, 80, 120, 0.18) 100%),
-        /* warm blush glow top-left */
-        radial-gradient(ellipse at 20% 20%, rgba(255, 200, 220, 0.7) 0%, transparent 60%),
-        /* cool frost glow bottom-right */
-        radial-gradient(ellipse at 80% 80%, rgba(255, 240, 248, 0.8) 0%, transparent 55%),
-        /* rose accent mid */
-        radial-gradient(ellipse at 60% 30%, rgba(255, 160, 190, 0.45) 0%, transparent 50%),
-        /* base gradient */
-        linear-gradient(135deg, #ffd6e7 0%, #ffe4f0 35%, #fff0f6 65%, #ffe9f2 100%);
+      background: linear-gradient(135deg, #ffd6e7, #ffe9f2, #fff5f9);
     }
 
-    /* SVG noise grain overlay via pseudo-element */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-      pointer-events: none;
-      opacity: 0.045;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
-      background-size: 300px 300px;
-    }
-
-    /* subtle repeating dot pattern layer */
-    body::after {
-      content: '';
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-      pointer-events: none;
-      opacity: 0.06;
-      background-image: radial-gradient(circle, #c0507a 1px, transparent 1px);
-      background-size: 28px 28px;
-    }
+    /* no pseudo-element overlays — keeping it clean */
 
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(10px); }
@@ -319,7 +284,7 @@
 
     .letter-card {
       position: relative;
-      overflow: hidden;
+      overflow: visible;
       width: 92%;
       max-width: 460px;
       max-height: 85vh;
@@ -814,8 +779,30 @@
       function openModal() {
         modal.classList.add('is-open');
         if (!petalTimer) {
-          // faster spawn so petals are visible over the text
-          petalTimer = setInterval(() => dropPetal(card), 400);
+          petalTimer = setInterval(() => {
+            // get card bounds so we can rain petals precisely over it
+            const rect  = card.getBoundingClientRect();
+            const petal = createPetal();
+            petal.className = 'petal';
+            petal.style.position = 'fixed';
+            petal.style.left     = `${rect.left + Math.random() * rect.width * 0.9}px`;
+            petal.style.top      = `${rect.top}px`;
+            petal.style.zIndex   = '100000';
+            document.body.appendChild(petal);
+
+            const drift    = (Math.random() * 60) - 30;
+            const rotation = Math.random() * 540 - 270;
+            const duration = 3500 + Math.random() * 3500;
+
+            petal.animate(
+              [
+                { transform: 'translate(0, 0) rotate(0deg)',                                      opacity: 0.85 },
+                { transform: `translate(${drift}px, ${rect.height + 20}px) rotate(${rotation}deg)`, opacity: 0    },
+              ],
+              { duration, easing: 'linear' }
+            );
+            setTimeout(() => petal.remove(), duration);
+          }, 350);
         }
       }
 
@@ -825,6 +812,8 @@
           clearInterval(petalTimer);
           petalTimer = null;
         }
+        // clean up any petals still floating
+        document.querySelectorAll('.petal').forEach(p => p.remove());
         taps = 0;
       }
 
