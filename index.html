@@ -5,11 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>MY BABY 💕</title>
   <link
-    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Pacifico&family=Caveat:wght@400;600;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Pacifico&family=Lora:ital,wght@0,400;0,600;1,400;1,600&display=swap"
     rel="stylesheet"
   />
   <style>
-    /* ─── Reset & Base ─────────────────────────────────────────────────── */
+    /* ─── Reset & Base ───────────────────────────────────────────────── */
 
     *,
     *::before,
@@ -18,23 +18,25 @@
     }
 
     :root {
-      --pink-primary:   #ff4d8d;
-      --pink-light:     #ff6fa5;
-      --pink-pale:      #ffd6e7;
-      --pink-blush:     #ffe9f2;
-      --pink-frost:     #fff5f9;
-      --text-body:      #555;
-      --text-dark:      #2a2a2a;
-      --shadow-card:    0 8px 40px rgba(0, 0, 0, 0.25);
-      --radius-pill:    30px;
-      --radius-card:    14px;
-      --transition-ui:  0.8s ease;
+      --pink-primary:  #ff4d8d;
+      --pink-light:    #ff6fa5;
+      --pink-pale:     #ffd6e7;
+      --pink-blush:    #ffe9f2;
+      --pink-frost:    #fff5f9;
+      --text-body:     #6b4a5e;
+      --text-dark:     #2a1a22;
+      --shadow-card:   0 8px 40px rgba(0, 0, 0, 0.25);
+      --radius-pill:   30px;
+      --radius-card:   14px;
+      --transition-ui: 0.8s ease;
     }
 
     html,
     body {
       overflow-x: hidden;
     }
+
+    /* ─── Background — gradient + SVG noise grain + soft vignette ─────── */
 
     body {
       margin: 0;
@@ -45,9 +47,46 @@
       align-items: center;
       text-align: center;
       font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, var(--pink-pale), var(--pink-blush), var(--pink-frost));
       padding: 20px;
       animation: fadeIn 1.5s ease both;
+
+      /* layered background: noise SVG + radial vignette + gradient mesh */
+      background-color: #ffd6e7;
+      background-image:
+        /* soft vignette darkening edges */
+        radial-gradient(ellipse at 50% 50%, transparent 40%, rgba(180, 80, 120, 0.18) 100%),
+        /* warm blush glow top-left */
+        radial-gradient(ellipse at 20% 20%, rgba(255, 200, 220, 0.7) 0%, transparent 60%),
+        /* cool frost glow bottom-right */
+        radial-gradient(ellipse at 80% 80%, rgba(255, 240, 248, 0.8) 0%, transparent 55%),
+        /* rose accent mid */
+        radial-gradient(ellipse at 60% 30%, rgba(255, 160, 190, 0.45) 0%, transparent 50%),
+        /* base gradient */
+        linear-gradient(135deg, #ffd6e7 0%, #ffe4f0 35%, #fff0f6 65%, #ffe9f2 100%);
+    }
+
+    /* SVG noise grain overlay via pseudo-element */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.045;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+      background-size: 300px 300px;
+    }
+
+    /* subtle repeating dot pattern layer */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.06;
+      background-image: radial-gradient(circle, #c0507a 1px, transparent 1px);
+      background-size: 28px 28px;
     }
 
     @keyframes fadeIn {
@@ -55,13 +94,15 @@
       to   { opacity: 1; transform: translateY(0); }
     }
 
-    /* ─── Typography ────────────────────────────────────────────────────── */
+    /* ─── Typography ─────────────────────────────────────────────────── */
 
     h1 {
       font-family: 'Pacifico', cursive;
       color: var(--pink-primary);
       font-size: clamp(26px, 7vw, 42px);
       margin: 8px 0;
+      position: relative;
+      z-index: 1;
     }
 
     p {
@@ -70,9 +111,11 @@
       font-size: clamp(15px, 4vw, 18px);
       line-height: 1.6;
       margin: 6px 0;
+      position: relative;
+      z-index: 1;
     }
 
-    /* ─── Kiss Counter Bubble ───────────────────────────────────────────── */
+    /* ─── Kiss Counter Bubble ────────────────────────────────────────── */
 
     #kiss-counter {
       position: fixed;
@@ -110,12 +153,14 @@
       font-weight: 900;
     }
 
-    /* ─── Landing Screen ────────────────────────────────────────────────── */
+    /* ─── Landing Screen ─────────────────────────────────────────────── */
 
     #screen-landing {
       display: flex;
       flex-direction: column;
       align-items: center;
+      position: relative;
+      z-index: 1;
     }
 
     #hero-gif {
@@ -136,7 +181,7 @@
       transition: opacity var(--transition-ui), transform var(--transition-ui);
     }
 
-    /* ─── Buttons ───────────────────────────────────────────────────────── */
+    /* ─── Buttons ────────────────────────────────────────────────────── */
 
     .btn-group {
       display: flex;
@@ -144,6 +189,8 @@
       align-items: center;
       gap: 12px;
       margin-top: 10px;
+      position: relative;
+      z-index: 1;
     }
 
     .btn {
@@ -165,13 +212,14 @@
     }
 
     .btn--no {
-      background: #fff;
+      background: rgba(255, 255, 255, 0.85);
       color: var(--pink-light);
       border: 2px solid var(--pink-light);
       font-weight: 600;
       white-space: nowrap;
       width: max-content;
       position: static;
+      backdrop-filter: blur(4px);
     }
 
     @keyframes heartbeat {
@@ -183,7 +231,7 @@
       .btn { font-size: 14px; padding: 10px 14px; }
     }
 
-    /* ─── Yes Screen ────────────────────────────────────────────────────── */
+    /* ─── Yes Screen ─────────────────────────────────────────────────── */
 
     #screen-yes {
       position: fixed;
@@ -206,7 +254,7 @@
       50%       { transform: translateY(-12px); }
     }
 
-    /* ─── Post-it Notes ─────────────────────────────────────────────────── */
+    /* ─── Post-it Notes ──────────────────────────────────────────────── */
 
     .postit-layer {
       position: fixed;
@@ -252,13 +300,13 @@
       .postit--vday    { top: 76%; }
     }
 
-    /* ─── Letter Modal ──────────────────────────────────────────────────── */
+    /* ─── Letter Modal ───────────────────────────────────────────────── */
 
     .modal-backdrop {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.65);
-      backdrop-filter: blur(6px);
+      background: rgba(40, 10, 25, 0.7);
+      backdrop-filter: blur(8px);
       display: none;
       justify-content: center;
       align-items: center;
@@ -274,39 +322,28 @@
       position: relative;
       overflow: hidden;
       width: 92%;
-      max-width: 440px;
-      max-height: 82vh;
+      max-width: 460px;
+      max-height: 85vh;
 
-      /* Notebook ruled-paper effect */
-      background: #fafaf7;
-      background-image:
-        linear-gradient(to right, transparent 54px, #f8b4c0 54px, #f8b4c0 56px, transparent 56px),
-        repeating-linear-gradient(
-          to bottom,
-          transparent 0px,
-          transparent 31px,
-          #c5d8f5 31px,
-          #c5d8f5 32px
-        );
-      background-attachment: local;
-
-      border-radius: 4px 14px 14px 4px;
-      padding: 48px 24px 24px 68px;
+      /* clean cream paper — no ruled lines, just warmth */
+      background: #fdf8f2;
+      border-radius: 3px 16px 16px 3px;
+      padding: 52px 32px 28px 72px;
       border-left: none;
       box-shadow:
-        -4px 0 0 #d0d0d0,
-        var(--shadow-card),
-        inset 0 0 0 1px rgba(0, 0, 0, 0.06);
+        -4px 0 0 #c8b8a8,
+        0 20px 60px rgba(0, 0, 0, 0.35),
+        inset 0 0 0 1px rgba(0, 0, 0, 0.04);
 
-      font-family: 'Caveat', cursive;
-      font-size: 18px;
-      line-height: 32px;
+      font-family: 'Lora', Georgia, serif;
+      font-size: 17px;
+      line-height: 1.85;
       text-align: left;
-      color: var(--text-dark);
+      color: #2a1a22;
       z-index: 9999;
       display: flex;
       flex-direction: column;
-      animation: scaleIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+      animation: scaleIn 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) both;
     }
 
     /* Spiral binding holes */
@@ -318,96 +355,111 @@
       bottom: 0;
       width: 20px;
       background:
-        radial-gradient(circle 8px at 10px 60px,  #fff 7px, transparent 8px),
-        radial-gradient(circle 8px at 10px 150px, #fff 7px, transparent 8px),
-        radial-gradient(circle 8px at 10px 240px, #fff 7px, transparent 8px),
-        radial-gradient(circle 8px at 10px 330px, #fff 7px, transparent 8px),
-        radial-gradient(circle 8px at 10px 420px, #fff 7px, transparent 8px),
-        radial-gradient(circle 8px at 10px 510px, #fff 7px, transparent 8px);
+        radial-gradient(circle 8px at 10px 60px,  #fdf8f2 7px, transparent 8px),
+        radial-gradient(circle 8px at 10px 150px, #fdf8f2 7px, transparent 8px),
+        radial-gradient(circle 8px at 10px 240px, #fdf8f2 7px, transparent 8px),
+        radial-gradient(circle 8px at 10px 330px, #fdf8f2 7px, transparent 8px),
+        radial-gradient(circle 8px at 10px 420px, #fdf8f2 7px, transparent 8px),
+        radial-gradient(circle 8px at 10px 510px, #fdf8f2 7px, transparent 8px);
       pointer-events: none;
       z-index: 10;
     }
 
-    /* Top tape label */
+    /* Top washi tape label */
     .letter-card::after {
-      content: '✦  secret letter  ✦';
+      content: '✦  for my baby  ✦';
       position: absolute;
       top: 0;
       left: 0;
       right: 0;
-      height: 38px;
-      background: var(--pink-pale);
+      height: 42px;
+      background: linear-gradient(90deg, #f9c8da, #fbd5e5, #f9c8da);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-family: 'Caveat', cursive;
-      font-size: 15px;
-      font-weight: 700;
-      color: #d45c87;
-      letter-spacing: 0.15em;
-      border-bottom: 2px dashed #f9a8c9;
+      font-family: 'Lora', serif;
+      font-style: italic;
+      font-size: 13px;
+      color: #b04070;
+      letter-spacing: 0.2em;
+      border-bottom: 1px solid rgba(180, 80, 120, 0.2);
       z-index: 3;
     }
 
     .letter-card__body {
       overflow-y: auto;
       overflow-x: hidden;
-      max-height: calc(82vh - 60px);
+      max-height: calc(85vh - 80px);
       position: relative;
       z-index: 2;
+      padding-right: 4px;
+    }
+
+    /* custom scrollbar */
+    .letter-card__body::-webkit-scrollbar {
+      width: 4px;
+    }
+    .letter-card__body::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .letter-card__body::-webkit-scrollbar-thumb {
+      background: #f0b8cc;
+      border-radius: 2px;
     }
 
     .letter-card__body h2 {
-      font-family: 'Caveat', cursive;
-      font-size: 26px;
-      font-weight: 700;
-      color: #d45c87;
+      font-family: 'Lora', serif;
+      font-size: 22px;
+      font-weight: 600;
+      font-style: italic;
+      color: #c0406a;
       text-align: center;
-      margin: 8px 0 4px;
-      line-height: 32px;
+      margin: 10px 0 18px;
+      line-height: 1.4;
     }
 
     .letter-card__body p {
-      margin: 0;
-      font-size: 18px;
-      line-height: 32px;
-      color: var(--text-dark);
+      margin: 0 0 14px;
+      font-size: 17px;
+      line-height: 1.85;
+      color: #2a1a22;
       max-width: none;
     }
 
+    .letter-card__body p:last-child {
+      margin-bottom: 0;
+    }
+
     .letter-card__close {
-      margin-top: 16px;
+      margin-top: 20px;
       width: 100%;
-      padding: 12px;
+      padding: 13px;
       border: none;
       border-radius: var(--radius-pill);
-      background: var(--pink-primary);
+      background: linear-gradient(135deg, #ff4d8d, #ff7aaa);
       color: #fff;
-      font-family: 'Caveat', cursive;
-      font-size: 18px;
-      font-weight: 700;
+      font-family: 'Lora', serif;
+      font-size: 16px;
+      font-style: italic;
+      font-weight: 600;
       cursor: pointer;
       position: relative;
       z-index: 5;
       flex-shrink: 0;
+      box-shadow: 0 4px 16px rgba(255, 77, 141, 0.35);
+      transition: opacity 0.2s ease;
+    }
+
+    .letter-card__close:hover {
+      opacity: 0.88;
     }
 
     @keyframes scaleIn {
-      from { opacity: 0; transform: scale(0.6); }
-      to   { opacity: 1; transform: scale(1); }
+      from { opacity: 0; transform: scale(0.6) translateY(20px); }
+      to   { opacity: 1; transform: scale(1) translateY(0); }
     }
 
-    /* ─── Butterfly (video overlay inside letter) ───────────────────────── */
-
-    .butterfly {
-      position: absolute;
-      width: 260px;
-      pointer-events: none;
-      z-index: 5;
-      filter: saturate(1.4) contrast(1.1);
-    }
-
-    /* ─── Cherry Blossom Petals ─────────────────────────────────────────── */
+    /* ─── Cherry Blossom Petals ──────────────────────────────────────── */
 
     .petal {
       position: absolute;
@@ -419,7 +471,7 @@
 </head>
 <body>
 
-  <!-- Kiss counter — outside #screen-landing so it persists across views -->
+  <!-- Kiss counter — only visible on landing, hidden on yes screen -->
   <div id="kiss-counter" aria-label="Kisses owed" role="status">
     <img src="bubbles.png" alt="" aria-hidden="true" />
     <div id="kiss-counter__label">
@@ -449,16 +501,16 @@
     </div>
   </div>
 
-  <!-- Letter modal (hidden until easter egg triggered) -->
+  <!-- Letter modal -->
   <div id="letter-modal" class="modal-backdrop" role="dialog" aria-modal="true" aria-label="Secret letter">
     <div class="letter-card">
       <div class="letter-card__body">
-        <h2>Hallu, my babyyy! 💖</h2>
+        <h2>Hallu, my babyyy 💖</h2>
         <p>So ayun… sobrang HS-coded nito for me baby.</p>
         <p>Ang nostalgic niya sobra. Naluluha nga ako habang ginagawa ko to e, si OA na naman ako hahaha 😭🤣</p>
         <p>Ito pala yung sinasabi ko baby na may na-realize ako. Dito talaga nagsimula yung interest ko sa computers.</p>
         <p>Dati akala ko puro games lang siya… pero hindi pala. This was my first love. Ito yung bumuhay sakin noon, at dito ko rin nakuha yung first paycheck ko.</p>
-        <p>Kung ano man narating ko ngayon, nagsimula lahat sa basic HTML na to 🥹</p>
+        <p>Kung ano man narating ko ngayon, nagsimula lahat sa basic HTML na to. 🥹</p>
         <p>Kaya thank you talaga baby. Thank you sa buhay mo, at thank you rin sa dad mo na hindi ka niya pinutok sa tiyan ng mom mo 🤣</p>
         <p>Thank you kasi dumating ka sa buhay ko. Thank you kasi kahit nabuburnout ako sa work, nung naalala ko to parang gusto ko pang mag-extend ng mga five years eme haha.</p>
         <p>Thank you… binuhay mo ako. Thank you for making me do this kahit hindi mo naman ako inutusan.</p>
@@ -467,37 +519,43 @@
         <p>&nbsp;</p>
         <p><strong>I love you, my baby Abby! 💗😚😚😚</strong></p>
         <p>&nbsp;</p>
-        <p style="text-align: right;">
-          Love,<br />Cebby 😵‍💫<br /><em>baliw na baliw pa rin sayo</em>
+        <p style="text-align: right; font-style: italic;">
+          Love,<br />Cebby 😵‍💫<br /><em style="font-size:15px;">baliw na baliw pa rin sayo</em>
         </p>
       </div>
       <button class="letter-card__close" data-action="close-letter">Close 💌</button>
     </div>
   </div>
 
-  <!-- Firebase v8 compat -->
+  <!--
+    Firebase v8 compat — load app first, then database.
+    Both must be loaded before any firebase.* call.
+  -->
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
   <script>
     'use strict';
 
-    /* ─── Firebase ──────────────────────────────────────────────────────── */
+    /* ─── Firebase ───────────────────────────────────────────────────── */
 
-    firebase.initializeApp({
-      apiKey:            'AIzaSyBBltsFPtlF3jd_tv_8-vQeyhXPSJNCy2w',
-      authDomain:        'abbybabynicebby.firebaseapp.com',
-      databaseURL:       'https://abbybabynicebby-default-rtdb.firebaseio.com',
-      projectId:         'abbybabynicebby',
-      storageBucket:     'abbybabynicebby.firebasestorage.app',
-      messagingSenderId: '515415904868',
-      appId:             '1:515415904868:web:4e4853284516c08afc0571',
-      measurementId:     'G-9T57S85WV5',
-    });
+    // Guard against duplicate init if script somehow runs twice
+    if (!firebase.apps.length) {
+      firebase.initializeApp({
+        apiKey:            'AIzaSyBBltsFPtlF3jd_tv_8-vQeyhXPSJNCy2w',
+        authDomain:        'abbybabynicebby.firebaseapp.com',
+        databaseURL:       'https://abbybabynicebby-default-rtdb.firebaseio.com',
+        projectId:         'abbybabynicebby',
+        storageBucket:     'abbybabynicebby.appspot.com',
+        messagingSenderId: '515415904868',
+        appId:             '1:515415904868:web:4e4853284516c08afc0571',
+      });
+    }
 
-    const kissRef = firebase.database().ref('yesCounter');
+    const db      = firebase.database();
+    const kissRef = db.ref('yesCounter');
 
-    /* ─── Constants ─────────────────────────────────────────────────────── */
+    /* ─── Constants ──────────────────────────────────────────────────── */
 
     const HEART_COLORS = ['#ff4d8d', '#ff85b3', '#ff6fa5', '#ff2d6f', '#ffb3d1', '#e8003d'];
 
@@ -519,20 +577,20 @@
       'wilab na wilab sayo 😛',
     ];
 
-    const TYPEWRITER_TEXT   = 'To: Jeam Abby Keith Panganiban 😊';
-    const TYPEWRITER_DELAY  = 50;   // ms per character
-    const QUESTION_DELAY    = 5000; // ms before swapping question text
-    const LETTER_TAP_COUNT  = 24;   // taps needed to reveal letter
-    const MUSIC_TARGET_VOL  = 0.6;
-    const MUSIC_FADE_STEP   = 0.03;
-    const MUSIC_FADE_INTERVAL = 300; // ms
+    const TYPEWRITER_TEXT     = 'To: Jeam Abby Keith Panganiban 😊';
+    const TYPEWRITER_DELAY    = 50;
+    const QUESTION_DELAY      = 5000;
+    const LETTER_TAP_COUNT    = 24;
+    const MUSIC_TARGET_VOL    = 0.6;
+    const MUSIC_FADE_STEP     = 0.03;
+    const MUSIC_FADE_INTERVAL = 300;
 
-    /* ─── SVG Helpers ───────────────────────────────────────────────────── */
+    /* ─── SVG Helpers ────────────────────────────────────────────────── */
 
     /**
      * Creates an SVG heart element.
      * @param {number} size
-     * @param {string} color  Hex color string
+     * @param {string} color
      * @returns {SVGElement}
      */
     function createHeart(size, color) {
@@ -547,12 +605,11 @@
       path.setAttribute('d', 'M16 27.6 C16 27.6 1 18 1 9 C1 4.6 4.6 1 9 1 C11.8 1 14.3 2.4 16 4.6 C17.7 2.4 20.2 1 23 1 C27.4 1 31 4.6 31 9 C31 18 16 27.6 16 27.6 Z');
       path.setAttribute('fill', color);
       svg.appendChild(path);
-
       return svg;
     }
 
     /**
-     * Creates an SVG cherry blossom petal element.
+     * Creates an SVG cherry blossom petal.
      * @returns {SVGElement}
      */
     function createPetal() {
@@ -578,7 +635,6 @@
         petal.setAttribute('ry', '9');
         petal.setAttribute('fill', fill);
         petal.setAttribute('opacity', '0.92');
-
         g.appendChild(petal);
         svg.appendChild(g);
       }
@@ -593,9 +649,9 @@
       return svg;
     }
 
-    /* ─── Particle Systems ──────────────────────────────────────────────── */
+    /* ─── Particle Systems ───────────────────────────────────────────── */
 
-    /** Starts continuously floating hearts rising from the bottom. */
+    /** Continuously floats hearts up from the bottom of the viewport. */
     function startAmbientHearts() {
       return setInterval(() => {
         const heart = createHeart(
@@ -604,7 +660,6 @@
         );
         heart.style.cssText += `position:fixed;left:${Math.random() * 100}vw;bottom:-40px;opacity:.65;z-index:9000;`;
         document.body.appendChild(heart);
-
         heart.animate(
           [
             { transform: 'translateY(0) rotate(0deg)',       opacity: 0.65 },
@@ -612,15 +667,14 @@
           ],
           { duration: 9000, easing: 'linear' }
         );
-
         setTimeout(() => heart.remove(), 9000);
       }, 1200);
     }
 
     /**
-     * Emits a burst of hearts from a point on screen.
-     * @param {number} x  clientX
-     * @param {number} y  clientY
+     * Emits a burst of hearts from a screen coordinate.
+     * @param {number} x
+     * @param {number} y
      */
     function burstHeartsAt(x, y) {
       for (let i = 0; i < 10; i++) {
@@ -636,17 +690,16 @@
 
         heart.animate(
           [
-            { transform: 'translate(0,0) scale(1)',              opacity: 1 },
+            { transform: 'translate(0,0) scale(1)',               opacity: 1 },
             { transform: `translate(${dx}px,${dy}px) scale(1.8)`, opacity: 0 },
           ],
           { duration: 1200, easing: 'ease-out' }
         );
-
         setTimeout(() => heart.remove(), 1200);
       }
     }
 
-    /** Starts periodic random heart explosions across the viewport. */
+    /** Periodic random heart explosions for the yes screen. */
     function startExplosions() {
       return setInterval(() => {
         const cx = Math.random() * window.innerWidth;
@@ -670,19 +723,18 @@
             ],
             { duration: 1400 }
           );
-
           setTimeout(() => heart.remove(), 1400);
         }
       }, 2000);
     }
 
     /**
-     * Drops a single cherry blossom petal inside a target element.
+     * Drops a cherry blossom petal inside a container element.
      * @param {HTMLElement} container
      */
     function dropPetal(container) {
       const petal = createPetal();
-      petal.className = 'petal';
+      petal.className  = 'petal';
       petal.style.left = `${Math.random() * 95}%`;
       petal.style.top  = '-20px';
       container.appendChild(petal);
@@ -693,23 +745,22 @@
 
       petal.animate(
         [
-          { transform: 'translate(0, 0) rotate(0deg)',                                          opacity: 0.9 },
-          { transform: `translate(${drift}px, ${container.scrollHeight + 20}px) rotate(${rotation}deg)`, opacity: 0   },
+          { transform: 'translate(0, 0) rotate(0deg)',  opacity: 0.9 },
+          { transform: `translate(${drift}px, ${container.scrollHeight + 20}px) rotate(${rotation}deg)`, opacity: 0 },
         ],
         { duration, easing: 'linear' }
       );
-
       setTimeout(() => petal.remove(), duration);
     }
 
-    /* ─── Typewriter ────────────────────────────────────────────────────── */
+    /* ─── Typewriter ─────────────────────────────────────────────────── */
 
     /**
-     * Types a string into an element character by character.
+     * Resolves after typing the full string into el.
      * @param {HTMLElement} el
      * @param {string}      text
-     * @param {number}      delay  ms between characters
-     * @returns {Promise<void>}  resolves when typing is complete
+     * @param {number}      delay
+     * @returns {Promise<void>}
      */
     function typewriter(el, text, delay = TYPEWRITER_DELAY) {
       return new Promise(resolve => {
@@ -726,15 +777,15 @@
       });
     }
 
-    /* ─── Audio ─────────────────────────────────────────────────────────── */
+    /* ─── Audio ──────────────────────────────────────────────────────── */
 
     /**
-     * Plays audio with a volume fade-in. Falls back to user interaction if
-     * autoplay is blocked.
+     * Plays src with a fade-in. Falls back to next user interaction
+     * if autoplay policy blocks it.
      * @param {string} src
      */
     function playWithFadeIn(src) {
-      const audio = new Audio(src);
+      const audio  = new Audio(src);
       audio.loop   = true;
       audio.volume = 0;
 
@@ -753,37 +804,21 @@
       });
     }
 
-    /* ─── Letter Modal ──────────────────────────────────────────────────── */
+    /* ─── Letter Easter Egg ──────────────────────────────────────────── */
 
     /**
-     * Manages the secret letter easter egg.
-     * Reveals after LETTER_TAP_COUNT taps outside the modal.
+     * Wires up the secret letter modal.
+     * Opens after LETTER_TAP_COUNT taps outside the modal on the yes screen.
      */
     function initLetterEasterEgg() {
-      const modal     = document.getElementById('letter-modal');
-      const card      = modal.querySelector('.letter-card');
-      const closeBtn  = modal.querySelector('[data-action="close-letter"]');
-      let   petalTimer = null;
-      let   taps       = 0;
+      const modal    = document.getElementById('letter-modal');
+      const card     = modal.querySelector('.letter-card');
+      const closeBtn = modal.querySelector('[data-action="close-letter"]');
+      let petalTimer = null;
+      let taps       = 0;
 
       function openModal() {
         modal.classList.add('is-open');
-
-        // Butterfly
-        if (!card.querySelector('.butterfly')) {
-          const vid = document.createElement('video');
-          vid.src      = 'butterfly.webm';
-          vid.autoplay = true;
-          vid.loop     = true;
-          vid.muted    = true;
-          vid.className = 'butterfly';
-          vid.style.left   = `${Math.random() * 60}%`;
-          vid.style.top    = `${Math.random() * 50}%`;
-          vid.style.filter = `hue-rotate(${Math.random() * 360}deg) saturate(200%)`;
-          card.appendChild(vid);
-        }
-
-        // Petals
         if (!petalTimer) {
           petalTimer = setInterval(() => dropPetal(card), 800);
         }
@@ -803,17 +838,16 @@
       document.addEventListener('click', e => {
         if (modal.classList.contains('is-open')) return;
         if (modal.contains(e.target)) return;
-
         taps++;
         if (taps >= LETTER_TAP_COUNT) openModal();
       });
     }
 
-    /* ─── No Button ─────────────────────────────────────────────────────── */
+    /* ─── No Button ──────────────────────────────────────────────────── */
 
     function initNoButton() {
-      const btn    = document.getElementById('btn-no');
-      let isFixed  = false;
+      const btn   = document.getElementById('btn-no');
+      let isFixed = false;
 
       function evade() {
         btn.textContent = NO_BTN_PHRASES[Math.floor(Math.random() * NO_BTN_PHRASES.length)];
@@ -825,7 +859,6 @@
 
         const maxX = window.innerWidth  - btn.offsetWidth  - 20;
         const maxY = window.innerHeight - btn.offsetHeight - 20;
-
         btn.style.left = `${Math.random() * maxX}px`;
         btn.style.top  = `${Math.random() * maxY}px`;
       }
@@ -834,12 +867,13 @@
       btn.addEventListener('click',     evade);
     }
 
-    /* ─── Yes Screen ────────────────────────────────────────────────────── */
+    /* ─── Yes Screen ─────────────────────────────────────────────────── */
 
     function showYesScreen() {
-      const landing = document.getElementById('screen-landing');
+      // Hide the kiss counter on the yes screen
+      document.getElementById('kiss-counter').style.display = 'none';
 
-      landing.innerHTML = `
+      document.getElementById('screen-landing').innerHTML = `
         <div class="postit-layer" aria-hidden="true">
           <div class="postit postit--myname">My baby, Abby! 💕</div>
           <div class="postit postit--vday">Happy Valentine's Day! 💌</div>
@@ -862,25 +896,24 @@
         </div>`;
 
       document.body.style.padding = '0';
-
       startAmbientHearts();
       startExplosions();
     }
 
-    /* ─── Init ──────────────────────────────────────────────────────────── */
+    /* ─── Init ───────────────────────────────────────────────────────── */
 
     document.addEventListener('DOMContentLoaded', async () => {
 
-      // Live counter
+      // Subscribe to live kiss counter
       kissRef.on('value', snap => {
         const el = document.getElementById('kiss-counter__value');
         if (el) el.textContent = snap.val() ?? 0;
       });
 
-      // Ambient hearts
+      // Ambient hearts on landing
       startAmbientHearts();
 
-      // Typewriter intro
+      // Type out the "To:" headline
       const headlineTo = document.getElementById('headline-to');
       await typewriter(headlineTo, TYPEWRITER_TEXT);
 
@@ -897,7 +930,7 @@
         }, 800);
       }, QUESTION_DELAY);
 
-      // Heart burst on every tap/click
+      // Heart burst on every tap
       document.addEventListener('click', e => burstHeartsAt(e.clientX, e.clientY));
 
       // No button
