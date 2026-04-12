@@ -582,42 +582,83 @@
     }
 
     /**
-     * Creates an SVG cherry blossom petal.
+     * Creates a realistic sakura petal SVG.
+     * Single rounded petal with notch tip, gradient fill, and subtle vein.
      * @returns {SVGElement}
      */
     function createPetal() {
-      const NS     = 'http://www.w3.org/2000/svg';
-      const SHADES = ['#ffb7c5', '#ff8fa3', '#ffc8d5', '#f78da7', '#ffd6e0', '#ff6b8a'];
-      const size   = Math.random() * 14 + 12;
-      const fill   = SHADES[Math.floor(Math.random() * SHADES.length)];
+      const NS   = 'http://www.w3.org/2000/svg';
+      const size = Math.random() * 10 + 16; // 16–26px
+      const id   = `sg${Math.random().toString(36).slice(2, 7)}`;
+
+      // petal color palette — soft naturalistic sakura tones
+      const palettes = [
+        ['#fde8ee', '#f4a7bc'],
+        ['#fce4ec', '#f48fb1'],
+        ['#ffd6e0', '#f06292'],
+        ['#fff0f4', '#e991ae'],
+        ['#fce8f0', '#ec8aac'],
+      ];
+      const [light, dark] = palettes[Math.floor(Math.random() * palettes.length)];
 
       const svg = document.createElementNS(NS, 'svg');
-      svg.setAttribute('viewBox', '0 0 40 40');
+      svg.setAttribute('viewBox', '0 0 40 52');
       svg.setAttribute('width',  size);
-      svg.setAttribute('height', size);
+      svg.setAttribute('height', size * 1.3);
       svg.style.overflow = 'visible';
 
-      for (let i = 0; i < 5; i++) {
-        const g = document.createElementNS(NS, 'g');
-        g.setAttribute('transform', `rotate(${i * 72}, 20, 20)`);
+      const defs = document.createElementNS(NS, 'defs');
 
-        const petal = document.createElementNS(NS, 'ellipse');
-        petal.setAttribute('cx', '20');
-        petal.setAttribute('cy', '10');
-        petal.setAttribute('rx', '5');
-        petal.setAttribute('ry', '9');
-        petal.setAttribute('fill', fill);
-        petal.setAttribute('opacity', '0.92');
-        g.appendChild(petal);
-        svg.appendChild(g);
-      }
+      // radial gradient — lighter centre, darker edge
+      const grad = document.createElementNS(NS, 'radialGradient');
+      grad.setAttribute('id', id);
+      grad.setAttribute('cx', '50%');
+      grad.setAttribute('cy', '35%');
+      grad.setAttribute('r',  '60%');
 
-      const center = document.createElementNS(NS, 'circle');
-      center.setAttribute('cx', '20');
-      center.setAttribute('cy', '20');
-      center.setAttribute('r',  '3');
-      center.setAttribute('fill', '#ffe066');
-      svg.appendChild(center);
+      const s1 = document.createElementNS(NS, 'stop');
+      s1.setAttribute('offset', '0%');
+      s1.setAttribute('stop-color', light);
+
+      const s2 = document.createElementNS(NS, 'stop');
+      s2.setAttribute('offset', '100%');
+      s2.setAttribute('stop-color', dark);
+
+      grad.appendChild(s1);
+      grad.appendChild(s2);
+      defs.appendChild(grad);
+      svg.appendChild(defs);
+
+      // petal body — rounded teardrop with notch at tip
+      const body = document.createElementNS(NS, 'path');
+      body.setAttribute('d',
+        'M20 50 ' +
+        'C6 40, 0 26, 2 16 ' +
+        'C4 6, 12 0, 20 2 ' +
+        'C28 0, 36 6, 38 16 ' +
+        'C40 26, 34 40, 20 50 Z'
+      );
+      body.setAttribute('fill', `url(#${id})`);
+      body.setAttribute('opacity', '0.92');
+      svg.appendChild(body);
+
+      // centre vein
+      const vein = document.createElementNS(NS, 'line');
+      vein.setAttribute('x1', '20'); vein.setAttribute('y1', '48');
+      vein.setAttribute('x2', '20'); vein.setAttribute('y2', '4');
+      vein.setAttribute('stroke', dark);
+      vein.setAttribute('stroke-width', '0.6');
+      vein.setAttribute('opacity', '0.35');
+      svg.appendChild(vein);
+
+      // two subtle side veins
+      const v2 = document.createElementNS(NS, 'path');
+      v2.setAttribute('d', 'M20 36 Q10 28 6 20 M20 36 Q30 28 34 20');
+      v2.setAttribute('stroke', dark);
+      v2.setAttribute('stroke-width', '0.5');
+      v2.setAttribute('fill', 'none');
+      v2.setAttribute('opacity', '0.25');
+      svg.appendChild(v2);
 
       return svg;
     }
@@ -794,36 +835,65 @@
       function openModal() {
         modal.classList.add('is-open');
         if (!petalTimer) {
-          // wait one frame so card is painted and getBoundingClientRect is accurate
           requestAnimationFrame(() => {
             petalTimer = setInterval(() => {
               const rect = card.getBoundingClientRect();
-              if (!rect.width) return; // card not visible yet, skip
+              if (!rect.width) return;
 
-              const petal = createPetal();
+              const petal    = createPetal();
+              const startX   = rect.left + Math.random() * rect.width;
+              const sway     = (Math.random() * 60) - 30;   // gentle horizontal drift
+              const rotation = Math.random() * 360;          // initial angle
+              const spin     = (Math.random() > 0.5 ? 1 : -1) * (180 + Math.random() * 180);
+              const duration = 7000 + Math.random() * 5000; // 7–12s slow fall
+              const tiltX    = (Math.random() - 0.5) * 30;  // slight 3D tilt
+
               petal.style.cssText = `
                 position: fixed;
-                left: ${rect.left + Math.random() * (rect.width - 20)}px;
-                top: ${rect.top - 10}px;
+                left: ${startX}px;
+                top: ${rect.top - 20}px;
                 z-index: 100000;
                 pointer-events: none;
                 overflow: visible;
+                transform-origin: center center;
+                will-change: transform, opacity;
               `;
               document.body.appendChild(petal);
 
-              const drift    = (Math.random() * 80) - 40;
-              const rotation = Math.random() * 540 - 270;
-              const duration = 3000 + Math.random() * 3000;
-
+              // multi-keyframe sway mimics real petal flutter
               petal.animate(
                 [
-                  { transform: 'translate(0, 0) rotate(0deg)', opacity: 0.9 },
-                  { transform: `translate(${drift}px, ${rect.height + 30}px) rotate(${rotation}deg)`, opacity: 0 },
+                  {
+                    transform: `translate(0px, 0px) rotate(${rotation}deg) rotateX(0deg)`,
+                    opacity: 0,
+                    offset: 0
+                  },
+                  {
+                    transform: `translate(${sway * 0.3}px, ${rect.height * 0.25}px) rotate(${rotation + spin * 0.25}deg) rotateX(${tiltX}deg)`,
+                    opacity: 0.9,
+                    offset: 0.1
+                  },
+                  {
+                    transform: `translate(${sway * -0.4}px, ${rect.height * 0.5}px) rotate(${rotation + spin * 0.5}deg) rotateX(${-tiltX}deg)`,
+                    opacity: 0.85,
+                    offset: 0.5
+                  },
+                  {
+                    transform: `translate(${sway * 0.6}px, ${rect.height * 0.75}px) rotate(${rotation + spin * 0.75}deg) rotateX(${tiltX * 0.5}deg)`,
+                    opacity: 0.7,
+                    offset: 0.75
+                  },
+                  {
+                    transform: `translate(${sway}px, ${rect.height + 30}px) rotate(${rotation + spin}deg) rotateX(0deg)`,
+                    opacity: 0,
+                    offset: 1
+                  },
                 ],
-                { duration, easing: 'linear' }
+                { duration, easing: 'linear', fill: 'forwards' }
               );
-              setTimeout(() => petal.remove(), duration);
-            }, 300);
+
+              setTimeout(() => petal.remove(), duration + 100);
+            }, 500); // one petal every 500ms
           });
         }
       }
