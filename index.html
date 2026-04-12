@@ -1,62 +1,917 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MY BABY 💕</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MY BABY 💕</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Pacifico&family=Caveat:wght@400;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    /* ─── Reset & Base ─────────────────────────────────────────────────── */
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Pacifico&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    :root {
+      --pink-primary:   #ff4d8d;
+      --pink-light:     #ff6fa5;
+      --pink-pale:      #ffd6e7;
+      --pink-blush:     #ffe9f2;
+      --pink-frost:     #fff5f9;
+      --text-body:      #555;
+      --text-dark:      #2a2a2a;
+      --shadow-card:    0 8px 40px rgba(0, 0, 0, 0.25);
+      --radius-pill:    30px;
+      --radius-card:    14px;
+      --transition-ui:  0.8s ease;
+    }
+
+    html,
+    body {
+      overflow-x: hidden;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, var(--pink-pale), var(--pink-blush), var(--pink-frost));
+      padding: 20px;
+      animation: fadeIn 1.5s ease both;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ─── Typography ────────────────────────────────────────────────────── */
+
+    h1 {
+      font-family: 'Pacifico', cursive;
+      color: var(--pink-primary);
+      font-size: clamp(26px, 7vw, 42px);
+      margin: 8px 0;
+    }
+
+    p {
+      color: var(--text-body);
+      max-width: 420px;
+      font-size: clamp(15px, 4vw, 18px);
+      line-height: 1.6;
+      margin: 6px 0;
+    }
+
+    /* ─── Kiss Counter Bubble ───────────────────────────────────────────── */
+
+    #kiss-counter {
+      position: fixed;
+      top: 12px;
+      right: 12px;
+      width: 130px;
+      z-index: 9999;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    #kiss-counter img {
+      width: 100%;
+      display: block;
+    }
+
+    #kiss-counter__label {
+      position: absolute;
+      top: 52%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 72%;
+      text-align: center;
+      color: #6b4b2a;
+      font-weight: 700;
+      font-size: 8.5px;
+      line-height: 1.1;
+      white-space: nowrap;
+    }
+
+    #kiss-counter__value {
+      display: block;
+      margin-top: 2px;
+      font-size: 15px;
+      font-weight: 900;
+    }
+
+    /* ─── Landing Screen ────────────────────────────────────────────────── */
+
+    #screen-landing {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    #hero-gif {
+      width: min(220px, 60vw);
+      border-radius: 20px;
+      margin: 15px 0;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #headline-to {
+      font-size: clamp(22px, 5vw, 32px);
+      margin-bottom: 6px;
+      min-height: 1.2em;
+    }
+
+    #headline-question {
+      font-size: clamp(18px, 6vw, 36px);
+      transition: opacity var(--transition-ui), transform var(--transition-ui);
+    }
+
+    /* ─── Buttons ───────────────────────────────────────────────────────── */
+
+    .btn-group {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .btn {
+      padding: 14px 22px;
+      font-size: clamp(15px, 3.5vw, 18px);
+      font-family: inherit;
+      border-radius: var(--radius-pill);
+      border: none;
+      cursor: pointer;
+      min-width: 140px;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .btn--yes {
+      background: var(--pink-primary);
+      color: #fff;
+      box-shadow: 0 4px 15px rgba(255, 77, 141, 0.4);
+      animation: heartbeat 1.5s infinite;
+    }
+
+    .btn--no {
+      background: #fff;
+      color: var(--pink-light);
+      border: 2px solid var(--pink-light);
+      font-weight: 600;
+      white-space: nowrap;
+      width: max-content;
+      position: static;
+    }
+
+    @keyframes heartbeat {
+      0%, 40%, 100% { transform: scale(1); }
+      25%, 60%      { transform: scale(1.05); }
+    }
+
+    @media (max-width: 380px) {
+      .btn { font-size: 14px; padding: 10px 14px; }
+    }
+
+    /* ─── Yes Screen ────────────────────────────────────────────────────── */
+
+    #screen-yes {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      z-index: 5;
+      padding: 20px;
+    }
+
+    #yes-headline {
+      color: var(--pink-primary);
+      animation: bounce 1s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-12px); }
+    }
+
+    /* ─── Post-it Notes ─────────────────────────────────────────────────── */
+
+    .postit-layer {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .postit {
+      position: absolute;
+      padding: 12px 18px;
+      border-radius: var(--radius-card);
+      font-size: 16px;
+      white-space: nowrap;
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.18);
+      opacity: 0.95;
+    }
+
+    .postit--myname   { background: #fff2a8; transform: rotate(-2deg); top: 8%;    left: 18%; }
+    .postit--vday     { background: #ffd6ec; top: 70%;  left: 50%; transform: translateX(-50%) rotate(-3deg); }
+    .postit--iloveu   { background: #d6f5ff; transform: rotate(-2deg); bottom: 12%; left: 22%; }
+    .postit--missyou  { background: #e6ffd9; transform: rotate(3deg);  top: 10%;   right: 18%; }
+    .postit--heart    { background: #ffe1c9; top: 22%;  left: 50%; transform: translateX(-50%) rotate(3deg); }
+    .postit--happy    { background: #f0d9ff; transform: rotate(2deg);  bottom: 12%; right: 22%; }
+
+    @media (max-width: 1024px) {
+      .postit { font-size: 15px; padding: 11px 16px; }
+      .postit--myname  { top: 6%;    left: 10%; }
+      .postit--missyou { top: 6%;    right: 10%; }
+      .postit--iloveu  { bottom: 10%; left: 14%; }
+      .postit--happy   { bottom: 10%; right: 14%; }
+      .postit--heart   { top: 20%; }
+      .postit--vday    { top: 72%; }
+    }
+
+    @media (max-width: 600px) {
+      .postit { font-size: 13px; padding: 9px 13px; }
+      .postit--myname  { top: 5%;   left: 6%; }
+      .postit--missyou { top: 5%;   right: 6%; }
+      .postit--iloveu  { bottom: 8%; left: 10%; }
+      .postit--happy   { bottom: 8%; right: 10%; }
+      .postit--heart   { top: 18%; }
+      .postit--vday    { top: 76%; }
+    }
+
+    /* ─── Letter Modal ──────────────────────────────────────────────────── */
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(6px);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      z-index: 9998;
+    }
+
+    .modal-backdrop.is-open {
+      display: flex;
+    }
+
+    .letter-card {
+      position: relative;
+      overflow: hidden;
+      width: 92%;
+      max-width: 440px;
+      max-height: 82vh;
+
+      /* Notebook ruled-paper effect */
+      background: #fafaf7;
+      background-image:
+        linear-gradient(to right, transparent 54px, #f8b4c0 54px, #f8b4c0 56px, transparent 56px),
+        repeating-linear-gradient(
+          to bottom,
+          transparent 0px,
+          transparent 31px,
+          #c5d8f5 31px,
+          #c5d8f5 32px
+        );
+      background-attachment: local;
+
+      border-radius: 4px 14px 14px 4px;
+      padding: 48px 24px 24px 68px;
+      border-left: none;
+      box-shadow:
+        -4px 0 0 #d0d0d0,
+        var(--shadow-card),
+        inset 0 0 0 1px rgba(0, 0, 0, 0.06);
+
+      font-family: 'Caveat', cursive;
+      font-size: 18px;
+      line-height: 32px;
+      text-align: left;
+      color: var(--text-dark);
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      animation: scaleIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+    }
+
+    /* Spiral binding holes */
+    .letter-card::before {
+      content: '';
+      position: absolute;
+      left: -10px;
+      top: 0;
+      bottom: 0;
+      width: 20px;
+      background:
+        radial-gradient(circle 8px at 10px 60px,  #fff 7px, transparent 8px),
+        radial-gradient(circle 8px at 10px 150px, #fff 7px, transparent 8px),
+        radial-gradient(circle 8px at 10px 240px, #fff 7px, transparent 8px),
+        radial-gradient(circle 8px at 10px 330px, #fff 7px, transparent 8px),
+        radial-gradient(circle 8px at 10px 420px, #fff 7px, transparent 8px),
+        radial-gradient(circle 8px at 10px 510px, #fff 7px, transparent 8px);
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    /* Top tape label */
+    .letter-card::after {
+      content: '✦  secret letter  ✦';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 38px;
+      background: var(--pink-pale);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Caveat', cursive;
+      font-size: 15px;
+      font-weight: 700;
+      color: #d45c87;
+      letter-spacing: 0.15em;
+      border-bottom: 2px dashed #f9a8c9;
+      z-index: 3;
+    }
+
+    .letter-card__body {
+      overflow-y: auto;
+      overflow-x: hidden;
+      max-height: calc(82vh - 60px);
+      position: relative;
+      z-index: 2;
+    }
+
+    .letter-card__body h2 {
+      font-family: 'Caveat', cursive;
+      font-size: 26px;
+      font-weight: 700;
+      color: #d45c87;
+      text-align: center;
+      margin: 8px 0 4px;
+      line-height: 32px;
+    }
+
+    .letter-card__body p {
+      margin: 0;
+      font-size: 18px;
+      line-height: 32px;
+      color: var(--text-dark);
+      max-width: none;
+    }
+
+    .letter-card__close {
+      margin-top: 16px;
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: var(--radius-pill);
+      background: var(--pink-primary);
+      color: #fff;
+      font-family: 'Caveat', cursive;
+      font-size: 18px;
+      font-weight: 700;
+      cursor: pointer;
+      position: relative;
+      z-index: 5;
+      flex-shrink: 0;
+    }
+
+    @keyframes scaleIn {
+      from { opacity: 0; transform: scale(0.6); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+
+    /* ─── Butterfly (video overlay inside letter) ───────────────────────── */
+
+    .butterfly {
+      position: absolute;
+      width: 260px;
+      pointer-events: none;
+      z-index: 5;
+      filter: saturate(1.4) contrast(1.1);
+    }
+
+    /* ─── Cherry Blossom Petals ─────────────────────────────────────────── */
+
+    .petal {
+      position: absolute;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.88;
+    }
+  </style>
 </head>
-
 <body>
 
-<h1 id="typing"></h1>
-
-<div id="yesBubble">
-  <img src="bubbles.png" id="bubbleImg">
-
-  <div id="bubbleText">
-    KISSES YOU OWE ME 😚
-    <span id="yesCount">0</span>
+  <!-- Kiss counter — outside #screen-landing so it persists across views -->
+  <div id="kiss-counter" aria-label="Kisses owed" role="status">
+    <img src="bubbles.png" alt="" aria-hidden="true" />
+    <div id="kiss-counter__label">
+      KISSES YOU OWE ME 😚
+      <span id="kiss-counter__value">0</span>
+    </div>
   </div>
-</div>
 
-<p>Because you're my favorite person to miss, my favorite mais, and the one who lives rent free in my head.</p>
-<p>So I have a very important question for you…</p>
+  <!-- Landing screen -->
+  <div id="screen-landing">
+    <h1 id="headline-to" aria-live="polite"></h1>
 
-<img id="valentineGif" src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExbnp1MG13ZWhsbGdxa2RvdjR2eHh2Z3d3dzVsMXI0anJ6aWlvZm5veCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/901mxGLGQN2PyCQpoc/giphy.gif">
+    <p>Because you're my favorite person to miss, my favorite mais,<br>and the one who lives rent free in my head.</p>
+    <p>So I have a very important question for you…</p>
 
-<h1 id="ginayumaText">Ginayuma mo ba ako? 💭</h1>
+    <img
+      id="hero-gif"
+      src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExbnp1MG13ZWhsbGdxa2RvdjR2eHh2Z3d3dzVsMXI0anJ6aWlvZm5veCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/901mxGLGQN2PyCQpoc/giphy.gif"
+      alt="cute gif"
+    />
 
-<div class="btnRow">
-  <button id="yesBtn">YES!!! 💕</button>
-  <button id="noBtn">NO (sure na yarn?) 🥺</button>
-</div>
+    <h1 id="headline-question">Ginayuma mo ba ako? 💭</h1>
 
-<p id="loveMsg"></p>
+    <div class="btn-group">
+      <button id="btn-yes" class="btn btn--yes">YES!!! 💕</button>
+      <button id="btn-no"  class="btn btn--no">NO (sure na yarn?) 🥺</button>
+    </div>
+  </div>
 
-<!-- Firebase -->
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+  <!-- Letter modal (hidden until easter egg triggered) -->
+  <div id="letter-modal" class="modal-backdrop" role="dialog" aria-modal="true" aria-label="Secret letter">
+    <div class="letter-card">
+      <div class="letter-card__body">
+        <h2>Hallu, my babyyy! 💖</h2>
+        <p>So ayun… sobrang HS-coded nito for me baby.</p>
+        <p>Ang nostalgic niya sobra. Naluluha nga ako habang ginagawa ko to e, si OA na naman ako hahaha 😭🤣</p>
+        <p>Ito pala yung sinasabi ko baby na may na-realize ako. Dito talaga nagsimula yung interest ko sa computers.</p>
+        <p>Dati akala ko puro games lang siya… pero hindi pala. This was my first love. Ito yung bumuhay sakin noon, at dito ko rin nakuha yung first paycheck ko.</p>
+        <p>Kung ano man narating ko ngayon, nagsimula lahat sa basic HTML na to 🥹</p>
+        <p>Kaya thank you talaga baby. Thank you sa buhay mo, at thank you rin sa dad mo na hindi ka niya pinutok sa tiyan ng mom mo 🤣</p>
+        <p>Thank you kasi dumating ka sa buhay ko. Thank you kasi kahit nabuburnout ako sa work, nung naalala ko to parang gusto ko pang mag-extend ng mga five years eme haha.</p>
+        <p>Thank you… binuhay mo ako. Thank you for making me do this kahit hindi mo naman ako inutusan.</p>
+        <p>Thank you for being my inspiration without even trying.</p>
+        <p>Sobrang mais ko na ba? HAHAHAHAHA OKI BYE NA GAROD!</p>
+        <p>&nbsp;</p>
+        <p><strong>I love you, my baby Abby! 💗😚😚😚</strong></p>
+        <p>&nbsp;</p>
+        <p style="text-align: right;">
+          Love,<br />Cebby 😵‍💫<br /><em>baliw na baliw pa rin sayo</em>
+        </p>
+      </div>
+      <button class="letter-card__close" data-action="close-letter">Close 💌</button>
+    </div>
+  </div>
 
-<script>
-const firebaseConfig = {
-  apiKey: "AIzaSyBBltsFPtlF3jd_tv_8-vQeyhXPSJNCy2w",
-  authDomain: "abbybabynicebby.firebaseapp.com",
-  databaseURL: "https://abbybabynicebby-default-rtdb.firebaseio.com",
-  projectId: "abbybabynicebby",
-  storageBucket: "abbybabynicebby.firebasestorage.app",
-  messagingSenderId: "515415904868",
-  appId: "1:515415904868:web:4e4853284516c08afc0571",
-  measurementId: "G-9T57S85WV5"
-};
+  <!-- Firebase v8 compat -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
-firebase.initializeApp(firebaseConfig);
-const db = firebase.database();
-</script>
+  <script>
+    'use strict';
 
-<script src="script.js"></script>
-<script src="valentine.js"></script>
+    /* ─── Firebase ──────────────────────────────────────────────────────── */
+
+    firebase.initializeApp({
+      apiKey:            'AIzaSyBBltsFPtlF3jd_tv_8-vQeyhXPSJNCy2w',
+      authDomain:        'abbybabynicebby.firebaseapp.com',
+      databaseURL:       'https://abbybabynicebby-default-rtdb.firebaseio.com',
+      projectId:         'abbybabynicebby',
+      storageBucket:     'abbybabynicebby.firebasestorage.app',
+      messagingSenderId: '515415904868',
+      appId:             '1:515415904868:web:4e4853284516c08afc0571',
+      measurementId:     'G-9T57S85WV5',
+    });
+
+    const kissRef = firebase.database().ref('yesCounter');
+
+    /* ─── Constants ─────────────────────────────────────────────────────── */
+
+    const HEART_COLORS = ['#ff4d8d', '#ff85b3', '#ff6fa5', '#ff2d6f', '#ffb3d1', '#e8003d'];
+
+    const NO_BTN_PHRASES = [
+      'sure na yarn, baby? 🤨',
+      'aww, that hurts my feelings, baby 😭',
+      "it's a love story, baby, just say, YES 🥰",
+      'oops, wrong button nganiii 🙄',
+      'say YES to heaven 😇',
+      'nye nyee nyeee 🤪',
+      'baby, be serious na pls 😤',
+      'i love you, my princess 😍',
+      'amaccana accla 😆',
+      'click YES na garod 😌💕',
+      'yieee, enjoy yarn syaaa 😚',
+      'halla si oa hahaha 🤣',
+      'how are u so pretty, baby 🥹',
+      'baby, please? 🥺👉👈',
+      'wilab na wilab sayo 😛',
+    ];
+
+    const TYPEWRITER_TEXT   = 'To: Jeam Abby Keith Panganiban 😊';
+    const TYPEWRITER_DELAY  = 50;   // ms per character
+    const QUESTION_DELAY    = 5000; // ms before swapping question text
+    const LETTER_TAP_COUNT  = 24;   // taps needed to reveal letter
+    const MUSIC_TARGET_VOL  = 0.6;
+    const MUSIC_FADE_STEP   = 0.03;
+    const MUSIC_FADE_INTERVAL = 300; // ms
+
+    /* ─── SVG Helpers ───────────────────────────────────────────────────── */
+
+    /**
+     * Creates an SVG heart element.
+     * @param {number} size
+     * @param {string} color  Hex color string
+     * @returns {SVGElement}
+     */
+    function createHeart(size, color) {
+      const NS  = 'http://www.w3.org/2000/svg';
+      const svg = document.createElementNS(NS, 'svg');
+      svg.setAttribute('viewBox', '0 0 32 29.6');
+      svg.setAttribute('width',  size);
+      svg.setAttribute('height', size);
+      svg.style.cssText = 'overflow:visible;pointer-events:none;';
+
+      const path = document.createElementNS(NS, 'path');
+      path.setAttribute('d', 'M16 27.6 C16 27.6 1 18 1 9 C1 4.6 4.6 1 9 1 C11.8 1 14.3 2.4 16 4.6 C17.7 2.4 20.2 1 23 1 C27.4 1 31 4.6 31 9 C31 18 16 27.6 16 27.6 Z');
+      path.setAttribute('fill', color);
+      svg.appendChild(path);
+
+      return svg;
+    }
+
+    /**
+     * Creates an SVG cherry blossom petal element.
+     * @returns {SVGElement}
+     */
+    function createPetal() {
+      const NS     = 'http://www.w3.org/2000/svg';
+      const SHADES = ['#ffb7c5', '#ff8fa3', '#ffc8d5', '#f78da7', '#ffd6e0', '#ff6b8a'];
+      const size   = Math.random() * 14 + 12;
+      const fill   = SHADES[Math.floor(Math.random() * SHADES.length)];
+
+      const svg = document.createElementNS(NS, 'svg');
+      svg.setAttribute('viewBox', '0 0 40 40');
+      svg.setAttribute('width',  size);
+      svg.setAttribute('height', size);
+      svg.style.overflow = 'visible';
+
+      for (let i = 0; i < 5; i++) {
+        const g = document.createElementNS(NS, 'g');
+        g.setAttribute('transform', `rotate(${i * 72}, 20, 20)`);
+
+        const petal = document.createElementNS(NS, 'ellipse');
+        petal.setAttribute('cx', '20');
+        petal.setAttribute('cy', '10');
+        petal.setAttribute('rx', '5');
+        petal.setAttribute('ry', '9');
+        petal.setAttribute('fill', fill);
+        petal.setAttribute('opacity', '0.92');
+
+        g.appendChild(petal);
+        svg.appendChild(g);
+      }
+
+      const center = document.createElementNS(NS, 'circle');
+      center.setAttribute('cx', '20');
+      center.setAttribute('cy', '20');
+      center.setAttribute('r',  '3');
+      center.setAttribute('fill', '#ffe066');
+      svg.appendChild(center);
+
+      return svg;
+    }
+
+    /* ─── Particle Systems ──────────────────────────────────────────────── */
+
+    /** Starts continuously floating hearts rising from the bottom. */
+    function startAmbientHearts() {
+      return setInterval(() => {
+        const heart = createHeart(
+          Math.random() * 14 + 14,
+          HEART_COLORS[Math.floor(Math.random() * HEART_COLORS.length)]
+        );
+        heart.style.cssText += `position:fixed;left:${Math.random() * 100}vw;bottom:-40px;opacity:.65;z-index:9000;`;
+        document.body.appendChild(heart);
+
+        heart.animate(
+          [
+            { transform: 'translateY(0) rotate(0deg)',       opacity: 0.65 },
+            { transform: 'translateY(-110vh) rotate(25deg)', opacity: 0    },
+          ],
+          { duration: 9000, easing: 'linear' }
+        );
+
+        setTimeout(() => heart.remove(), 9000);
+      }, 1200);
+    }
+
+    /**
+     * Emits a burst of hearts from a point on screen.
+     * @param {number} x  clientX
+     * @param {number} y  clientY
+     */
+    function burstHeartsAt(x, y) {
+      for (let i = 0; i < 10; i++) {
+        const heart = createHeart(
+          Math.random() * 14 + 16,
+          HEART_COLORS[Math.floor(Math.random() * HEART_COLORS.length)]
+        );
+        heart.style.cssText += `position:fixed;left:${x}px;top:${y}px;z-index:100000;`;
+        document.body.appendChild(heart);
+
+        const dx = (Math.random() - 0.5) * 200;
+        const dy = (Math.random() - 0.5) * 200;
+
+        heart.animate(
+          [
+            { transform: 'translate(0,0) scale(1)',              opacity: 1 },
+            { transform: `translate(${dx}px,${dy}px) scale(1.8)`, opacity: 0 },
+          ],
+          { duration: 1200, easing: 'ease-out' }
+        );
+
+        setTimeout(() => heart.remove(), 1200);
+      }
+    }
+
+    /** Starts periodic random heart explosions across the viewport. */
+    function startExplosions() {
+      return setInterval(() => {
+        const cx = Math.random() * window.innerWidth;
+        const cy = Math.random() * window.innerHeight * 0.8;
+
+        for (let i = 0; i < 20; i++) {
+          const heart = createHeart(
+            Math.random() * 10 + 16,
+            HEART_COLORS[Math.floor(Math.random() * HEART_COLORS.length)]
+          );
+          heart.style.cssText = `position:fixed;left:${cx}px;top:${cy}px;z-index:9000;`;
+          document.body.appendChild(heart);
+
+          const angle = Math.random() * 2 * Math.PI;
+          const dist  = Math.random() * 200 + 50;
+
+          heart.animate(
+            [
+              { transform: 'translate(0,0)', opacity: 1 },
+              { transform: `translate(${Math.cos(angle) * dist}px, ${Math.sin(angle) * dist}px) scale(1.6)`, opacity: 0 },
+            ],
+            { duration: 1400 }
+          );
+
+          setTimeout(() => heart.remove(), 1400);
+        }
+      }, 2000);
+    }
+
+    /**
+     * Drops a single cherry blossom petal inside a target element.
+     * @param {HTMLElement} container
+     */
+    function dropPetal(container) {
+      const petal = createPetal();
+      petal.className = 'petal';
+      petal.style.left = `${Math.random() * 95}%`;
+      petal.style.top  = '-20px';
+      container.appendChild(petal);
+
+      const drift    = (Math.random() * 80) - 40;
+      const rotation = Math.random() * 540 - 270;
+      const duration = 6000 + Math.random() * 6000;
+
+      petal.animate(
+        [
+          { transform: 'translate(0, 0) rotate(0deg)',                                          opacity: 0.9 },
+          { transform: `translate(${drift}px, ${container.scrollHeight + 20}px) rotate(${rotation}deg)`, opacity: 0   },
+        ],
+        { duration, easing: 'linear' }
+      );
+
+      setTimeout(() => petal.remove(), duration);
+    }
+
+    /* ─── Typewriter ────────────────────────────────────────────────────── */
+
+    /**
+     * Types a string into an element character by character.
+     * @param {HTMLElement} el
+     * @param {string}      text
+     * @param {number}      delay  ms between characters
+     * @returns {Promise<void>}  resolves when typing is complete
+     */
+    function typewriter(el, text, delay = TYPEWRITER_DELAY) {
+      return new Promise(resolve => {
+        let i = 0;
+        function step() {
+          if (i < text.length) {
+            el.textContent += text.charAt(i++);
+            setTimeout(step, delay);
+          } else {
+            resolve();
+          }
+        }
+        step();
+      });
+    }
+
+    /* ─── Audio ─────────────────────────────────────────────────────────── */
+
+    /**
+     * Plays audio with a volume fade-in. Falls back to user interaction if
+     * autoplay is blocked.
+     * @param {string} src
+     */
+    function playWithFadeIn(src) {
+      const audio = new Audio(src);
+      audio.loop   = true;
+      audio.volume = 0;
+
+      audio.play().then(() => {
+        let vol = 0;
+        const ramp = setInterval(() => {
+          if (vol < MUSIC_TARGET_VOL) {
+            vol = Math.min(vol + MUSIC_FADE_STEP, MUSIC_TARGET_VOL);
+            audio.volume = vol;
+          } else {
+            clearInterval(ramp);
+          }
+        }, MUSIC_FADE_INTERVAL);
+      }).catch(() => {
+        document.addEventListener('click', () => audio.play(), { once: true });
+      });
+    }
+
+    /* ─── Letter Modal ──────────────────────────────────────────────────── */
+
+    /**
+     * Manages the secret letter easter egg.
+     * Reveals after LETTER_TAP_COUNT taps outside the modal.
+     */
+    function initLetterEasterEgg() {
+      const modal     = document.getElementById('letter-modal');
+      const card      = modal.querySelector('.letter-card');
+      const closeBtn  = modal.querySelector('[data-action="close-letter"]');
+      let   petalTimer = null;
+      let   taps       = 0;
+
+      function openModal() {
+        modal.classList.add('is-open');
+
+        // Butterfly
+        if (!card.querySelector('.butterfly')) {
+          const vid = document.createElement('video');
+          vid.src      = 'butterfly.webm';
+          vid.autoplay = true;
+          vid.loop     = true;
+          vid.muted    = true;
+          vid.className = 'butterfly';
+          vid.style.left   = `${Math.random() * 60}%`;
+          vid.style.top    = `${Math.random() * 50}%`;
+          vid.style.filter = `hue-rotate(${Math.random() * 360}deg) saturate(200%)`;
+          card.appendChild(vid);
+        }
+
+        // Petals
+        if (!petalTimer) {
+          petalTimer = setInterval(() => dropPetal(card), 800);
+        }
+      }
+
+      function closeModal() {
+        modal.classList.remove('is-open');
+        if (petalTimer) {
+          clearInterval(petalTimer);
+          petalTimer = null;
+        }
+        taps = 0;
+      }
+
+      closeBtn.addEventListener('click', closeModal);
+
+      document.addEventListener('click', e => {
+        if (modal.classList.contains('is-open')) return;
+        if (modal.contains(e.target)) return;
+
+        taps++;
+        if (taps >= LETTER_TAP_COUNT) openModal();
+      });
+    }
+
+    /* ─── No Button ─────────────────────────────────────────────────────── */
+
+    function initNoButton() {
+      const btn    = document.getElementById('btn-no');
+      let isFixed  = false;
+
+      function evade() {
+        btn.textContent = NO_BTN_PHRASES[Math.floor(Math.random() * NO_BTN_PHRASES.length)];
+
+        if (!isFixed) {
+          btn.style.position = 'fixed';
+          isFixed = true;
+        }
+
+        const maxX = window.innerWidth  - btn.offsetWidth  - 20;
+        const maxY = window.innerHeight - btn.offsetHeight - 20;
+
+        btn.style.left = `${Math.random() * maxX}px`;
+        btn.style.top  = `${Math.random() * maxY}px`;
+      }
+
+      btn.addEventListener('mouseover', evade);
+      btn.addEventListener('click',     evade);
+    }
+
+    /* ─── Yes Screen ────────────────────────────────────────────────────── */
+
+    function showYesScreen() {
+      const landing = document.getElementById('screen-landing');
+
+      landing.innerHTML = `
+        <div class="postit-layer" aria-hidden="true">
+          <div class="postit postit--myname">My baby, Abby! 💕</div>
+          <div class="postit postit--vday">Happy Valentine's Day! 💌</div>
+          <div class="postit postit--iloveu">I love you 🥰</div>
+          <div class="postit postit--missyou">I miss you, always 🥹</div>
+          <div class="postit postit--heart">You are always in my heart 🫀</div>
+          <div class="postit postit--happy">You make me happy 🤗</div>
+        </div>
+        <div id="screen-yes">
+          <div>
+            <img
+              src="https://media3.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif"
+              alt="celebrating gif"
+              style="width:320px;max-width:85vw;border-radius:20px;margin-bottom:15px;"
+            />
+            <h1 id="yes-headline" style="font-family:'Pacifico',cursive;">
+              She said YES gaizzz!!! 💕
+            </h1>
+          </div>
+        </div>`;
+
+      document.body.style.padding = '0';
+
+      startAmbientHearts();
+      startExplosions();
+    }
+
+    /* ─── Init ──────────────────────────────────────────────────────────── */
+
+    document.addEventListener('DOMContentLoaded', async () => {
+
+      // Live counter
+      kissRef.on('value', snap => {
+        const el = document.getElementById('kiss-counter__value');
+        if (el) el.textContent = snap.val() ?? 0;
+      });
+
+      // Ambient hearts
+      startAmbientHearts();
+
+      // Typewriter intro
+      const headlineTo = document.getElementById('headline-to');
+      await typewriter(headlineTo, TYPEWRITER_TEXT);
+
+      // Swap question text after delay
+      setTimeout(() => {
+        const q = document.getElementById('headline-question');
+        if (!q) return;
+        q.style.opacity   = '0';
+        q.style.transform = 'scale(0.9)';
+        setTimeout(() => {
+          q.textContent     = 'Will you be my Valentine? 💖';
+          q.style.opacity   = '1';
+          q.style.transform = 'scale(1)';
+        }, 800);
+      }, QUESTION_DELAY);
+
+      // Heart burst on every tap/click
+      document.addEventListener('click', e => burstHeartsAt(e.clientX, e.clientY));
+
+      // No button
+      initNoButton();
+
+      // Yes button
+      document.getElementById('btn-yes').addEventListener('click', () => {
+        kissRef.transaction(n => (n ?? 0) + 1);
+        playWithFadeIn('music.mp3');
+        showYesScreen();
+        initLetterEasterEgg();
+      });
+
+    });
+  </script>
 </body>
 </html>
