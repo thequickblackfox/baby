@@ -328,7 +328,7 @@
       /* clean cream paper — no ruled lines, just warmth */
       background: #fdf8f2;
       border-radius: 3px 16px 16px 3px;
-      padding: 28px 32px 28px 72px;
+      padding: 28px 24px 28px 44px;
       border-left: none;
       box-shadow:
         -4px 0 0 #c8b8a8,
@@ -336,7 +336,7 @@
         inset 0 0 0 1px rgba(0, 0, 0, 0.04);
 
       font-family: 'Lora', Georgia, serif;
-      font-size: 17px;
+      font-size: 16px;
       line-height: 1.85;
       text-align: left;
       color: #2a1a22;
@@ -344,6 +344,14 @@
       display: flex;
       flex-direction: column;
       animation: scaleIn 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+    }
+
+    @media (max-width: 480px) {
+      .letter-card {
+        padding: 20px 18px 20px 32px;
+        font-size: 15px;
+        width: 96%;
+      }
     }
 
     /* Spiral binding holes */
@@ -355,12 +363,12 @@
       bottom: 0;
       width: 20px;
       background:
-        radial-gradient(circle 8px at 10px 60px,  #fdf8f2 7px, transparent 8px),
-        radial-gradient(circle 8px at 10px 150px, #fdf8f2 7px, transparent 8px),
-        radial-gradient(circle 8px at 10px 240px, #fdf8f2 7px, transparent 8px),
-        radial-gradient(circle 8px at 10px 330px, #fdf8f2 7px, transparent 8px),
-        radial-gradient(circle 8px at 10px 420px, #fdf8f2 7px, transparent 8px),
-        radial-gradient(circle 8px at 10px 510px, #fdf8f2 7px, transparent 8px);
+        radial-gradient(circle 7px at 10px 60px,  #fdf8f2 6px, transparent 7px),
+        radial-gradient(circle 7px at 10px 145px, #fdf8f2 6px, transparent 7px),
+        radial-gradient(circle 7px at 10px 230px, #fdf8f2 6px, transparent 7px),
+        radial-gradient(circle 7px at 10px 315px, #fdf8f2 6px, transparent 7px),
+        radial-gradient(circle 7px at 10px 400px, #fdf8f2 6px, transparent 7px),
+        radial-gradient(circle 7px at 10px 485px, #fdf8f2 6px, transparent 7px);
       pointer-events: none;
       z-index: 10;
     }
@@ -470,7 +478,7 @@
   <div id="screen-landing">
     <h1 id="headline-to" aria-live="polite"></h1>
 
-    <p>Because you're my favorite person to miss, my favorite mais and the one who lives rent free in my head.</p>
+    <p>Because you're my favorite person to miss, my favorite mais,<br>and the one who lives rent free in my head.</p>
     <p>So I have a very important question for you…</p>
 
     <img
