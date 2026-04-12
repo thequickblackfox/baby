@@ -328,7 +328,7 @@
       /* clean cream paper — no ruled lines, just warmth */
       background: #fdf8f2;
       border-radius: 3px 16px 16px 3px;
-      padding: 52px 32px 28px 72px;
+      padding: 28px 32px 28px 72px;
       border-left: none;
       box-shadow:
         -4px 0 0 #c8b8a8,
@@ -365,31 +365,15 @@
       z-index: 10;
     }
 
-    /* Top washi tape label */
+    /* no tape label */
     .letter-card::after {
-      content: '✦  for my baby  ✦';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 42px;
-      background: linear-gradient(90deg, #f9c8da, #fbd5e5, #f9c8da);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Lora', serif;
-      font-style: italic;
-      font-size: 13px;
-      color: #b04070;
-      letter-spacing: 0.2em;
-      border-bottom: 1px solid rgba(180, 80, 120, 0.2);
-      z-index: 3;
+      display: none;
     }
 
     .letter-card__body {
       overflow-y: auto;
       overflow-x: hidden;
-      max-height: calc(85vh - 80px);
+      max-height: calc(85vh - 40px);
       position: relative;
       z-index: 2;
       padding-right: 4px;
@@ -424,6 +408,8 @@
       line-height: 1.85;
       color: #2a1a22;
       max-width: none;
+      text-align: justify;
+      text-align-last: left;
     }
 
     .letter-card__body p:last-child {
@@ -519,7 +505,7 @@
         <p>&nbsp;</p>
         <p><strong>I love you, my baby Abby! 💗😚😚😚</strong></p>
         <p>&nbsp;</p>
-        <p style="text-align: right; font-style: italic;">
+        <p style="text-align: left; font-style: italic;">
           Love,<br />Cebby 😵‍💫<br /><em style="font-size:15px;">baliw na baliw pa rin sayo</em>
         </p>
       </div>
