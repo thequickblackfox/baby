@@ -212,14 +212,13 @@
     }
 
     .btn--no {
-      background: rgba(255, 255, 255, 0.85);
+      background: #ffffff;
       color: var(--pink-light);
       border: 2px solid var(--pink-light);
       font-weight: 600;
       white-space: nowrap;
       width: max-content;
       position: static;
-      backdrop-filter: blur(4px);
     }
 
     @keyframes heartbeat {
@@ -458,8 +457,8 @@
     .petal {
       position: absolute;
       pointer-events: none;
-      z-index: 1;
-      opacity: 0.88;
+      z-index: 10;
+      opacity: 0.75;
     }
   </style>
 </head>
@@ -729,18 +728,19 @@
     function dropPetal(container) {
       const petal = createPetal();
       petal.className  = 'petal';
-      petal.style.left = `${Math.random() * 95}%`;
-      petal.style.top  = '-20px';
+      petal.style.left = `${Math.random() * 88}%`;
+      petal.style.top  = '0px';
       container.appendChild(petal);
 
-      const drift    = (Math.random() * 80) - 40;
+      const drift    = (Math.random() * 60) - 30;
       const rotation = Math.random() * 540 - 270;
-      const duration = 6000 + Math.random() * 6000;
+      const duration = 4000 + Math.random() * 4000;
+      const fallDist = container.clientHeight + 40;
 
       petal.animate(
         [
-          { transform: 'translate(0, 0) rotate(0deg)',  opacity: 0.9 },
-          { transform: `translate(${drift}px, ${container.scrollHeight + 20}px) rotate(${rotation}deg)`, opacity: 0 },
+          { transform: 'translate(0, 0) rotate(0deg)',  opacity: 0.85 },
+          { transform: `translate(${drift}px, ${fallDist}px) rotate(${rotation}deg)`, opacity: 0 },
         ],
         { duration, easing: 'linear' }
       );
@@ -814,7 +814,8 @@
       function openModal() {
         modal.classList.add('is-open');
         if (!petalTimer) {
-          petalTimer = setInterval(() => dropPetal(card), 800);
+          // faster spawn so petals are visible over the text
+          petalTimer = setInterval(() => dropPetal(card), 400);
         }
       }
 
